@@ -63,11 +63,13 @@ On note de 1 à 4 (maximum) la confidentialité, l'intégrité et la disponibili
 #table(
   columns: (1fr, auto, auto, auto),
   [*Cas*], [*C*], [*I*], [*A*],
-  [Site d'e-commerce], [], [], [],
-  [Banque en ligne suisse], [], [], [],
-  [Diffusion message AlertSwiss], [], [], [],
-  [Service de streaming vidéo], [], [], [],
+  [Site d'e-commerce], [3], [4], [4],
+  [Banque en ligne suisse], [4], [4], [3],
+  [Diffusion message AlertSwiss], [1], [4], [4],
+  [Service de streaming vidéo], [2], [2], [4],
 )
+
+Pourquoi ces notes, en bref : sur un site d'e-commerce, une commande modifiée ou une minute d'indisponibilité coûte directement de l'argent, donc I et A au max. Pour la banque en ligne, le secret bancaire et l'exactitude des soldes priment (C et I à 4). AlertSwiss diffuse des messages publics (C à 1) mais une fausse alerte peut provoquer une panique et le message doit passer en pleine crise (I et A à 4). Pour le streaming, le catalogue est public et une image corrompue coûte peu (C et I à 2), par contre le service qui rame fait fuir les abonnés (A à 4).
 
 #showybox(
   title: "Résultats",

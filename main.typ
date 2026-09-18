@@ -74,23 +74,44 @@ Pour chaque travail réalisé, seules les sections en *gras* ci-dessous sont à 
 // Gabarit : dupliquer cette section par travail réalisé.
 // Chaque nouveau travail commence sur une nouvelle page.
 #pagebreak()
-= Travail 1 — "titre"
+= Travail 1 — Chapitre 1, exercice 1 : auto-évaluation initiale
 
 #showybox(
   title: "Objectifs",
   frame: (border-color: blue.darken(20%), title-color: blue.darken(30%)),
-)["À rédiger proprement : ce que ce travail vise à démontrer ou acquérir."]
+)["Réaliser une auto-évaluation initiale de mes compétences en sécurité (notes de 1 à 5) et formuler une première synthèse : points forts, axes de progression prioritaires, et distinction entre sécuriser une entreprise et sécuriser un développement logiciel."]
 
 == Métiers pertinents
 "À rédiger proprement : métiers concernés et en quoi ce travail les éclaire."
 
 == Déroulement (journal)
+Tableau recopié de l'énoncé, à remplir avec des notes de 1 à 5.
+
 #table(
-  columns: (auto, 1fr),
-  [*Date*], [*Notes en vrac*],
-  [date], [manipulations, résultats intermédiaires, références],
-  [date], [suite des notes],
+  columns: (1fr, auto),
+  [*Thème*], [*1 à 5*],
+  [Compréhension générale des enjeux de la sécurité (pourquoi c'est important, quels types de menaces existent, comment les traiter)], [],
+  [Compréhension des thèmes déjà vus — niveau théorique], [],
+  [Mise en pratique de ces thèmes — niveau appliqué], [],
+  [Conscience de la sécurité quand je conçois / développe / maintiens un projet (y compris contributions open source éventuelles)], [],
+  [Réflexes de développement sécurisé concret], [],
+  [Gestion des risques (avoir déjà dû, même informellement, déterminer les menaces puis évaluer les risques / impacts d'un choix, par exemple technique)], [],
+  [Outils cryptographiques (compréhension et usage régulier)], [],
+  [Confinement OS et réseaux (sandboxing, segmentation réseau, etc.)], [],
+  [Conscience des risques liés au facteur humain (ingénierie sociale, phishing)], [],
+  [Suivi de sources d'information sécurité (blogs, mailing-lists, CVE, etc.) de logiciels spécifiques, de plateformes spécifiques, ou générales], [],
+  [Envie d'appliquer ce que je vais apprendre en 3275.1 et 3275.2 (semestre d'automne) dans mon projet de semestre], [],
 )
+
+== Questions de synthèse
+À répondre rapidement (une phrase suffit par question).
+
+- *Sur quel(s) thème(s) je me sens le plus à l'aise, et pourquoi ?*
+  "À compléter."
+- *Sur quel(s) thème(s) j'aimerais progresser en priorité ?*
+  "À compléter."
+- *Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?*
+  "À compléter."
 
 #showybox(
   title: "Résultats",

@@ -60,31 +60,24 @@
 #outline(title: none, indent: auto)
 #pagebreak()
 
-= Concept
-Document individuel décrivant, au sein du module, la progression et la maîtrise des compétences : problématiques rencontrées, travaux effectués et leurs résultats, recherches documentaires complémentaires. Il sert d'outil d'auto-évaluation, guide et justifie une réflexion plus en profondeur, et démontre le savoir-agir en situation réelle ou quasi-réelle. Explicité au début de la formation, débuté dès la 1ère semaine de cours et maintenu durant tout le module. Il fait partie de l'évaluation.
-
-= Fonctionnement du cours
-Cours en partie en classe inversée : l'étudiant étudie en autonomie certains sujets (avec des ressources proposées par l'enseignant) et produit un résultat théorique, pratique et recul dans ce cahier. Les séances servent ensuite aux discussions, exercices et laboratoires avec l'enseignant. Le travail autonome se fait durant les plages de cours normales (dont certaines l'après-midi, parfois sous supervision d'un assistant). Peu de longues présentations ; priorité aux retours d'expérience et à l'apprentissage individuel.
-
-= Méthode de rédaction
-Pour chaque travail réalisé, seules les sections en *gras* ci-dessous sont à rédiger proprement. Les autres restent en notes de journal (vrac) :
-- *objectifs*, *identification des métiers pertinents*, déroulement en vrac (journal, résultats intermédiaires, références), *résultats*, *interprétation des résultats* (pertinence : métiers, normes, standards et certifications, cycle d'amélioration continue de la cybersécurité, apprentissage effectué).
-- En préparation finale d'examen : ajout de structuration, références et renvois internes, recul renforcé.
+= Contexte
+Cahier tenu au jour le jour pour les modules 3275.1 et 3275.2 (semestre d'automne). Chaque entrée date le travail fait, ses résultats et les notes en vrac. Seules les sections *Objectifs*, *Métiers pertinents*, *Résultats* et *Interprétation* sont rédigées au propre ; le reste est le journal brut.
 
 // Gabarit : dupliquer cette section par travail réalisé.
 // Chaque nouveau travail commence sur une nouvelle page.
 #pagebreak()
-= Travail 1 — Chapitre 1, exercice 1 : auto-évaluation initiale
+= Travail 1 — Chapitre 1 : découverte et auto-évaluation (18/09/2026)
 
 #showybox(
   title: "Objectifs",
   frame: (border-color: blue.darken(20%), title-color: blue.darken(30%)),
-)["Réaliser une auto-évaluation initiale de mes compétences en sécurité (notes de 1 à 5) et formuler une première synthèse : points forts, axes de progression prioritaires, et distinction entre sécuriser une entreprise et sécuriser un développement logiciel."]
+)["Chapitre 1 : réaliser une auto-évaluation initiale de mes compétences en sécurité (exercice 1) et rappeler les critères de sécurité principaux et secondaires (exercice 2)."]
 
 == Métiers pertinents
 "À rédiger proprement : métiers concernés et en quoi ce travail les éclaire."
 
 == Déroulement (journal)
+=== 18/09/2026 — Exercice 1 : auto-évaluation initiale
 Tableau recopié de l'énoncé, à remplir avec des notes de 1 à 5.
 
 #table(
@@ -103,7 +96,7 @@ Tableau recopié de l'énoncé, à remplir avec des notes de 1 à 5.
   [Envie d'appliquer ce que je vais apprendre en 3275.1 et 3275.2 (semestre d'automne) dans mon projet de semestre], [],
 )
 
-== Questions de synthèse
+=== 18/09/2026 — Exercice 1 (suite) : questions de synthèse
 À répondre rapidement (une phrase suffit par question).
 
 - *Sur quel(s) thème(s) je me sens le plus à l'aise, et pourquoi ?*
@@ -113,7 +106,7 @@ Tableau recopié de l'énoncé, à remplir avec des notes de 1 à 5.
 - *Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?*
   "À compléter."
 
-== Exercice 2 : critères principaux et secondaires
+=== 18/09/2026 — Exercice 2 : critères principaux et secondaires
 Notes en vrac (rappel des critères).
 
 *Critères principaux :*

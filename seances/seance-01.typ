@@ -63,9 +63,9 @@ On note de 1 à 4 (maximum) la confidentialité, l'intégrité et la disponibili
 #table(
   columns: (1fr, auto, auto, auto),
   [*Cas*], [*C*], [*I*], [*A*],
-  [Site d'e-commerce], [3], [4], [4],
-  [Banque en ligne suisse], [4], [4], [3],
-  [Diffusion message AlertSwiss], [1], [4], [4],
+  [Site d'e-commerce], [3], [3], [3],
+  [Banque en ligne suisse], [4], [4], [4],
+  [Diffusion message AlertSwiss], [0], [4], [4],
   [Service de streaming vidéo], [2], [2], [4],
 )
 

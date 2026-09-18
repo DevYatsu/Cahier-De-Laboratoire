@@ -8,7 +8,7 @@
 
 #set document(title: "Cahier de laboratoire", author: "DevYatsu")
 #set page(paper: "a4", margin: 2cm, number-align: center + bottom)
-#set text(font: "New Computer Modern", size: 11pt, lang: "fr")
+#set text(font: "DejaVu Sans", size: 11pt, lang: "fr")
 #set heading(numbering: "1.")
 #set par(justify: true)
 

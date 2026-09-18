@@ -57,10 +57,22 @@ On a rappelé les critères en cours. Je les note en vrac, sans chercher à tout
 - Sensibilisation
 - Résilience
 
+== Exercice 3 : évaluer la triade CIA sur des cas concrets
+On note de 1 à 4 (maximum) la confidentialité, l'intégrité et la disponibilité pour chaque cas. Je recopie le tableau et je le remplis.
+
+#table(
+  columns: (1fr, auto, auto, auto),
+  [*Cas*], [*C*], [*I*], [*A*],
+  [Site d'e-commerce], [], [], [],
+  [Banque en ligne suisse], [], [], [],
+  [Diffusion message AlertSwiss], [], [], [],
+  [Service de streaming vidéo], [], [], [],
+)
+
 #showybox(
   title: "Résultats",
   frame: (border-color: green.darken(20%), title-color: green.darken(30%)),
-)[Tableau d'auto-évaluation rempli (exercice 1) et critères principaux et secondaires rappelés en séance (exercice 2).]
+)[Tableau d'auto-évaluation rempli (exercice 1), critères principaux et secondaires rappelés en séance (exercice 2), triade CIA évaluée sur quatre cas concrets (exercice 3).]
 
 #showybox(
   title: "Interprétation des résultats",

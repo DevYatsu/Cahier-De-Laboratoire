@@ -30,14 +30,14 @@
   #grid(
     columns: (1fr, 1fr),
     gutter: 1em,
-    align(left)[*Auteur :* DevYatsu],
+    align(left)[*Auteur :* Yanis Amani],
     align(right)[*Semestre :* Automne],
   )
   #v(0.4em)
   #grid(
     columns: (1fr, 1fr),
     gutter: 1em,
-    align(left)[*Module :* (à compléter)],
+    align(left)[*Module :* "Conception et opération de la sécurité"],
     align(right)[*Date :* #datetime.today().display()],
   )
   #v(2em)
@@ -58,6 +58,7 @@
 = Sommaire
 #show outline.entry: _outrageous.show-entry.with(.._outrageous.presets.typst)
 #outline(title: none, indent: auto)
+#pagebreak()
 
 = Concept
 Document individuel décrivant, au sein du module, la progression et la maîtrise des compétences : problématiques rencontrées, travaux effectués et leurs résultats, recherches documentaires complémentaires. Il sert d'outil d'auto-évaluation, guide et justifie une réflexion plus en profondeur, et démontre le savoir-agir en situation réelle ou quasi-réelle. Explicité au début de la formation, débuté dès la 1ère semaine de cours et maintenu durant tout le module. Il fait partie de l'évaluation.
@@ -71,6 +72,8 @@ Pour chaque travail réalisé, seules les sections en *gras* ci-dessous sont à 
 - En préparation finale d'examen : ajout de structuration, références et renvois internes, recul renforcé.
 
 // Gabarit : dupliquer cette section par travail réalisé.
+// Chaque nouveau travail commence sur une nouvelle page.
+#pagebreak()
 = Travail 1 — "titre"
 
 #showybox(

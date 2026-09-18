@@ -1,0 +1,69 @@
+name: Build Typst + Deploy Website
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+
+      - name: Compile Typst → PDF
+        run: |
+          mkdir -p public
+          typst compile main.typ public/cahier.pdf
+          ls -lh public/
+
+      - name: Generate website (displays this CI/CD)
+        run: |
+          cat > public/index.html <<'HTML'
+          <!doctype html>
+          <html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>Cahier de laboratoire</title>
+          <style>body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem}iframe{width:100%;height:80vh;border:1px solid #ddd;border-radius:8px}pre{background:#f6f8fa;padding:1rem;overflow:auto;border-radius:8px}.badge{display:inline-block;margin:.2rem}</style>
+          <h1>Cahier de laboratoire</h1>
+          <p>
+            <a class="badge" href="https://github.com/DevYatsu/Cahier-De-Laboratoire/actions/workflows/ci.yml"><img src="https://github.com/DevYatsu/Cahier-De-Laboratoire/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+            <a href="cahier.pdf">📄 Télécharger le PDF</a> ·
+            <a href="https://github.com/DevYatsu/Cahier-De-Laboratoire/actions">Voir les runs CI/CD</a> ·
+            <a href="workflow.yml.txt">Voir le workflow affiché par le site</a>
+          </p>
+          <h2>Document compilé depuis <code>main.typ</code></h2>
+          <iframe src="cahier.pdf"></iframe>
+          <h2>La CI/CD qui a construit cette page</h2>
+          <p>Contenu en direct du workflow <code>.github/workflows/ci.yml</code> :</p>
+          <pre id="wf">chargement…</pre>
+          <script>fetch('workflow.yml.txt').then(r=>r.text()).then(t=>document.getElementById('wf').textContent=t);</script>
+          </html>
+          HTML
+          cp .github/workflows/ci.yml public/workflow.yml.txt
+          ls -lh public/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -60,7 +60,7 @@
 #outline(title: none, indent: auto)
 #pagebreak()
 
-// Pour ajouter un travail : créer travaux/travail-NN.typ en commençant
+// Pour ajouter une séance : créer seances/seance-NN.typ en commençant
 // le fichier par #pagebreak(), puis ajouter une ligne #include ci-dessous.
 #include "contexte.typ"
-#include "travaux/travail-01.typ"
+#include "seances/seance-01.typ"

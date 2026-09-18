@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate website
         run: |
-          python3 scripts/build_site.py -o /tmp/fragment.html
+          python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html
           cat > public/index.html <<'HTML'
           <!doctype html>
           <html lang="fr">
@@ -88,8 +88,29 @@ jobs:
           .bouton:hover{background:var(--rouge-fonce);transform:translateY(-1px)}
           main{width:100%;max-width:1360px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:1}
           /* Zones de lecture */
+          .lecture{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start}
+          .lecture[hidden]{display:none}
           .doc{background:var(--carte);border:1px solid var(--bord);border-radius:var(--rayon);
             box-shadow:var(--ombre);max-width:1020px;margin:0 auto;padding:3rem 3.25rem}
+          /* Sommaire lateral collant (desktop) */
+          .col-sommaire{display:block}
+          .col-sommaire nav.toc{background:var(--carte);border:1px solid var(--bord);
+            border-left:6px solid var(--noir);border-radius:12px;padding:1.1rem 1.2rem;
+            box-shadow:var(--ombre);font-size:.9rem;margin:0}
+          .col-sommaire nav.toc ul{list-style:none;padding-left:.9rem;margin:.35rem 0}
+          .col-sommaire nav.toc>ul{padding-left:0}
+          .col-sommaire nav.toc li{margin:.15rem 0}
+          .col-sommaire nav.toc a{display:block;color:var(--gris-700);text-decoration:none;
+            padding:.32rem .5rem;border-radius:7px;line-height:1.35;
+            transition:background .15s,color .15s}
+          .col-sommaire nav.toc a:hover{background:var(--gris-100);color:var(--noir)}
+          .col-sommaire nav.toc a.active{background:var(--rouge-clair);color:var(--rouge-fonce);
+            font-weight:700;box-shadow:inset 3px 0 0 var(--rouge)}
+          .col-sommaire nav.toc a:focus-visible{outline:3px solid var(--rouge);outline-offset:2px}
+          .col-sommaire .toc-titre{margin:0 0 .5rem;font-weight:800;letter-spacing:.06em;
+            text-transform:uppercase;font-size:.78rem;color:var(--gris-700)}
+          /* En-tetes sous le bandeau collant */
+          .doc h1,.doc h2,.doc h3{scroll-margin-top:6.5rem}
           .doc>*:first-child{margin-top:0}
           .doc h1{font-size:2rem;line-height:1.2;letter-spacing:-.015em;margin:0 0 .5rem;
             border-left:8px solid var(--rouge);padding-left:.7rem}
@@ -112,14 +133,9 @@ jobs:
           .doc figure,.doc img{max-width:100%}
           .doc figure{margin:1.4rem 0;text-align:center}
           .doc figcaption{font-size:.85rem;color:var(--gris-500);margin-top:.4rem}
-          /* Sommaire */
-          .doc nav.toc{background:#fafafa;border:1px solid var(--bord);
-            border-left:6px solid var(--noir);border-radius:12px;
-            padding:1rem 1.3rem;margin:1.6rem 0;font-size:.94rem}
-          .doc nav.toc ul{padding-left:1.2rem;margin:.4rem 0}
-          .doc nav.toc li{margin:.25rem 0}
-          .toc-titre{margin:0 0 .4rem;font-weight:800;letter-spacing:.06em;
-            text-transform:uppercase;font-size:.8rem;color:var(--gris-700)}
+          /* Sommaire inline (mobile / tablette) : la colonne laterale est masquee */
+          .col-sommaire nav.toc{margin:0 0 1.6rem}
+          .col-sommaire .toc-titre{margin:0 0 .4rem}
           /* Liens d'ancre des titres */
           .doc .ancre{color:var(--gris-200);text-decoration:none;font-size:.8em;
             margin-left:.4rem;opacity:0;transition:opacity .15s,color .15s}
@@ -164,6 +180,13 @@ jobs:
           .pied{max-width:1360px;margin:0 auto;padding:1.1rem 1.25rem 1.6rem;color:var(--gris-500);
             font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
           .pied strong{color:var(--noir)}
+          @media (min-width:1000px){
+            .lecture{grid-template-columns:minmax(230px,280px) minmax(0,1fr)}
+            .col-sommaire{position:sticky;top:6.5rem;align-self:start;
+              max-height:calc(100dvh - 8rem);overflow-y:auto;overscroll-behavior:contain}
+            .col-sommaire nav.toc{margin:0;background:#fafafa;font-size:.9rem}
+            .doc{max-width:none;margin:0}
+          }
           @media (max-width:760px){
             .barre{padding:.8rem 1rem}
             h1.titre{font-size:1.12rem}
@@ -174,9 +197,10 @@ jobs:
             .doc p{text-align:left}
           }
           @media print{
-            .liseret,header.site,.actions,.note,footer.site{display:none}
+            .liseret,header.site,.actions,.note,.col-sommaire,footer.site{display:none}
             body{display:block}
             main{padding:0;max-width:none}
+            .lecture{display:block}
             .doc{box-shadow:none;border:0;max-width:none;padding:0}
             .doc a{color:#000;text-decoration:none}
           }
@@ -204,11 +228,18 @@ jobs:
             </div>
           </header>
           <main>
-            <article class="doc" id="vue-doc" aria-label="Version web du cahier">
+            <div class="lecture" id="vue-doc">
+              <aside class="col-sommaire" aria-label="Sommaire de navigation">
+          HTML
+          cat /tmp/toc.html >> public/index.html
+          cat >> public/index.html <<'HTML'
+              </aside>
+              <article class="doc" aria-label="Version web du cahier">
           HTML
           cat /tmp/fragment.html >> public/index.html
           cat >> public/index.html <<'HTML'
-            </article>
+              </article>
+            </div>
             <div class="panneau-pdf" id="vue-pdf" hidden>
               <div class="cadre-pdf">
                 <object data="cahier.pdf" type="application/pdf" aria-label="Visionneuse PDF du cahier">
@@ -257,6 +288,59 @@ jobs:
             bDoc.addEventListener('click',function(){show('doc');});
             bPdf.addEventListener('click',function(){show('pdf');});
             show(initial(),false);
+
+            // Sommaire lateral : surligne la section en cours de lecture.
+            var liens=Array.prototype.slice.call(
+                      document.querySelectorAll('.col-sommaire nav.toc a[href^="#"]'));
+            var cibles=liens.map(function(a){
+              var id=decodeURIComponent(a.getAttribute('href').slice(1));
+              return document.getElementById(id);
+            });
+            var sommaire=document.querySelector('.col-sommaire');
+            var actif=null, planifie=false;
+            function offsetBandeau(){
+              var h=document.querySelector('header.site');
+              return (h?h.getBoundingClientRect().height:0)+16;
+            }
+            function mettreAJour(){
+              planifie=false;
+              if(!liens.length||document.getElementById('vue-doc').hidden){return;}
+              var seuil=offsetBandeau()+8, courant=-1;
+              for(var i=0;i<cibles.length;i++){
+                var el=cibles[i];
+                if(el&&el.getBoundingClientRect().top<=seuil){courant=i;}else{break;}
+              }
+              // En bas de page, force la derniere section (petites sections finales).
+              if(window.innerHeight+window.scrollY>=document.body.scrollHeight-2){
+                courant=cibles.length-1;
+              }
+              if(courant<0){courant=0;}
+              if(courant===actif){return;}
+              if(actif!==null&&liens[actif]){liens[actif].classList.remove('active');
+                liens[actif].removeAttribute('aria-current');}
+              actif=courant;
+              var lien=liens[actif];
+              if(lien){
+                lien.classList.add('active');
+                lien.setAttribute('aria-current','true');
+                if(sommaire&&sommaire.scrollHeight>sommaire.clientHeight){
+                  var lh=lien.offsetTop, lb=lh+lien.offsetHeight;
+                  if(lh<sommaire.scrollTop){sommaire.scrollTop=lh-8;}
+                  else if(lb>sommaire.scrollTop+sommaire.clientHeight){
+                    sommaire.scrollTop=lb-sommaire.clientHeight+8;
+                  }
+                }
+              }
+            }
+            function planifier(){
+              if(planifie){return;}
+              planifie=true;
+              window.requestAnimationFrame(mettreAJour);
+            }
+            window.addEventListener('scroll',planifier,{passive:true});
+            window.addEventListener('resize',planifier,{passive:true});
+            window.addEventListener('hashchange',planifier);
+            mettreAJour();
           })();
           </script>
           </body>

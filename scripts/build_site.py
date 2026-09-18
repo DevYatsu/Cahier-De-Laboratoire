@@ -44,6 +44,18 @@ def slugify(text: str) -> str:
     return slug or "section"
 
 
+# Heading slugs repeat across séances ("métiers pertinents", "résultats").
+# Registry keeps ids unique so anchors and scroll-spy land on the right heading.
+_SLUG_COUNTS: dict[str, int] = {}
+
+
+def unique_slug(text: str) -> str:
+    base = slugify(text)
+    count = _SLUG_COUNTS.get(base, 0)
+    _SLUG_COUNTS[base] = count + 1
+    return base if count == 0 else f"{base}-{count + 1}"
+
+
 def inline_markup(text: str) -> str:
     """Convert #link(url)[label], *bold* and `code` to HTML, escaping the rest."""
     # Extract links first so escaping + bold parsing don't touch them.
@@ -182,6 +194,20 @@ def parse_showybox(block: str) -> str:
             f'<p class="callout-title">{html.escape(title)}</p>\n{inner}\n</aside>')
 
 
+ENCADRE_TITLE_RE = re.compile(r'^#encadre\(\s*"([^"]+)"\s*\)')
+
+
+def parse_encadre(block: str) -> str:
+    m = ENCADRE_TITLE_RE.match(block)
+    title = m.group(1) if m else "À noter"
+    # Body is the final [...] group following the title parens.
+    mbody = re.search(r"\)\s*\[(.*)\]\s*$", block, flags=re.DOTALL)
+    body = mbody.group(1) if mbody else ""
+    inner = render_blocks(body.splitlines())
+    return (f'<aside class="{callout_class(title)}">'
+            f'<p class="callout-title">{html.escape(title)}</p>\n{inner}\n</aside>')
+
+
 def is_skippable(line: str) -> bool:
     s = line.strip()
     if not s or s.startswith("//"):
@@ -253,6 +279,13 @@ def render_blocks(raw_lines: list[str]) -> str:
             out.append(parse_showybox(block))
             continue
 
+        if stripped.startswith("#encadre("):
+            flush_para()
+            flush_list()
+            block, i = balanced_block(lines, i, "[", "]")
+            out.append(parse_encadre(block))
+            continue
+
         if stripped.startswith("#table("):
             flush_para()
             flush_list()
@@ -274,7 +307,7 @@ def render_blocks(raw_lines: list[str]) -> str:
             flush_list()
             level = min(len(m.group(1)), 3)
             text = m.group(2)
-            hid = slugify(re.sub(r"\*", "", text))
+            hid = unique_slug(re.sub(r"\*", "", text))
             # Split leading numbering ("1.2 ") for the red accent span.
             num_m = re.match(r"^(\d+(?:\.\d+)*\.?)\s+(.*)$", text)
             if num_m:
@@ -357,7 +390,9 @@ def source_files_in_order() -> list[Path]:
     return files
 
 
-def build_fragment() -> str:
+def build_fragment() -> tuple[str, str]:
+    """Return (toc_html, content_html) with unique heading ids."""
+    _SLUG_COUNTS.clear()
     parts: list[str] = []
     for path in source_files_in_order():
         text = path.read_text(encoding="utf-8")
@@ -373,18 +408,23 @@ def build_fragment() -> str:
     )
     headings = collect_headings(fragment)
     toc = build_toc(headings)
-    return (toc + "\n" + fragment).strip() + "\n"
+    return toc, fragment.strip() + "\n"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build clean HTML from Typst sources.")
-    parser.add_argument("-o", "--output", default=None, help="Write fragment to file.")
+    parser.add_argument("-o", "--output", default=None, help="Write content fragment to file.")
+    parser.add_argument("--toc", default=None, help="Write the Sommaire nav to a file.")
     args = parser.parse_args()
-    fragment = build_fragment()
+    toc, fragment = build_fragment()
+    if args.toc:
+        Path(args.toc).write_text(toc + "\n", encoding="utf-8")
+        print(f"Sommaire écrit : {args.toc} ({len(toc)} caractères)")
     if args.output:
         Path(args.output).write_text(fragment, encoding="utf-8")
         print(f"Fragment écrit : {args.output} ({len(fragment)} caractères)")
-    else:
+    elif not args.toc:
+        print(toc)
         print(fragment)
 
 

@@ -25,7 +25,7 @@ SKIP_PREFIXES = (
     "#import", "#set", "#show", "#let", "#pagebreak", "#outline",
     "#align", "#grid", "#box", "#block", "#v(", "#v[", "#line(",
     "#text(", "#counter", "#datetime", "#hydra", "#codly", "#figure",
-    "#image", "#table.cell", "#page(", "#context", "#link", "#footnote",
+    "#image", "#table.cell", "#page(", "#context", "#footnote",
 )
 
 HEADING_RE = re.compile(r"^(=+)\s+(.*?)\s*$")
@@ -34,6 +34,8 @@ SHOWYBOX_TITLE_RE = re.compile(r'title:\s*"([^"]+)"')
 TABLE_COLUMNS_RE = re.compile(r"columns:\s*\(([^)]*)\)")
 STRONG_RE = re.compile(r"\*([^*]+?)\*")
 CODE_RE = re.compile(r"`([^`]+?)`")
+LINK_RE = re.compile(r'#link\("([^"]+)"\)\[([^\]]+?)\]')
+LINK_BARE_RE = re.compile(r'#link\("([^"]+)"\)')
 
 
 def slugify(text: str) -> str:
@@ -43,7 +45,27 @@ def slugify(text: str) -> str:
 
 
 def inline_markup(text: str) -> str:
-    """Convert *bold* and `code` to HTML, escaping everything else."""
+    """Convert #link(url)[label], *bold* and `code` to HTML, escaping the rest."""
+    # Extract links first so escaping + bold parsing don't touch them.
+    links: list[str] = []
+
+    def take_link(m: re.Match[str]) -> str:
+        url = m.group(1).strip()
+        label = m.group(2).strip()
+        # Label may itself contain *bold* / `code`.
+        label_html = inline_markup(label)
+        links.append(f'<a href="{html.escape(url, quote=True)}">{label_html}</a>')
+        return f"\x00LINK{len(links) - 1}\x00"
+
+    text = LINK_RE.sub(take_link, text)
+
+    def take_bare(m: re.Match[str]) -> str:
+        url = m.group(1).strip()
+        links.append(f'<a href="{html.escape(url, quote=True)}">{html.escape(url)}</a>')
+        return f"\x00LINK{len(links) - 1}\x00"
+
+    text = LINK_BARE_RE.sub(take_bare, text)
+
     parts: list[str] = []
     # Split on code spans first so * inside code is untouched.
     for i, chunk in enumerate(CODE_RE.split(text)):
@@ -53,7 +75,10 @@ def inline_markup(text: str) -> str:
             escaped = html.escape(chunk)
             escaped = STRONG_RE.sub(r"<strong>\1</strong>", escaped)
             parts.append(escaped)
-    return "".join(parts)
+    out = "".join(parts)
+    for idx, link_html in enumerate(links):
+        out = out.replace(f"\x00LINK{idx}\x00", link_html)
+    return out
 
 
 def balanced_block(lines: list[str], start: int, opener: str, closer: str) -> tuple[str, int]:

@@ -57,7 +57,7 @@ jobs:
           .liseret{height:6px;background:linear-gradient(90deg,var(--rouge) 0 55%,var(--noir) 55% 100%)}
           header.site{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);
             backdrop-filter:blur(8px);border-bottom:1px solid var(--bord)}
-          .barre{max-width:1120px;margin:0 auto;padding:.9rem 1.25rem;display:flex;
+          .barre{max-width:1360px;margin:0 auto;padding:.9rem 1.25rem;display:flex;
             align-items:center;gap:1rem;flex-wrap:wrap}
           .marque{display:flex;align-items:center;gap:.8rem;margin-right:auto;min-width:0}
           .logo{flex:none;width:52px;height:52px;border-radius:10px;background:var(--noir);
@@ -86,10 +86,10 @@ jobs:
             font-size:.9rem;font-weight:700;box-shadow:0 8px 20px rgba(227,6,19,.28);
             transition:transform .15s,background .15s;white-space:nowrap}
           .bouton:hover{background:var(--rouge-fonce);transform:translateY(-1px)}
-          main{width:100%;max-width:1120px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:1}
+          main{width:100%;max-width:1360px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:1}
           /* Zones de lecture */
           .doc{background:var(--carte);border:1px solid var(--bord);border-radius:var(--rayon);
-            box-shadow:var(--ombre);max-width:72ch;margin:0 auto;padding:3rem 3.25rem}
+            box-shadow:var(--ombre);max-width:1020px;margin:0 auto;padding:3rem 3.25rem}
           .doc>*:first-child{margin-top:0}
           .doc h1{font-size:2rem;line-height:1.2;letter-spacing:-.015em;margin:0 0 .5rem;
             border-left:8px solid var(--rouge);padding-left:.7rem}
@@ -151,17 +151,17 @@ jobs:
           .doc .callout-objectifs .callout-title{color:var(--rouge-fonce)}
           .doc .callout p:last-child{margin-bottom:0}
           /* Panneau PDF */
-          .panneau-pdf{max-width:1120px;margin:0 auto}
+          .panneau-pdf{max-width:1360px;margin:0 auto}
           .panneau-pdf[hidden]{display:none}
           .cadre-pdf{background:#fff;border:1px solid var(--bord);border-radius:var(--rayon);
             box-shadow:var(--ombre);overflow:hidden}
           .cadre-pdf iframe,.cadre-pdf object{display:block;width:100%;height:min(78vh,860px);border:0;background:#2b2b2b}
           .repli{padding:1.2rem;text-align:center;font-size:.94rem;color:var(--gris-700)}
           .repli a{color:var(--rouge-fonce);font-weight:700}
-          .note{max-width:72ch;margin:1rem auto 0;font-size:.9rem;color:var(--gris-500);text-align:center}
+          .note{max-width:1020px;margin:1rem auto 0;font-size:.9rem;color:var(--gris-500);text-align:center}
           .note a{color:var(--rouge-fonce);font-weight:600}
           footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:#fafafa}
-          .pied{max-width:1120px;margin:0 auto;padding:1.1rem 1.25rem 1.6rem;color:var(--gris-500);
+          .pied{max-width:1360px;margin:0 auto;padding:1.1rem 1.25rem 1.6rem;color:var(--gris-500);
             font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
           .pied strong{color:var(--noir)}
           @media (max-width:760px){

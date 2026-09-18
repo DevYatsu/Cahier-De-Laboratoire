@@ -13,7 +13,7 @@
 #outline(title: none, indent: auto)
 #v(1em)
 
-// Pour ajouter une séance : créer seances/seance-NN.typ en commençant
+// Pour ajouter une séance : créer seances/seance-NN/index.typ en commençant
 // le fichier par #pagebreak(), puis ajouter une ligne #include ci-dessous.
 #include "contexte.typ"
-#include "seances/seance-01.typ"
+#include "seances/seance-01/index.typ"

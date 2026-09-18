@@ -381,12 +381,27 @@ def build_toc(headings: list[tuple[int, str, str]]) -> str:
 
 def source_files_in_order() -> list[Path]:
     main = (ROOT / "main.typ").read_text(encoding="utf-8")
-    includes = INCLUDE_RE.findall(main)
-    files = [ROOT / inc for inc in includes if (ROOT / inc).exists()]
-    # Belt and braces: pick up any séance file not yet wired in main.typ.
-    for extra in sorted((ROOT / "seances").glob("seance-*.typ")):
-        if extra not in files:
-            files.append(extra)
+    files: list[Path] = []
+    seen: set[Path] = set()
+
+    def add(path: Path) -> None:
+        # Nested #include: a séance lives in its own folder, so includes inside
+        # a sub-document resolve relative to that file's directory.
+        path = path.resolve()
+        if path in seen or not path.exists():
+            return
+        seen.add(path)
+        files.append(path)
+        for inc in INCLUDE_RE.findall(path.read_text(encoding="utf-8")):
+            add(path.parent / inc)
+
+    for inc in INCLUDE_RE.findall(main):
+        add(ROOT / inc)
+    # Belt and braces: pick up any séance entry point not yet wired in main.typ.
+    candidates = sorted((ROOT / "seances").glob("seance-*.typ"))
+    candidates += sorted((ROOT / "seances").glob("*/index.typ"))
+    for extra in candidates:
+        add(extra)
     return files
 
 

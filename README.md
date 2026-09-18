@@ -24,6 +24,6 @@ En préparation finale d'examen : structuration, références et renvois interne
 
 - `main.typ` — source du cahier.
 - `contexte.typ` — cadrage du semestre (objectifs, modules 3275.1/3275.2).
-- `seances/seance-NN.typ` — une entrée par séance, chacune commence par `#pagebreak()` et est ajoutée via `#include` dans `main.typ`.
+- `seances/seance-NN/index.typ` — point d'entrée d'une séance (commence par `#pagebreak()`, inclus dans `main.typ`). Le contenu est réparti en sous-documents dans le même dossier (un fichier par exercice / activité), inclus par `index.typ` ; chaque sous-fichier réimporte `template.typ`.
 - `.github/workflows/ci.yml` — compile `main.typ` en PDF et publie le site (GitHub Pages). Chaque push sur `master` rebuild le PDF et le site.
 - Site : activer via Settings → Pages → Deploy from GitHub Actions, puis ouvrir l'URL Pages (lecture Document / PDF avec sélecteur en en-tête).

@@ -113,6 +113,22 @@ Tableau recopié de l'énoncé, à remplir avec des notes de 1 à 5.
 - *Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?*
   "À compléter."
 
+== Exercice 2 : critères principaux et secondaires
+Notes en vrac (rappel des critères).
+
+*Critères principaux :*
+- Confidentialité
+- Intégrité
+- Disponibilité
+
+*Critères secondaires :*
+- Identification :
+  - Responsable / traçabilité → non-répudiation / imputabilité
+  - Accès
+- Authentification
+- Sensibilisation
+- Résilience
+
 #showybox(
   title: "Résultats",
   frame: (border-color: green.darken(20%), title-color: green.darken(30%)),

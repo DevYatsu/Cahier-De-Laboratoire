@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate website
         run: |
-          typst compile --features html main.typ public/cahier.html
+          python3 scripts/build_site.py -o /tmp/fragment.html
           cat > public/index.html <<'HTML'
           <!doctype html>
           <html lang="fr">
@@ -113,10 +113,18 @@ jobs:
           .doc figure{margin:1.4rem 0;text-align:center}
           .doc figcaption{font-size:.85rem;color:var(--gris-500);margin-top:.4rem}
           /* Sommaire */
-          .doc nav,.doc [class*="outline"],.doc [class*="sommaire"]{
-            background:#fafafa;border:1px solid var(--bord);border-left:6px solid var(--noir);
-            border-radius:12px;padding:1rem 1.3rem;margin:1.6rem 0;font-size:.94rem}
-          .doc nav ul,.doc [class*="outline"] ul{padding-left:1.2rem;margin:.4rem 0}
+          .doc nav.toc{background:#fafafa;border:1px solid var(--bord);
+            border-left:6px solid var(--noir);border-radius:12px;
+            padding:1rem 1.3rem;margin:1.6rem 0;font-size:.94rem}
+          .doc nav.toc ul{padding-left:1.2rem;margin:.4rem 0}
+          .doc nav.toc li{margin:.25rem 0}
+          .toc-titre{margin:0 0 .4rem;font-weight:800;letter-spacing:.06em;
+            text-transform:uppercase;font-size:.8rem;color:var(--gris-700)}
+          /* Liens d'ancre des titres */
+          .doc .ancre{color:var(--gris-200);text-decoration:none;font-size:.8em;
+            margin-left:.4rem;opacity:0;transition:opacity .15s,color .15s}
+          .doc h1:hover .ancre,.doc h2:hover .ancre,.doc h3:hover .ancre,
+          .doc .ancre:focus-visible{opacity:1;color:var(--rouge)}
           /* Tableaux */
           .doc .table-wrap,.doc table{display:block}
           .doc table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.94rem;
@@ -128,17 +136,20 @@ jobs:
           .doc thead th a,.doc tr:first-child a{color:#fff}
           .doc tbody tr:nth-child(even),.doc tr:nth-child(even){background:#f7f7f7}
           .doc thead{position:sticky;top:0}
-          /* Encadres Objectifs / Resultats / Interpretation (Typst showybox -> div/blockquote) */
-          .doc div,.doc blockquote,.doc section,.doc aside{position:relative}
-          .doc div:has(> strong:first-child),.doc blockquote,.doc section,.doc aside{
-            border-radius:0 10px 10px 0;margin:1.3rem 0;padding:1rem 1.2rem 1rem 1.3rem}
-          .doc div:has(strong:first-child):nth-of-type(n){border-left:5px solid var(--gris-500);background:#f6f6f6}
-          /* Premier encadre = Objectifs (rouge) */
-          .doc div:has(> p > strong:first-child),.doc div:has(> strong:first-child){
-            border-left:6px solid var(--rouge);background:var(--rouge-clair)}
-          .doc div:has(> strong:first-child)::before{content:"◉";color:var(--rouge);
-            font-weight:800;margin-right:.45rem}
-          .doc strong:first-child{letter-spacing:.01em}
+          /* Encadrés Objectifs / Résultats / Interprétation */
+          .doc .callout{border-radius:0 10px 10px 0;margin:1.3rem 0;
+            padding:1rem 1.2rem 1rem 1.3rem;border-left:6px solid var(--gris-500);
+            background:#f6f6f6}
+          .doc .callout-objectifs{border-left-color:var(--rouge);
+            background:var(--rouge-clair)}
+          .doc .callout-resultats{border-left-color:var(--noir);background:#f0f0f0}
+          .doc .callout-interpretation{border-left-color:var(--gris-500);
+            background:#fff;border-top:1px solid var(--bord);
+            border-right:1px solid var(--bord);border-bottom:1px solid var(--bord)}
+          .doc .callout-title{margin:0 0 .5rem;font-weight:800;
+            letter-spacing:.04em;text-transform:uppercase;font-size:.85rem}
+          .doc .callout-objectifs .callout-title{color:var(--rouge-fonce)}
+          .doc .callout p:last-child{margin-bottom:0}
           /* Panneau PDF */
           .panneau-pdf{max-width:1120px;margin:0 auto}
           .panneau-pdf[hidden]{display:none}
@@ -195,7 +206,7 @@ jobs:
           <main>
             <article class="doc" id="vue-doc" aria-label="Version web du cahier">
           HTML
-          sed 's/.*<body[^>]*//' public/cahier.html | sed 's|</body>.*||' >> public/index.html
+          cat /tmp/fragment.html >> public/index.html
           cat >> public/index.html <<'HTML'
             </article>
             <div class="panneau-pdf" id="vue-pdf" hidden>
@@ -246,27 +257,6 @@ jobs:
             bDoc.addEventListener('click',function(){show('doc');});
             bPdf.addEventListener('click',function(){show('pdf');});
             show(initial(),false);
-            /* Rehausse typographique : la sortie HTML de Typst rend les titres
-               en paragraphes numerotes et les tableaux sans thead. */
-            try{
-              doc.querySelectorAll('p').forEach(function(p){
-                var t=(p.textContent||'').trim();
-                if(/^\d+\.\s+\S/.test(t)&&p.children.length<=1&&t.length<140){
-                  var d=document.createElement('h2');d.innerHTML=p.innerHTML;
-                  var m=t.match(/^(\d+(?:\.\d+)*\.)\s*/);if(m){
-                    d.innerHTML='<span class="num">'+m[1]+'</span> '+p.innerHTML.slice(m[0].length);
-                  }
-                  p.replaceWith(d);
-                }
-              });
-              doc.querySelectorAll('table').forEach(function(tb){
-                if(tb.parentElement&&tb.parentElement.classList.contains('table-scroll')){return;}
-                var w=document.createElement('div');w.className='table-scroll';
-                w.setAttribute('tabindex','0');w.setAttribute('role','region');
-                w.setAttribute('aria-label','Tableau defilant horizontalement');
-                tb.before(w);w.appendChild(tb);
-              });
-            }catch(e){}
           })();
           </script>
           </body>

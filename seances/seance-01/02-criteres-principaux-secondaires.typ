@@ -1,7 +1,17 @@
 // Exercice 2 — critères principaux et secondaires (partie matin).
 #import "/template.typ": *
 
-== Exercice 2 : critères principaux et secondaires
+== Critères principaux et secondaires
+#text(size: 0.9em, fill: gray)[Partie matin · énoncé 2]
+
+#encadre("Objectifs")[À compléter.]
+
+=== Métiers pertinents
+
+À compléter.
+
+=== Déroulement
+
 On a rappelé les critères en cours. Je les note en vrac, sans chercher à tout reformuler.
 
 *Critères principaux :*
@@ -36,3 +46,11 @@ Le schéma résume la triade et ses compléments : les trois critères principau
     edge((0, 2), (0, 1), "->", bend: 0deg),
   )
 ]
+
+=== Résultats
+
+À compléter.
+
+=== Interprétation des résultats
+
+À compléter.

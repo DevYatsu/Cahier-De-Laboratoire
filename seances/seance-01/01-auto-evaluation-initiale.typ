@@ -1,9 +1,17 @@
 // Exercice 1 — auto-évaluation initiale (partie matin).
 #import "/template.typ": *
 
-#text(size: 0.9em, fill: gray)[Partie matin : exercices en séance (1 à 4)]
+== Auto-évaluation initiale
+#text(size: 0.9em, fill: gray)[Partie matin · énoncé 1]
 
-== Exercice 1 : auto-évaluation initiale
+#encadre("Objectifs")[À compléter.]
+
+=== Métiers pertinents
+
+À compléter.
+
+=== Déroulement
+
 L'énoncé demande de noter de 1 à 5 mon niveau sur chaque thème. Je recopie le tableau et je le remplis pendant la séance.
 
 #table(
@@ -23,12 +31,21 @@ L'énoncé demande de noter de 1 à 5 mon niveau sur chaque thème. Je recopie l
   [Envie d'appliquer ce que je vais apprendre en 3275.1 et 3275.2 (semestre d'automne) dans mon projet de semestre], [4],
 )
 
-=== Questions de synthèse
+==== Questions de synthèse
+
 Une phrase suffit par question.
 
 - Sur quel(s) thème(s) je me sens le plus à l'aise, et pourquoi ?
-  "À compléter."
+  À compléter.
 - Sur quel(s) thème(s) j'aimerais progresser en priorité ?
-  "À compléter."
+  À compléter.
 - Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?
-  "À compléter."
+  À compléter.
+
+=== Résultats
+
+À compléter.
+
+=== Interprétation des résultats
+
+À compléter.

@@ -1,7 +1,17 @@
 // Exercice 4 — principaux secteurs, domaines et objets d'application (partie matin).
 #import "/template.typ": *
 
-== Exercice 4 : principaux secteurs, domaines et objets d'application
+== Principaux secteurs, domaines et objets d'application
+#text(size: 0.9em, fill: gray)[Partie matin · énoncé 4]
+
+#encadre("Objectifs")[À compléter.]
+
+=== Métiers pertinents
+
+À compléter.
+
+=== Déroulement
+
 La question porte sur où la sécurité s'applique et sur qui elle concerne. Je distingue le secteur public, le secteur privé, puis les domaines transverses.
 
 *Secteur public :*
@@ -26,3 +36,11 @@ La question porte sur où la sécurité s'applique et sur qui elle concerne. Je 
 - Moi : mes comptes, mes appareils, mes projets de développement.
 - Nous : l'entreprise ou l'équipe où je travaille, ses clients et ses fournisseurs.
 - Tout le monde : chaque citoyen utilise des services dont la compromission a un impact collectif.
+
+=== Résultats
+
+À compléter.
+
+=== Interprétation des résultats
+
+À compléter.

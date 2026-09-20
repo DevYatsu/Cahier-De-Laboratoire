@@ -1,7 +1,8 @@
 // Activité 3 — protection concrète d'un WordPress (cas Ricardo).
 #import "/template.typ": *
 
-== Activité 3 : protection concrète d'un WordPress (Ricardo)
+== Protection concrète d'un WordPress (Ricardo)
+#text(size: 0.9em, fill: gray)[Partie après-midi · activité 3]
 
 #encadre("Objectifs")[À compléter.]
 
@@ -11,8 +12,8 @@
 
 === Résultats
 
-"À compléter."
+À compléter.
 
 === Interprétation des résultats
 
-"À compléter."
+À compléter.

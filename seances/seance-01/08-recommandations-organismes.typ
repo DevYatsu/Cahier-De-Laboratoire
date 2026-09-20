@@ -1,7 +1,8 @@
 // Activité 2 — recommandations d'organismes de sécurité (partie après-midi).
 #import "/template.typ": *
 
-== Activité 2 : recommandations d'organismes de sécurité
+== Recommandations d'organismes de sécurité
+#text(size: 0.9em, fill: gray)[Partie après-midi · activité 2]
 
 #encadre("Objectifs")[À compléter.]
 
@@ -11,8 +12,8 @@
 
 === Résultats
 
-"À compléter."
+À compléter.
 
 === Interprétation des résultats
 
-"À compléter."
+À compléter.

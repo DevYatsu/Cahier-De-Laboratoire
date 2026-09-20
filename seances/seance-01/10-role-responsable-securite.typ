@@ -1,7 +1,8 @@
 // Activité 6 — rôle de responsable de la sécurité d'une entreprise.
 #import "/template.typ": *
 
-== Activité 6 : rôle de responsable de la sécurité d'une entreprise
+== Rôle de responsable de la sécurité d'une entreprise
+#text(size: 0.9em, fill: gray)[Partie après-midi · activité 6]
 
 #encadre("Objectifs")[À compléter.]
 
@@ -11,8 +12,8 @@ RSSI, responsable sécurité.
 
 === Résultats
 
-"À compléter."
+À compléter.
 
 === Interprétation des résultats
 
-"À compléter."
+À compléter.

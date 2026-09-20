@@ -1,7 +1,8 @@
 // Activité 5 — vocabulaire de base de la cybersécurité (partie après-midi).
 #import "/template.typ": *
 
-== Activité 5 : définir le vocabulaire de base de la cybersécurité
+== Définir le vocabulaire de base de la cybersécurité
+#text(size: 0.9em, fill: gray)[Partie après-midi · activité 5]
 
 #encadre("Objectifs")[À compléter.]
 
@@ -11,8 +12,8 @@
 
 === Résultats
 
-"À compléter."
+À compléter.
 
 === Interprétation des résultats
 
-"À compléter."
+À compléter.

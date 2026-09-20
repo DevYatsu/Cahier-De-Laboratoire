@@ -1,7 +1,17 @@
 // Exercice 3 — évaluer la triade CIA sur des cas concrets (partie matin).
 #import "/template.typ": *
 
-== Exercice 3 : évaluer la triade CIA sur des cas concrets
+== Évaluer la triade CIA sur des cas concrets
+#text(size: 0.9em, fill: gray)[Partie matin · énoncé 3]
+
+#encadre("Objectifs")[À compléter.]
+
+=== Métiers pertinents
+
+À compléter.
+
+=== Déroulement
+
 On note de 1 à 4 (maximum) la confidentialité, l'intégrité et la disponibilité pour chaque cas. Je recopie le tableau et je le remplis.
 
 #table(
@@ -37,3 +47,11 @@ Pourquoi ces notes, en bref :
 - *Banque en ligne (4/4/4) :* le secret bancaire et l'exactitude des soldes priment (C et I au maximum), et l'accès au service doit être continu (A au maximum).
 - *AlertSwiss (1/4/4) :* messages publics (C à 1), mais une fausse alerte peut provoquer une panique (I à 4) et le message doit passer en pleine crise (A à 4).
 - *Streaming (2/2/4) :* catalogue public et image corrompue peu coûteuse (C et I à 2), par contre un service qui rame fait fuir les abonnés (A à 4).
+
+=== Résultats
+
+À compléter.
+
+=== Interprétation des résultats
+
+À compléter.

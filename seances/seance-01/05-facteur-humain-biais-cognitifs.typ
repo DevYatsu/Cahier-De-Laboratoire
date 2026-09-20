@@ -1,7 +1,8 @@
 // Activité 4 — aspect humain, risques et biais cognitifs (partie après-midi).
 #import "/template.typ": *
 
-== Activité 4 : aspect humain, risques et biais cognitifs
+== Aspect humain, risques et biais cognitifs
+#text(size: 0.9em, fill: gray)[Partie après-midi · activité 4]
 
 #encadre("Objectifs")[Comprendre les biais cognitifs qui affectent la sécurité : comment les repérer, les limiter, et pourquoi ils changent selon la personne et la culture.]
 
@@ -9,9 +10,9 @@
 
 RSSI, auditeur, chef de projet, dev : tout le monde est concerné. La sensibilisation n'est pas un bonus : c'est une mesure de réduction du risque.
 
-=== Résultats
+=== Déroulement
 
-=== Risques et biais cognitifs liés au cerveau
+==== Risques et biais cognitifs liés au cerveau
 
 Le cerveau utilise des raccouris (heuristiques) utiles au quotidien mais dangereux en sécurité. Six types :
 
@@ -26,7 +27,7 @@ Le cerveau utilise des raccouris (heuristiques) utiles au quotidien mais dangere
   [#link("https://fr.wikipedia.org/wiki/Personnalit%C3%A9")[*Liés à la personnalité*]], [Dunning-Kruger, conformisme, aversion au risque, anxiété.], [Évaluation objective, mentorat croisé, diversité des profils.],
 )
 
-=== Stratégies générales
+==== Stratégies générales
 
 - *Red teaming* : simuler l'attaque pour briser la confirmation.
 - *Diversité cognitive* : mélanger profils et expériences pour contrer l'ancrage.
@@ -36,7 +37,7 @@ Le cerveau utilise des raccouris (heuristiques) utiles au quotidien mais dangere
 
 Références : #link("https://fr.wikipedia.org/wiki/Biais_cognitif")[Biais cognitif], #link("https://fr.wikipedia.org/wiki/Heuristique_de_jugement")[Heuristique de jugement].
 
-=== Risques liés à une personne ou à une culture
+==== Risques liés à une personne ou à une culture
 
 *Personne particulière :*
 - Traits : confiance excessive (Dunning-Kruger), anxiété, faible motivation → biais amplifiés.
@@ -55,9 +56,13 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_cognitif")[Biais cogni
 
 Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de groupe], #link("https://en.wikipedia.org/wiki/Psychological_safety")[Psychological safety].
 
-=== Que faire pour limiter ces risques de prise de décision ?
+==== Que faire pour limiter ces risques de prise de décision ?
 
-"À compléter."
+À compléter.
+
+=== Résultats
+
+À compléter.
 
 === Interprétation des résultats
 

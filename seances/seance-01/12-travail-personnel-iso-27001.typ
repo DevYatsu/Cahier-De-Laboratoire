@@ -2,6 +2,7 @@
 #import "/template.typ": *
 
 == Travail personnel : ISO 27001
+#text(size: 0.9em, fill: gray)[Travail personnel]
 
 #encadre("Objectifs")[Prendre un seul standard, ISO 27001, et comprendre comment il fonctionne vraiment : à qui il s'applique, ce qu'il impose concrètement, comment on prouve qu'on le respecte, et en quoi il se distingue d'un guide technique. Explication détaillée dans le #link("https://docs.google.com/document/d/1fH8UCfGyz7B1bx2RM74GsLj1NJDceglvkOgh9siI0cQ/edit?usp=sharing")[document de groupe (Google Docs)], lien aussi reporté dans le tableau du cours.]
 

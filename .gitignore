@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Sorties de compilation
+*.pdf
+/public/
+
+# Python
+__pycache__/
+*.py[cod]

@@ -20,12 +20,33 @@ import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+SEANCES_DIR = ROOT / "seances"
+
+# The site flattens every séance's images under public/assets/<seance-dir>/,
+# so a source-relative "assets/foo.jpg" must become "assets/seance-01/foo.jpg".
+_REL_ASSET_RE = re.compile(r"^(?:\./)?assets/(.+)$")
+
+
+def asset_src(path: str, source: Path) -> str:
+    """Rewrite a source-relative asset path for the deployed public/ layout."""
+    try:
+        relative = source.relative_to(SEANCES_DIR)
+    except ValueError:
+        return path
+    if len(relative.parts) < 2:
+        return path
+    seance = relative.parts[0]
+    m = _REL_ASSET_RE.match(path)
+    if not m:
+        return path
+    return f"assets/{seance}/{m.group(1)}"
+
 
 SKIP_PREFIXES = (
     "#import", "#set", "#show", "#let", "#pagebreak", "#outline",
-    "#align", "#grid", "#box", "#block", "#v(", "#v[", "#line(",
-    "#text(", "#counter", "#datetime", "#hydra", "#codly", "#figure",
-    "#image", "#table.cell", "#page(", "#context", "#footnote",
+    "#grid", "#box", "#block", "#v(", "#v[", "#line(",
+    "#counter", "#datetime", "#hydra", "#codly", "#table.cell",
+    "#page(", "#context", "#footnote",
 )
 
 HEADING_RE = re.compile(r"^(=+)\s+(.*?)\s*$")
@@ -36,6 +57,10 @@ STRONG_RE = re.compile(r"\*([^*]+?)\*")
 CODE_RE = re.compile(r"`([^`]+?)`")
 LINK_RE = re.compile(r'#link\("([^"]+)"\)\[([^\]]+?)\]')
 LINK_BARE_RE = re.compile(r'#link\("([^"]+)"\)')
+IMAGE_RE = re.compile(r'image\(\s*"([^"]+)"')
+CAPTION_RE = re.compile(r"caption:\s*\[([^\]]*)\]", re.DOTALL)
+# A directive whose body we cannot express in HTML (fletcher, lq, ...).
+VISUAL_MARKER_RE = re.compile(r"#(?:diagram\b|lq\.)")
 
 
 def slugify(text: str) -> str:
@@ -54,6 +79,25 @@ def unique_slug(text: str) -> str:
     count = _SLUG_COUNTS.get(base, 0)
     _SLUG_COUNTS[base] = count + 1
     return base if count == 0 else f"{base}-{count + 1}"
+
+
+# Typst auto-numbers headings ("1.", "1.1.", "1.1.1.", "1.1.1.1.") via
+# config.typ. The site must reproduce the same sequence while walking headings
+# in order. The counter list grows to whatever depth the sources use.
+_HEADING_COUNTERS: list[int] = []
+_CURRENT_SOURCE: Path = ROOT / "main.typ"
+
+
+def next_heading_number(level: int) -> str:
+    """Increment the hierarchical counter and return e.g. ``1.2.1.``."""
+    level = max(level, 1)
+    while len(_HEADING_COUNTERS) < level:
+        _HEADING_COUNTERS.append(0)
+    _HEADING_COUNTERS[level - 1] += 1
+    # Zero only the slots deeper than this level; shallower ones stay.
+    for deeper in range(level, len(_HEADING_COUNTERS)):
+        _HEADING_COUNTERS[deeper] = 0
+    return ".".join(str(_HEADING_COUNTERS[i]) for i in range(level)) + "."
 
 
 def inline_markup(text: str) -> str:
@@ -109,6 +153,20 @@ def balanced_block(lines: list[str], start: int, opener: str, closer: str) -> tu
         if seen and depth <= 0:
             break
     return "\n".join(collected), i
+
+
+def directive_block(lines: list[str], start: int) -> tuple[str, int]:
+    """Consume a directive that opens a multi-line body.
+
+    Picks the delimiter left unbalanced on the opening line, so a body never
+    leaks as literal Typst text when the closing bracket sits lines later.
+    """
+    line = lines[start]
+    if line.count("(") > line.count(")"):
+        return balanced_block(lines, start, "(", ")")
+    if line.count("[") > line.count("]"):
+        return balanced_block(lines, start, "[", "]")
+    return line, start + 1
 
 
 def split_top_level_cells(body: str) -> list[str]:
@@ -208,6 +266,51 @@ def parse_encadre(block: str) -> str:
             f'<p class="callout-title">{html.escape(title)}</p>\n{inner}\n</aside>')
 
 
+MENTION_RE = re.compile(
+    r'#text\([^)]*fill:\s*(?:gray|grey|gris)[^)]*\)\s*\[(.*)\]\s*$',
+    re.DOTALL,
+)
+
+
+def parse_mention(block: str) -> str:
+    """#text(size: ..., fill: gray)[...] -> a discreet provenance line."""
+    m = MENTION_RE.search(block)
+    if m:
+        body = m.group(1)
+    else:
+        # Any other #text(...)[body]: keep the body as a plain paragraph.
+        tail = re.search(r"\]\s*\[(.*)\]\s*$", block, flags=re.DOTALL)
+        body = tail.group(1) if tail else ""
+    return f'<p class="mention">{inline_markup(" ".join(body.split()))}</p>'
+
+
+def parse_image(block: str, source: Path) -> str:
+    """Render image(...) / figure(image(...), caption: [...]) as HTML <figure>."""
+    m = IMAGE_RE.search(block)
+    if not m:
+        return ""
+    src = html.escape(asset_src(m.group(1), source), quote=True)
+    alt = ""
+    caption_html = ""
+    cap = CAPTION_RE.search(block)
+    if cap:
+        cap_text = " ".join(cap.group(1).split())
+        caption_html = f"<figcaption>{inline_markup(cap_text)}</figcaption>"
+        alt = html.escape(re.sub(r"[*`]", "", cap_text), quote=True)
+    img = f'<img src="{src}" alt="{alt}" loading="lazy">'
+    if caption_html:
+        return f"<figure>{img}{caption_html}</figure>"
+    return f"<figure>{img}</figure>"
+
+
+def typst_placeholder(source: Path) -> str:
+    """PDF-only placeholder for a construct HTML cannot express."""
+    return (f'<div class="typst-only" role="note">'
+            f'<p>Diagramme — voir la version PDF.</p>'
+            f'<p class="typst-only-source">Source : <code>{html.escape(source.name)}</code></p>'
+            f'</div>')
+
+
 def is_skippable(line: str) -> bool:
     s = line.strip()
     if not s or s.startswith("//"):
@@ -245,6 +348,9 @@ def render_list(items: list[tuple[int, str]]) -> str:
 
 
 def render_blocks(raw_lines: list[str]) -> str:
+    # Source file of the lines being rendered; set by build_fragment so nested
+    # callout bodies keep the same séance context for asset/diagram rewriting.
+    source = _CURRENT_SOURCE
     lines = [ln.rstrip() for ln in raw_lines]
     out: list[str] = []
     headings: list[tuple[int, str, str]] = []  # collected globally elsewhere
@@ -293,11 +399,84 @@ def render_blocks(raw_lines: list[str]) -> str:
             out.append(parse_table(block))
             continue
 
+        # #figure(...) either wraps an image (HTML-friendly) or a fletcher
+        # #diagram / lq chart (PDF-only placeholder).
+        if stripped.startswith("#figure("):
+            flush_para()
+            flush_list()
+            block, i = balanced_block(lines, i, "(", ")")
+            # A content figure: the `[ … ]` body may open on the same line as
+            # the closing paren (`)[`) or on a following line.
+            look = i
+            while look < len(lines) and not lines[look].strip():
+                look += 1
+            if block.rstrip().endswith("[") or (look < len(lines)
+                                                and lines[look].strip().startswith("[")):
+                body, i = balanced_block(lines, look, "[", "]")
+                block = block + "\n" + body
+            if IMAGE_RE.search(block):
+                out.append(parse_image(block, source))
+            else:
+                out.append(typst_placeholder(source))
+            continue
+
+        # Bare #image("...") anywhere on the line.
+        if stripped.startswith("#image(") or IMAGE_RE.search(stripped):
+            flush_para()
+            flush_list()
+            block, i = balanced_block(lines, i, "(", ")")
+            out.append(parse_image(block, source))
+            continue
+
+        # #text(size: ..., fill: gray)[...] -> provenance/aside line.
+        if stripped.startswith("#text("):
+            flush_para()
+            flush_list()
+            block, i = balanced_block(lines, i, "[", "]")
+            out.append(parse_mention(block))
+            continue
+
+        # A container (`#align(center)[ … ]`) wrapping a visual directive or an
+        # image. Skip the whole balanced body so nothing leaks as raw Typst.
+        if stripped.startswith("#align(") or stripped.startswith("#box(") \
+                or stripped.startswith("#block("):
+            flush_para()
+            flush_list()
+            block, i = balanced_block(lines, i, "[", "]")
+            if VISUAL_MARKER_RE.search(block):
+                out.append(typst_placeholder(source))
+            elif IMAGE_RE.search(block):
+                out.append(parse_image(block, source))
+            continue
+
+        # fletcher #diagram / lq.* appearing without a wrapper.
+        if VISUAL_MARKER_RE.search(stripped):
+            flush_para()
+            flush_list()
+            block, i = balanced_block(lines, i, "(", ")")
+            out.append(typst_placeholder(source))
+            continue
+
         if stripped.startswith("#"):
             if is_skippable(stripped):
-                i += 1
+                # Known-but-non-rendered directive: still consume a multi-line
+                # body so its contents never leak as literal Typst text.
+                if stripped.count("(") > stripped.count(")") \
+                        or stripped.count("[") > stripped.count("]"):
+                    _, i = directive_block(lines, i)
+                else:
+                    i += 1
                 continue
-            # Unknown directive: skip the line rather than leaking it.
+            if stripped.count("(") > stripped.count(")") \
+                    or stripped.count("[") > stripped.count("]"):
+                # Unrecognized multi-line directive: consume the whole call and
+                # surface it as a PDF-only placeholder.
+                flush_para()
+                flush_list()
+                _, i = directive_block(lines, i)
+                out.append(typst_placeholder(source))
+                continue
+            # Single-line unknown directive: skip rather than leaking it.
             i += 1
             continue
 
@@ -305,20 +484,17 @@ def render_blocks(raw_lines: list[str]) -> str:
         if m:
             flush_para()
             flush_list()
-            level = min(len(m.group(1)), 3)
+            level = len(m.group(1))
             text = m.group(2)
             hid = unique_slug(re.sub(r"\*", "", text))
-            # Split leading numbering ("1.2 ") for the red accent span.
-            num_m = re.match(r"^(\d+(?:\.\d+)*\.?)\s+(.*)$", text)
-            if num_m:
-                title_html = (f'<span class="num">{html.escape(num_m.group(1))}</span> '
-                              f'{inline_markup(num_m.group(2))}')
-            else:
-                title_html = inline_markup(text)
+            # Typst numbering: level N gets "1.", "1.2.", "1.2.3.", "1.2.3.1.".
+            num = next_heading_number(level)
+            title_html = (f'<span class="num">{num}</span> '
+                          f'{inline_markup(text)}')
             tag = f"h{level}"
             out.append(f'<{tag} id="{hid}">{title_html} '
                        f'<a class="ancre" href="#{hid}" aria-label="Lien vers cette section">¶</a></{tag}>')
-            headings.append((level, hid, re.sub(r"\*", "", text)))
+            headings.append((level, hid, num + " " + text.replace("*", "")))
             i += 1
             continue
 
@@ -350,28 +526,44 @@ def render_blocks(raw_lines: list[str]) -> str:
     return "\n".join(o for o in out if o.strip())
 
 
-def collect_headings(fragment: str) -> list[tuple[int, str, str]]:
+TOC_MAX_LEVEL = 3  # main.typ pins #outline(depth: 3); the site TOC must match.
+
+
+def collect_headings(fragment: str) -> list[tuple[int, str, str, str]]:
+    """Return (level, id, number, label) for every TOC heading (levels 1-3).
+
+    Level-4+ headings are rendered in the body but excluded here, mirroring the
+    PDF outline depth so the two summaries stay exactly comparable.
+    """
     found = []
-    for m in re.finditer(r'<h([123]) id="([^"]+)">(.*?) <a class="ancre"', fragment):
-        label = re.sub(r"<[^>]+>", "", m.group(3)).strip()
-        label = html.unescape(label)
-        found.append((int(m.group(1)), m.group(2), label))
+    for m in re.finditer(r'<h([1-9]) id="([^"]+)">(.*?) <a class="ancre"', fragment):
+        level = int(m.group(1))
+        if level > TOC_MAX_LEVEL:
+            continue
+        inner = m.group(3)
+        num_m = re.match(r'<span class="num">([^<]*)</span>\s*', inner)
+        num = num_m.group(1) if num_m else ""
+        if num_m:
+            inner = inner[num_m.end():]
+        label = html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()
+        found.append((level, m.group(2), num, label))
     return found
 
 
-def build_toc(headings: list[tuple[int, str, str]]) -> str:
+def build_toc(headings: list[tuple[int, str, str, str]]) -> str:
     if not headings:
         return ""
     out = ['<nav class="toc" aria-label="Sommaire"><p class="toc-titre">Sommaire</p>']
     current = 0
-    for level, hid, label in headings:
+    for level, hid, num, label in headings:
         while current < level:
             out.append("<ul>")
             current += 1
         while current > level:
             out.append("</ul>")
             current -= 1
-        out.append(f'<li><a href="#{hid}">{html.escape(label)}</a></li>')
+        prefix = f'<span class="num">{html.escape(num)}</span> ' if num else ""
+        out.append(f'<li><a href="#{hid}">{prefix}{html.escape(label)}</a></li>')
     while current > 0:
         out.append("</ul>")
         current -= 1
@@ -397,19 +589,22 @@ def source_files_in_order() -> list[Path]:
 
     for inc in INCLUDE_RE.findall(main):
         add(ROOT / inc)
-    # Belt and braces: pick up any séance entry point not yet wired in main.typ.
-    candidates = sorted((ROOT / "seances").glob("seance-*.typ"))
-    candidates += sorted((ROOT / "seances").glob("*/index.typ"))
-    for extra in candidates:
+    # Fallback only: séance entry points are seances/<name>/index.typ. main.typ
+    # remains the single source of truth for document order; this picks up a
+    # séance folder that exists but is not yet #include-ed in main.typ.
+    for extra in sorted((ROOT / "seances").glob("*/index.typ")):
         add(extra)
     return files
 
 
 def build_fragment() -> tuple[str, str]:
     """Return (toc_html, content_html) with unique heading ids."""
+    global _CURRENT_SOURCE
     _SLUG_COUNTS.clear()
+    _HEADING_COUNTERS[:] = []
     parts: list[str] = []
     for path in source_files_in_order():
+        _CURRENT_SOURCE = path
         text = path.read_text(encoding="utf-8")
         parts.append(render_blocks(text.splitlines()))
     fragment = "\n".join(p for p in parts if p.strip())

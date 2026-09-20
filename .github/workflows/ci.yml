@@ -32,6 +32,14 @@ jobs:
       - name: Generate website
         run: |
           python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html
+          # Flatten each séance's assets under public/assets/<seance-dir>/ so
+          # that "assets/foo.jpg" references resolve on the deployed site.
+          for assets in seances/*/assets; do
+            [ -d "$assets" ] || continue
+            seance="$(basename "$(dirname "$assets")")"
+            mkdir -p "public/assets/$seance"
+            cp -R "$assets/." "public/assets/$seance/"
+          done
           cat > public/index.html <<'HTML'
           <!doctype html>
           <html lang="fr">
@@ -110,7 +118,7 @@ jobs:
           .col-sommaire .toc-titre{margin:0 0 .5rem;font-weight:800;letter-spacing:.06em;
             text-transform:uppercase;font-size:.78rem;color:var(--gris-700)}
           /* En-tetes sous le bandeau collant */
-          .doc h1,.doc h2,.doc h3{scroll-margin-top:6.5rem}
+          .doc h1,.doc h2,.doc h3,.doc h4{scroll-margin-top:6.5rem}
           .doc>*:first-child{margin-top:0}
           .doc h1{font-size:2rem;line-height:1.2;letter-spacing:-.015em;margin:0 0 .5rem;
             border-left:8px solid var(--rouge);padding-left:.7rem}
@@ -118,6 +126,7 @@ jobs:
             border-top:1px solid var(--gris-200)}
           .doc h2 .num,.doc h1 .num{color:var(--rouge)}
           .doc h3{font-size:1.12rem;margin:1.7rem 0 .5rem;color:var(--gris-900)}
+          .doc h4{font-size:1.05rem;margin:1.3rem 0 .4rem;color:var(--gris-700)}
           .doc p{margin:.85rem 0;text-align:justify;hyphens:auto}
           .doc ul,.doc ol{margin:.85rem 0;padding-left:1.5rem}
           .doc li{margin:.35rem 0}
@@ -166,6 +175,16 @@ jobs:
             letter-spacing:.04em;text-transform:uppercase;font-size:.85rem}
           .doc .callout-objectifs .callout-title{color:var(--rouge-fonce)}
           .doc .callout p:last-child{margin-bottom:0}
+          /* Ligne de provenance (#text fill: gray) */
+          .doc .mention{font-size:.85rem;color:var(--gris-500);font-style:italic;
+            margin:.4rem 0 .9rem}
+          /* Constructs Typst non exprimables en HTML (fletcher / lq) */
+          .doc .typst-only{background:#fafafa;border:1px dashed var(--bord);
+            border-radius:var(--rayon);padding:1rem 1.2rem;margin:1.3rem 0;
+            color:var(--gris-500);font-size:.92rem}
+          .doc .typst-only p{margin:.2rem 0;text-align:left}
+          .doc .typst-only-source{font-size:.8rem;margin-top:.4rem}
+          .doc .typst-only-source code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
           /* Panneau PDF */
           .panneau-pdf{max-width:1360px;margin:0 auto}
           .panneau-pdf[hidden]{display:none}

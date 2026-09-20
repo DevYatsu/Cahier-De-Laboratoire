@@ -10,13 +10,15 @@ Classe inversée : l'étudiant étudie en autonomie certains sujets (ressources 
 
 ## Structure d'un travail
 
-Seules les sections en **gras** sont à rédiger proprement :
+Chaque travail suit le même squelette de titres. Seules les sections en **gras** sont à rédiger proprement :
 
-- **objectifs**
-- **identification des métiers pertinents**
-- déroulement en vrac (journal, résultats intermédiaires, références, etc.)
-- **résultats**
-- **interprétation des résultats** — pertinence vis-à-vis des métiers, normes, standards et certifications, cycle d'amélioration continue de la cybersécurité, apprentissage effectué
+- **Objectifs** — encadré, juste après le titre.
+- **Métiers pertinents** — identification des métiers visés par l'activité.
+- Déroulement — journal, résultats intermédiaires, références. Section facultative, présente seulement quand il y a de la matière brute à consigner.
+- **Résultats**
+- **Interprétation des résultats** — pertinence vis-à-vis des métiers, normes, standards et certifications, cycle d'amélioration continue de la cybersécurité, apprentissage effectué.
+
+Une section sans contenu porte le texte `À compléter.` (sans guillemets).
 
 En préparation finale d'examen : structuration, références et renvois internes ajoutés, recul renforcé.
 
@@ -24,6 +26,9 @@ En préparation finale d'examen : structuration, références et renvois interne
 
 - `main.typ` — source du cahier.
 - `contexte.typ` — cadrage du semestre (objectifs, modules 3275.1/3275.2).
-- `seances/seance-NN/index.typ` — point d'entrée d'une séance (commence par `#pagebreak()`, inclus dans `main.typ`). Le contenu est réparti en sous-documents dans le même dossier (un fichier par exercice / activité), inclus par `index.typ` ; chaque sous-fichier réimporte `template.typ`.
+- `seances/seance-NN/index.typ` — point d'entrée d'une séance (commence par `#pagebreak()`, inclus dans `main.typ`). Les travaux de la séance sont des fichiers `NN-slug.typ` dans le même dossier, inclus par `index.typ` dans l'ordre croissant de `NN`. Le nom de fichier est la seule source de vérité pour l'ordre ; chaque fichier réimporte `template.typ`.
+- `template.typ`, `config.typ` — charte graphique (couleurs, polices, styles de titres et d'encadrés) et palette.
+- `scripts/build_site.py` — génère la version web à partir des sources Typst.
 - `.github/workflows/ci.yml` — compile `main.typ` en PDF et publie le site (GitHub Pages). Chaque push sur `master` rebuild le PDF et le site.
-- Site : activer via Settings → Pages → Deploy from GitHub Actions, puis ouvrir l'URL Pages (lecture Document / PDF avec sélecteur en en-tête).
+- `rapport-activite-template.xls` — rapport d'activité : trace les activités effectuées et le temps pris pour chacune.
+- Site : https://devyatsu.github.io/Cahier-De-Laboratoire/

@@ -29,10 +29,12 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
       <div class="segmente" role="group" aria-label="Choisir le mode de lecture">
         <button type="button" id="btn-doc" aria-pressed="true">Document</button>
         <button type="button" id="btn-pdf" aria-pressed="false">PDF</button>
+        <button type="button" id="btn-rapport" aria-pressed="false">Rapport d'activité</button>
       </div>
-      <button type="button" id="btn-theme" class="theme" aria-pressed="false">Thème sombre</button>
-      <a class="bouton" href="rapport.html">Rapport d'activité</a>
-      <a class="bouton" href="cahier.pdf" download>Télécharger le PDF</a>
+      <button type="button" id="btn-theme" class="theme" aria-pressed="false" aria-label="Activer le thème sombre">
+        <svg class="icon-light" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-dark" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
     </div>
   </div>
 </header>

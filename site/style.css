@@ -71,6 +71,10 @@ h1.titre{margin:.1rem 0 0;font-size:1.35rem;line-height:1.2;letter-spacing:-.01e
   cursor:pointer;font:inherit;font-size:.88rem;font-weight:600;
   padding:.5rem .95rem;border-radius:999px;transition:background .15s,color .15s,border-color .15s;
   white-space:nowrap}
+.theme svg {width:17px;height:17px;display:block}
+.theme .icon-dark{display:none}
+[data-theme="dark"] .theme .icon-light{display:none}
+[data-theme="dark"] .theme .icon-dark{display:block}
 .theme:hover{background:var(--gris-100);color:var(--noir);border-color:var(--gris-200)}
 .theme:focus-visible{outline:3px solid var(--rouge);outline-offset:2px}
 main{width:100%;max-width:1360px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:1}
@@ -169,7 +173,10 @@ main{width:100%;max-width:1360px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:
 .panneau-pdf[hidden]{display:none}
 .cadre-pdf{background:var(--carte);border:1px solid var(--bord);border-radius:var(--rayon);
   box-shadow:var(--ombre);overflow:hidden}
-.cadre-pdf iframe,.cadre-pdf object{display:block;width:100%;height:min(78vh,860px);border:0;background:var(--pdf-fond)}
+.cadre-pdf iframe,.cadre-pdf object{display:block;width:100%;height:78dvh;border:0;background:var(--pdf-fond)}
+@media (max-width:760px){
+  .cadre-pdf iframe,.cadre-pdf object{height:72dvh}
+}
 .repli{padding:1.2rem;text-align:center;font-size:.94rem;color:var(--gris-700)}
 .repli a{color:var(--lien);font-weight:700}
 .note{max-width:1020px;margin:1rem auto 0;font-size:.9rem;color:var(--gris-500);text-align:center}
@@ -181,8 +188,12 @@ footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--
 @media (min-width:1000px){
   .lecture{grid-template-columns:minmax(230px,280px) minmax(0,1fr)}
   .col-sommaire{position:sticky;top:6.5rem;align-self:start;
-    max-height:calc(100dvh - 8rem);overflow-y:auto;overscroll-behavior:contain}
-  .col-sommaire nav.toc{margin:0;background:var(--carte-2);font-size:.9rem}
+    max-height:calc(100dvh - 8rem);display:flex;flex-direction:column;
+    overscroll-behavior:contain}
+  .col-sommaire .recherche{flex:none}
+  .col-sommaire nav.toc{margin:0;background:var(--carte-2);font-size:.9rem;
+    overflow-y:auto;flex:1;min-height:0;scrollbar-width:none}
+  .col-sommaire nav.toc::-webkit-scrollbar{display:none;width:0;height:0}
   .doc{max-width:none;margin:0}
 }
 @media (max-width:760px){
@@ -193,6 +204,53 @@ footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--
   .doc{padding:1.6rem 1.2rem;font-size:.98rem}
   .doc h1{font-size:1.5rem}
   .doc p{text-align:left}
+  .doc .table-scroll{overflow-x:auto;margin:1rem 0;padding:0 .25rem;-webkit-overflow-scrolling:touch}
+  .doc table{font-size:.86rem}
+  .doc th,.doc td{padding:.5em .6em}
+  .seances{gap:.7rem}
+  .seance-saut select{max-width:56vw}
+}
+@media (max-width:480px){
+  .barre{gap:.5rem;padding:.6rem .75rem;align-items:flex-start}
+  .marque{gap:.5rem}
+  .logo{width:38px;height:38px;border-radius:8px}
+  .logo small{font-size:.5rem;letter-spacing:.14em}
+  .logo b{font-size:.82rem}
+  .titres{min-width:0;flex:1}
+  h1.titre{font-size:.92rem;line-height:1.25}
+  .meta{font-size:.72rem;line-height:1.5}
+  .actions{gap:.45rem}
+  .segmente{gap:1px;padding:2px;flex:none}
+  .segmente button{padding:.45rem .6rem;font-size:.78rem;min-height:40px;border-radius:999px}
+  .theme{padding:.45rem .6rem;font-size:.78rem;min-height:40px;flex:none}
+  .bouton{padding:.5rem .75rem;font-size:.8rem;min-height:40px;gap:.4rem}
+  main{padding:.75rem .6rem}
+  .doc{padding:1.2rem .85rem;font-size:.95rem;border-radius:10px}
+  .doc h1{font-size:1.3rem;border-left-width:6px;padding-left:.5rem}
+  .doc h2{font-size:1.15rem}
+  .doc h3{font-size:1.02rem}
+  .doc p{font-size:.94rem}
+  .doc pre{font-size:.82rem;padding:.7rem .9rem}
+  .doc .table-scroll{overflow-x:auto;margin:.7rem 0;padding:0 .15rem;-webkit-overflow-scrolling:touch}
+  .doc table{font-size:.82rem}
+  .doc th,.doc td{padding:.4em .5em;font-size:.82rem}
+  .cadre-pdf iframe,.cadre-pdf object{height:68dvh}
+  .pied{flex-direction:column;align-items:flex-start;gap:.5rem;padding:1rem .8rem 1.3rem}
+  .seances{gap:.5rem;padding:.7rem .1rem 0}
+  .seance-lien{font-size:.85rem}
+  #seance-suiv{margin-left:0}
+  .seance-saut{margin:.3rem 0;font-size:.8rem}
+  .seance-saut select{font-size:.78rem;max-width:min(48vw,22rem);padding:.35rem .5rem}
+  .toc-bouton{padding:.5rem .8rem;font-size:.85rem;min-height:44px}
+  .note{font-size:.8rem;padding:0 .5rem}
+  .recherche input[type="search"]{font-size:.88rem;padding:.45rem .65rem;min-height:44px}
+  .recherche-compte{font-size:.78rem}
+}
+@media (pointer:coarse){
+  .segmente button,.theme,.bouton,.toc-bouton{
+    min-height:44px;
+  }
+  .seance-saut select{min-height:38px}
 }
 @media print{
   .liseret,header.site,.actions,.note,.col-sommaire,.toc-barre,.recherche,.seances,footer.site{display:none}
@@ -224,6 +282,13 @@ footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--
 @media (max-width:999px){
   .col-sommaire[hidden]{display:none}
 }
+@media (max-width:999px){
+  .col-sommaire:not([hidden]){display:flex;flex-direction:column;max-height:65vh}
+  .col-sommaire:not([hidden]) .recherche{flex:none;position:sticky;top:0;
+    background:var(--carte);z-index:1;padding-bottom:.8rem;margin-bottom:.4rem}
+  .col-sommaire:not([hidden]) nav.toc{flex:1;overflow-y:auto;scrollbar-width:none}
+  .col-sommaire:not([hidden]) nav.toc::-webkit-scrollbar{display:none;width:0;height:0}
+}
 @media (min-width:1000px){
   .toc-barre{display:none}
   .col-sommaire[hidden]{display:block}
@@ -254,7 +319,6 @@ footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--
 .seance-lien:hover{color:var(--lien-survol);text-decoration:underline}
 .seance-lien[aria-disabled="true"]{color:var(--gris-500);pointer-events:none;text-decoration:none}
 .seance-lien:focus-visible{outline:3px solid var(--rouge);outline-offset:2px;border-radius:6px}
-#seance-suiv{margin-left:auto}
 .seance-saut{margin:0 auto;display:inline-flex;align-items:center;gap:.5rem;
   font-size:.85rem;color:var(--gris-500)}
 .seance-saut select{font:inherit;font-size:.88rem;font-weight:600;color:var(--gris-700);

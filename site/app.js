@@ -26,6 +26,8 @@
   }
   bDoc.addEventListener('click',function(){show('doc');});
   bPdf.addEventListener('click',function(){show('pdf');});
+  var bRapport=document.getElementById('btn-rapport');
+  if(bRapport){bRapport.addEventListener('click',function(){window.location.href='rapport.html';});}
   show(initial(),false);
 
   // Theme sombre / clair : meme motif que show()/initial() ci-dessus.
@@ -34,10 +36,8 @@
     var dark=(theme==='dark');
     if(dark){document.documentElement.dataset.theme='dark';}
     else{delete document.documentElement.dataset.theme;}
-    if(bTheme){
-      bTheme.setAttribute('aria-pressed',dark?'true':'false');
-      bTheme.textContent=dark?'Thème clair':'Thème sombre';
-    }
+  if(bTheme){bTheme.setAttribute('aria-pressed',d?'true':'false');
+    bTheme.setAttribute('aria-label',d?'Activer le thème clair':'Activer le thème sombre');}
     if(save!==false){try{localStorage.setItem('cahier-theme',dark?'dark':'light');}catch(e){}}
   }
   function initialTheme(){

@@ -42,8 +42,11 @@ def main() -> None:
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page, encoding="utf-8")
-    for asset in ("style.css", "app.js"):
+    for asset in ("style.css", "app.js", "rapport.html", "rapport-data.json"):
         shutil.copyfile(SITE / asset, out.parent / asset)
+    xls = ROOT / "rapport-activite-template.xls"
+    if xls.exists():
+        shutil.copyfile(xls, out.parent / xls.name)
     print(f"Site assemblé : {out} ({len(page)} caractères)")
 
 

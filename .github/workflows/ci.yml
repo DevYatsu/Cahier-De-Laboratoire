@@ -36,6 +36,7 @@ jobs:
         run: |
           python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html
           python3 scripts/assemble_site.py --toc /tmp/toc.html --fragment /tmp/fragment.html --out public/index.html
+          cp rapport-activite-template.xls public/rapport-activite-template.xls
           # Flatten each séance's assets under public/assets/<seance-dir>/ so
           # that "assets/foo.jpg" references resolve on the deployed site.
           for assets in seances/*/assets; do

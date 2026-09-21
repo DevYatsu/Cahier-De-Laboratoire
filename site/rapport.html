@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Rapport d'activité d'apprentissage — Yanis Amani, module 3275 Cybersécurité.">
+<title>Rapport d'activité — Yanis Amani · 3275</title>
+<script>
+try{var t=null;try{t=localStorage.getItem('cahier-theme');}catch(e){}
+if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+.infos{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin:1.2rem 0}
+.info{background:var(--carte-2);border:1px solid var(--bord);border-radius:10px;padding:.7rem .95rem}
+.info dt{margin:0;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-500)}
+.info dd{margin:.2rem 0 0;font-weight:700;font-size:1rem}
+.cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1.2rem 0}
+.carte{background:var(--carte-2);border:1px solid var(--bord);border-radius:10px;padding:.8rem 1rem;border-top:4px solid var(--rouge)}
+.carte.total{border-top-color:var(--noir)}
+.carte p{margin:.15rem 0;text-align:left}
+.carte .code{font-weight:800;font-size:1.05rem}
+.carte .chiffre{font-size:1.3rem;font-weight:800}
+.carte .etiquette{font-size:.8rem;color:var(--gris-500)}
+.badge{display:inline-block;font-size:.75rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:.15em .6em;border-radius:999px;border:1px solid var(--bord);white-space:nowrap}
+.badge.normal{background:var(--rouge-clair);color:var(--rouge-fonce);border-color:var(--rouge-fonce)}
+.badge.hors{background:var(--contraste);color:var(--sur-contraste)}
+.badge.exemple{background:transparent;color:var(--gris-500);border-style:dashed;margin-left:.4rem}
+.doc tr.total-ligne td,.doc tr.total-ligne th{background:var(--contraste);color:var(--sur-contraste);font-weight:800}
+.doc tr.total-ligne td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.doc td.heures{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bandeau-exemple{border-left:6px solid var(--gris-500);background:var(--appel-neutre);border-radius:0 10px 10px 0;
+  padding:.9rem 1.1rem;margin:1.2rem 0;font-size:.92rem}
+.attente{margin:1.2rem 0}
+.mention-source{font-size:.85rem;color:var(--gris-500);font-style:italic;margin:1.4rem 0 0}
+.sic{color:var(--gris-500);font-size:.85em}
+@media print{
+  .bandeau-exemple,.attente{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<a class="saut" href="#contenu">Aller au contenu</a>
+<div class="liseret" aria-hidden="true"></div>
+<header class="site">
+  <div class="barre">
+    <div class="marque">
+      <div class="logo" aria-hidden="true"><small>HE-ARC</small><b>LAB</b></div>
+      <div class="titres">
+        <p class="sur">He-Arc · Rapport d'activité</p>
+        <h1 class="titre">Learning Activity Report — Module 3275 Cybersécurité</h1>
+        <p class="meta"><strong>Yanis Amani</strong> · Du 14 septembre 2026 au 5 février 2027</p>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="bouton" href="index.html">← Cahier</a>
+      <button type="button" id="btn-theme" class="theme" aria-pressed="false">Thème sombre</button>
+      <a class="bouton" href="rapport-activite-template.xls" download>Télécharger le tableur (.xls)</a>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="lecture" style="grid-template-columns:minmax(0,1fr)">
+    <article class="doc" id="contenu" tabindex="-1" aria-label="Rapport d'activité d'apprentissage">
+
+      <h1><span class="num">Rapport</span> d'activité d'apprentissage</h1>
+      <p class="mention">Transcription fidèle de <code>rapport-activite-template.xls</code>, feuille SUMMARY. Les exemples fournis dans le modèle sont conservés tels quels et signalés comme tels.</p>
+
+      <dl class="infos">
+        <div class="info"><dt>Prénom Nom</dt><dd>Yanis Amani</dd></div>
+        <div class="info"><dt>Période</dt><dd>Du 14 septembre 2026 au 5 février 2027</dd></div>
+        <div class="info"><dt>Module</dt><dd>3275 Cybersécurité / SA</dd></div>
+      </dl>
+
+      <h2 id="modules">Modules, ECTS et périodes</h2>
+      <div class="cartes" role="list">
+        <div class="carte" role="listitem">
+          <p class="code">3275.1</p>
+          <p class="chiffre">3,125 ECTS</p>
+          <p class="etiquette">Cours de 4 périodes · 20,0 périodes</p>
+        </div>
+        <div class="carte" role="listitem">
+          <p class="code">3275.2</p>
+          <p class="chiffre">1,875 ECTS</p>
+          <p class="etiquette">Cours de 4 périodes · 10,0 périodes</p>
+        </div>
+        <div class="carte total" role="listitem">
+          <p class="code">Total</p>
+          <p class="chiffre">5,0 ECTS</p>
+          <p class="etiquette">30,0 périodes</p>
+        </div>
+      </div>
+
+      <h2 id="activites">Heures réalisées</h2>
+      <div class="bandeau-exemple">
+        <strong>− Exemples −</strong> tableau décrivant les heures réalisées
+        (exercices, mini-projets, préparation d'évaluations, recherches documentaires,
+        maintenance du cahier de laboratoire). Les 5 lignes ci-dessous viennent du modèle :
+        ce sont des exemples, pas encore des heures validées.
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th scope="col">Module</th><th scope="col">Catégorie</th><th scope="col">Description de l'activité</th><th scope="col" style="text-align:right">Heures</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3275.1</td>
+            <td><span class="badge normal">Normal</span><span class="badge exemple">Exemple</span></td>
+            <td>Présence au cours, activités selon le déroulé avec MAS</td>
+            <td class="heures">3,00</td>
+          </tr>
+          <tr>
+            <td>3275.2</td>
+            <td><span class="badge normal">Normal</span><span class="badge exemple">Exemple</span></td>
+            <td>Travail sur le mini cas X lors d'une séance suivie par l'assistant</td>
+            <td class="heures">3,00</td>
+          </tr>
+          <tr>
+            <td>3275.,1 <span class="sic" title="Coquille présente dans le tableur source">(sic — coquille du tableur)</span></td>
+            <td><span class="badge normal">Normal</span><span class="badge exemple">Exemple</span></td>
+            <td>Présentation du service informatique</td>
+            <td class="heures">1,50</td>
+          </tr>
+          <tr>
+            <td>3275.1</td>
+            <td><span class="badge normal">Normal</span><span class="badge exemple">Exemple</span></td>
+            <td>Regardé une vidéo sur le concept de SIEM, URL&nbsp;: XXX, pendant cours normal</td>
+            <td class="heures">0,25</td>
+          </tr>
+          <tr>
+            <td>3275.2</td>
+            <td><span class="badge hors">Hors</span><span class="badge exemple">Exemple</span></td>
+            <td>Rattrapé en autonomie où je n'étais pas présent&nbsp;: travail sur mini-cas Y…</td>
+            <td class="heures">3,00</td>
+          </tr>
+          <tr class="total-ligne">
+            <td colspan="3">Total des heures (exemples du modèle)</td>
+            <td class="heures">10,75</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout attente">
+        <p class="callout-title">À venir</p>
+        <p style="margin:0;text-align:left">Aucune heure réelle saisie pour l'instant. Les vraies entrées remplaceront
+        ces exemples au fil du semestre, avec la distinction
+        <strong>Normal</strong> (heures en présence / séance suivie) et
+        <strong>Hors</strong> (travail autonome de rattrapage).</p>
+      </div>
+
+      <p class="mention-source">Basé sur&nbsp;: LAR, Chris, HEIG-VD, ma version du cours QdL 2012 simplifiée, encore plus simplifiée pour 3275.</p>
+      <p class="note" style="text-align:left;max-width:none">Source&nbsp;: <a href="rapport-activite-template.xls" download>rapport-activite-template.xls</a> (feuille SUMMARY). Données figées dans <code>site/rapport-data.json</code> — voir <code>scripts/export_rapport.py</code> pour régénérer.</p>
+
+    </article>
+  </div>
+</main>
+<footer class="site">
+  <div class="pied">
+    <span><strong>HE-ARC</strong> · Rapport d'activité de Yanis Amani</span>
+    <span>Module 3275 Cybersécurité · <a href="index.html">Retour au cahier</a></span>
+  </div>
+</footer>
+<script>
+(function(){
+  var b=document.getElementById('btn-theme');
+  function apply(t,s){
+    var d=(t==='dark');
+    if(d){document.documentElement.dataset.theme='dark';}else{delete document.documentElement.dataset.theme;}
+    if(b){b.setAttribute('aria-pressed',d?'true':'false');b.textContent=d?'Thème clair':'Thème sombre';}
+    if(s!==false){try{localStorage.setItem('cahier-theme',d?'dark':'light');}catch(e){}}
+  }
+  function init(){
+    try{
+      var s=null;try{s=localStorage.getItem('cahier-theme');}catch(e){}
+      if(s==='dark'||s==='light'){return s;}
+      if(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches){return 'dark';}
+    }catch(e){}
+    return 'light';
+  }
+  apply(init(),false);
+  if(b){b.addEventListener('click',function(){
+    apply(document.documentElement.dataset.theme==='dark'?'light':'dark');
+  });}
+})();
+</script>
+</body>
+</html>

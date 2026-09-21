@@ -86,11 +86,6 @@ FIGURE_SVGS: dict[str, tuple[str, str, str | None]] = {
         "Flux ISO 27001 : Direction, Risques, SoA, Mesures",
         None,
     ),
-    "01-auto-evaluation-initiale.typ": (
-        "autoeval-chart",
-        "Auto-évaluation initiale par thème, notes de 1 à 5, creux sur le confinement",
-        "Auto-évaluation initiale par thème (1 à 5). Creux : confinement (2).",
-    ),
     "04-secteurs-domaines-application.typ": (
         "secteurs-spoke",
         "Secteurs public, transverses et privé reliés aux échelles moi, nous et tous",

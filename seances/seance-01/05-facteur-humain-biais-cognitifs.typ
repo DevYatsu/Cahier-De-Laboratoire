@@ -1,4 +1,4 @@
-// Activité 4 — aspect humain, risques et biais cognitifs (partie après-midi).
+// Activité 4 - aspect humain, risques et biais cognitifs (partie après-midi).
 #import "/template.typ": *
 
 == Activité 4 : Aspect humain, risques et biais cognitifs

@@ -1,4 +1,4 @@
-// Exercice 1 — auto-évaluation initiale (partie matin).
+// Exercice 1 - auto-évaluation initiale (partie matin).
 #import "/template.typ": *
 
 == Exercice 1 : Auto-évaluation initiale
@@ -19,8 +19,8 @@ L'énoncé demande de noter de 1 à 5 mon niveau sur chaque thème. Je recopie l
   align: (left, center),
   [*Thème*], [*1 à 5*],
   [Compréhension générale des enjeux de la sécurité (pourquoi c'est important, quels types de menaces existent, comment les traiter)], [4],
-  [Compréhension des thèmes déjà vus — niveau théorique], [3],
-  [Mise en pratique de ces thèmes — niveau appliqué], [3],
+  [Compréhension des thèmes déjà vus - niveau théorique], [3],
+  [Mise en pratique de ces thèmes - niveau appliqué], [3],
   [Conscience de la sécurité quand je conçois / développe / maintiens un projet (y compris contributions open source éventuelles)], [4],
   [Réflexes de développement sécurisé concret], [3],
   [Gestion des risques (avoir déjà dû, même informellement, déterminer les menaces puis évaluer les risques / impacts d'un choix, par exemple technique)], [3],

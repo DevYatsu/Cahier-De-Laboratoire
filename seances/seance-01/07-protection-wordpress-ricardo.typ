@@ -1,4 +1,4 @@
-// Activité 3 — protection concrète d'un WordPress (cas Ricardo).
+// Activité 3 - protection concrète d'un WordPress (cas Ricardo).
 #import "/template.typ": *
 
 == Activité 3 : Protection concrète d'un WordPress (Ricardo)

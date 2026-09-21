@@ -1,4 +1,4 @@
-// Travail personnel — ISO 27001.
+// Travail personnel - ISO 27001.
 #import "/template.typ": *
 
 == Travail personnel : ISO 27001

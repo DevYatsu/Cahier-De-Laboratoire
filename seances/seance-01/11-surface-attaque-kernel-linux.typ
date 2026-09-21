@@ -1,4 +1,4 @@
-// Activité 7 — surface d'attaque du kernel Linux (cas opérateur cloud).
+// Activité 7 - surface d'attaque du kernel Linux (cas opérateur cloud).
 #import "/template.typ": *
 
 == Activité 7 : Pourquoi la surface d'attaque du kernel Linux est devenu récemment un problème ? Que faire (cas : opérateur cloud) ?

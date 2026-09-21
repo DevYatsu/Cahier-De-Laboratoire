@@ -306,7 +306,7 @@ def parse_image(block: str, source: Path) -> str:
 def typst_placeholder(source: Path) -> str:
     """PDF-only placeholder for a construct HTML cannot express."""
     return (f'<div class="typst-only" role="note">'
-            f'<p>Diagramme — voir la version PDF.</p>'
+            f'<p>Diagramme - voir la version PDF.</p>'
             f'<p class="typst-only-source">Source : <code>{html.escape(source.name)}</code></p>'
             f'</div>')
 

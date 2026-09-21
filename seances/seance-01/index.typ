@@ -1,4 +1,4 @@
-// Séance 01 — point d'entrée. Le contenu est réparti en sous-documents,
+// Séance 01 - point d'entrée. Le contenu est réparti en sous-documents,
 // inclus ci-dessous dans l'ordre de la séance, préfixés par leur numéro
 // d'ordre. Chaque fichier réimporte le template partagé, car un #include
 // ne partage pas la portée.
@@ -10,9 +10,9 @@
 Énoncés partagés : #link("https://docs.google.com/document/d/1OXlTD6PwEBywkeKl4konbpS4LNzmaa3MotiycR-usLM/edit?usp=sharing")[Exercices partagés (Google Docs)].
 Ci-dessous, les exercices personnels réalisés en séance.
 
-#encadre("Objectifs")[Première séance : j'évalue mon niveau de départ en sécurité et on revoit ensemble les critères principaux et secondaires.]
+#encadre("Objectifs")[Poser mes bases en sécurité : évaluer mon niveau initial, maîtriser la triade CIA et ses terrains d'application, me situer en DevSecOps, comprendre le facteur humain et décortiquer ISO 27001.]
 
-Cette séance reste volontairement large. Les exercices 1 à 4 ne visent pas un métier précis, ils posent les bases qui servent ensuite à tout le monde : dev, admin sys et réseau, chef de projet, et même simple utilisateur de services en ligne. Pour moi, c'est surtout le regard dev qui est éclairé : comprendre la triade CIA et où la sécurité s'applique avant de parler de standards ou d'audit, ce que je détaille ensuite dans le travail perso sur ISO 27001.
+Le matin pose les fondations : auto-évaluation chiffrée (exercices 1), triade CIA et critères secondaires (exercices 2 et 3), puis secteurs et échelles d'application (exercice 4). L'après-midi resserre sur la pratique : positionnement DevSecOps via CI/CD et roadmap (activité 1) et facteur humain avec six familles de biais et leurs mitigations (activité 4). Le travail personnel décortique ISO 27001 : périmètre SMSI, risques top-down, SoA et cycle PDCA. Restent à compléter : protection WordPress (activité 3), recommandations d'organismes (activité 2), vocabulaire (activité 5), rôle du RSSI (activité 6) et surface d'attaque du kernel Linux (activité 7).
 
 #include "01-auto-evaluation-initiale.typ"
 #include "02-criteres-principaux-secondaires.typ"

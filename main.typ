@@ -1,4 +1,4 @@
-// Cahier de laboratoire — document principal.
+// Cahier de laboratoire - document principal.
 // La charte, la palette et les helpers viennent de template.typ.
 #import "/template.typ": *
 

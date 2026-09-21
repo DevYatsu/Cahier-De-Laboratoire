@@ -1,4 +1,4 @@
-// Exercice 2 — critères principaux et secondaires (partie matin).
+// Exercice 2 - critères principaux et secondaires (partie matin).
 #import "/template.typ": *
 
 == Exercice 2 : Critères principaux et secondaires

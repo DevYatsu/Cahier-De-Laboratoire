@@ -1,8 +1,8 @@
 // Template partagé du cahier : mise en page globale, palette et helpers.
 //
 // Ce fichier est destiné à être #importé (jamais #inclus) : il ré-exporte les
-// packages et les couleurs aux séances, sans que scripts/build_site.py — qui
-// suit l'ordre des #include — ne tente de le rendre comme une source.
+// packages et les couleurs aux séances, sans que scripts/build_site.py - qui
+// suit l'ordre des #include - ne tente de le rendre comme une source.
 
 #import "@preview/hydra:0.6.3": hydra
 #import "@preview/showybox:2.0.4": showybox

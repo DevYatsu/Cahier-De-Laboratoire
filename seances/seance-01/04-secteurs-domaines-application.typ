@@ -1,4 +1,4 @@
-// Exercice 4 — principaux secteurs, domaines et objets d'application (partie matin).
+// Exercice 4 - principaux secteurs, domaines et objets d'application (partie matin).
 #import "/template.typ": *
 
 == Exercice 4 : Principaux secteurs, domaines et objets d'application

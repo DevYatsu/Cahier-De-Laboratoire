@@ -1,4 +1,4 @@
-// Exercice 3 — évaluer la triade CIA sur des cas concrets (partie matin).
+// Exercice 3 - évaluer la triade CIA sur des cas concrets (partie matin).
 #import "/template.typ": *
 
 == Exercice 3 : Évaluer la triade CIA sur des cas concrets

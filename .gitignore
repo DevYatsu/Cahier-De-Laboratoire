@@ -4,6 +4,7 @@
 # Sorties de compilation
 *.pdf
 /public/
+.build/
 
 # Python
 __pycache__/

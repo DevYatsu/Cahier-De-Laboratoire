@@ -528,12 +528,23 @@ def render_blocks(raw_lines: list[str]) -> str:
 
 TOC_MAX_LEVEL = 3  # main.typ pins #outline(depth: 3); the site TOC must match.
 
+# Rubriques identiques dans chaque travail : présentes dans le corps, absentes
+# du sommaire. Doit rester synchronisé avec rubriques-repetees dans main.typ.
+TOC_HIDDEN_LABELS = frozenset({
+    "Métiers pertinents",
+    "Déroulement",
+    "Résultats",
+    "Interprétation des résultats",
+})
+
 
 def collect_headings(fragment: str) -> list[tuple[int, str, str, str]]:
     """Return (level, id, number, label) for every TOC heading (levels 1-3).
 
     Level-4+ headings are rendered in the body but excluded here, mirroring the
-    PDF outline depth so the two summaries stay exactly comparable.
+    PDF outline depth so the two summaries stay exactly comparable. Headings
+    whose label repeats in every activity are also dropped, mirroring the
+    `rubriques-repetees` filter in main.typ.
     """
     found = []
     for m in re.finditer(r'<h([1-9]) id="([^"]+)">(.*?) <a class="ancre"', fragment):
@@ -546,6 +557,8 @@ def collect_headings(fragment: str) -> list[tuple[int, str, str, str]]:
         if num_m:
             inner = inner[num_m.end():]
         label = html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()
+        if label in TOC_HIDDEN_LABELS:
+            continue
         found.append((level, m.group(2), num, label))
     return found
 

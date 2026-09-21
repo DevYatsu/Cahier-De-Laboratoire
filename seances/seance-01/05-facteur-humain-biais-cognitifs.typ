@@ -1,7 +1,7 @@
 // Activité 4 — aspect humain, risques et biais cognitifs (partie après-midi).
 #import "/template.typ": *
 
-== Aspect humain, risques et biais cognitifs
+== Activité 4 : Aspect humain, risques et biais cognitifs
 #text(size: 0.9em, fill: gray)[Partie après-midi · activité 4]
 
 #encadre("Objectifs")[Comprendre les biais cognitifs qui affectent la sécurité : comment les repérer, les limiter, et pourquoi ils changent selon la personne et la culture.]
@@ -56,7 +56,7 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_cognitif")[Biais cogni
 
 Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de groupe], #link("https://en.wikipedia.org/wiki/Psychological_safety")[Psychological safety].
 
-==== Que faire pour limiter ces risques de prise de décision ?
+==== Activité 4 : Que faire pour limiter ces risques de prise de décision ?
 
 À compléter.
 

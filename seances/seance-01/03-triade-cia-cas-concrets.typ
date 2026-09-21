@@ -1,8 +1,8 @@
 // Exercice 3 — évaluer la triade CIA sur des cas concrets (partie matin).
 #import "/template.typ": *
 
-== Évaluer la triade CIA sur des cas concrets
-#text(size: 0.9em, fill: gray)[Partie matin · énoncé 3]
+== Exercice 3 : Évaluer la triade CIA sur des cas concrets
+#text(size: 0.9em, fill: gray)[Partie matin]
 
 #encadre("Objectifs")[À compléter.]
 

@@ -20,6 +20,8 @@ Chaque travail suit le même squelette de titres. Seules les sections en **gras*
 
 Une section sans contenu porte le texte `À compléter.` (sans guillemets).
 
+Ces rubriques reviennent à l'identique dans chaque travail. Elles sont donc masquées dans le sommaire, côté PDF (`rubriques-repetees` dans `main.typ`) comme côté site (`TOC_HIDDEN_LABELS` dans `scripts/build_site.py`), tout en restant numérotées et visibles dans le corps du document. Les deux listes doivent rester synchronisées.
+
 En préparation finale d'examen : structuration, références et renvois internes ajoutés, recul renforcé.
 
 ## Ce dépôt

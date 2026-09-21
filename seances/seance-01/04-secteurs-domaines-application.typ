@@ -1,10 +1,10 @@
 // Exercice 4 — principaux secteurs, domaines et objets d'application (partie matin).
 #import "/template.typ": *
 
-== Principaux secteurs, domaines et objets d'application
-#text(size: 0.9em, fill: gray)[Partie matin · énoncé 4]
+== Exercice 4 : Principaux secteurs, domaines et objets d'application
+#text(size: 0.9em, fill: gray)[Partie matin]
 
-#encadre("Objectifs")[À compléter.]
+#encadre("Objectifs")[Recenser où la sécurité s'applique et qui elle concerne. Je distingue les secteurs public et privé ainsi que les domaines transverses, puis les échelles moi, nous et tous.]
 
 === Métiers pertinents
 

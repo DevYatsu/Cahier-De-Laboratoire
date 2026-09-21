@@ -1,8 +1,8 @@
 // Activité 2 — recommandations d'organismes de sécurité (partie après-midi).
 #import "/template.typ": *
 
-== Recommandations d'organismes de sécurité
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 2]
+== Activité 2 : Recommandations d'organismes de sécurité
+#text(size: 0.9em, fill: gray)[Partie après-midi]
 
 #encadre("Objectifs")[À compléter.]
 

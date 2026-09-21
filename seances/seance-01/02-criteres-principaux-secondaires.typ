@@ -1,14 +1,14 @@
 // Exercice 2 — critères principaux et secondaires (partie matin).
 #import "/template.typ": *
 
-== Critères principaux et secondaires
-#text(size: 0.9em, fill: gray)[Partie matin · énoncé 2]
+== Exercice 2 : Critères principaux et secondaires
+#text(size: 0.9em, fill: gray)[Partie matin]
 
-#encadre("Objectifs")[À compléter.]
+#encadre("Objectifs")[Distinguer les trois critères principaux CIA des critères secondaires qui les rendent applicables : identification et traçabilité, authentification, sensibilisation, résilience.]
 
 === Métiers pertinents
 
-À compléter.
+Tous les métiers sont concernés. Chaque rôle arbitre entre ces critères à son niveau, du développeur à l'administrateur jusqu'au RSSI.
 
 === Déroulement
 

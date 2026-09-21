@@ -1,8 +1,8 @@
 // Activité 6 — rôle de responsable de la sécurité d'une entreprise.
 #import "/template.typ": *
 
-== Rôle de responsable de la sécurité d'une entreprise
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 6]
+== Activité 6 : Rôle de responsable de la sécurité d'une entreprise
+#text(size: 0.9em, fill: gray)[Partie après-midi]
 
 #encadre("Objectifs")[À compléter.]
 

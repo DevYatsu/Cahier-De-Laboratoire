@@ -82,7 +82,26 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
   </div>
 </header>
 <main>
-  <div class="lecture" style="grid-template-columns:minmax(0,1fr)">
+  <div class="toc-barre">
+    <button type="button" id="btn-toc" class="toc-bouton" aria-expanded="false" aria-controls="sommaire">Sommaire <span class="fleche" aria-hidden="true">▾</span></button>
+  </div>
+  <div class="lecture">
+    <aside class="col-sommaire" id="sommaire" aria-label="Sommaire de navigation">
+      <div class="recherche" role="search">
+        <label class="recherche-label" for="recherche">Rechercher dans le sommaire</label>
+        <input type="search" id="recherche" name="recherche" autocomplete="off"
+          placeholder="Filtrer le sommaire…" aria-label="Filtrer le sommaire par mot-clé"
+          aria-describedby="recherche-compte">
+        <p class="recherche-compte" id="recherche-compte" role="status" aria-live="polite"></p>
+      </div>
+      <nav class="toc" aria-label="Sommaire de navigation">
+        <p class="toc-titre">Sommaire</p>
+        <ul>
+          <li><a href="#modules">Modules, ECTS et périodes</a></li>
+          <li><a href="#activites">Heures réalisées</a></li>
+        </ul>
+      </nav>
+    </aside>
     <article class="doc" id="contenu" tabindex="-1" aria-label="Rapport d'activité d'apprentissage">
 
       <h1><span class="num">Rapport</span> d'activité d'apprentissage</h1>
@@ -190,7 +209,7 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
   function apply(t,s){
     var d=(t==='dark');
     if(d){document.documentElement.dataset.theme='dark';}else{delete document.documentElement.dataset.theme;}
-    if(b){b.setAttribute('aria-pressed',d?'true':'false');b.textContent=d?'Thème clair':'Thème sombre';}
+    if(b){b.setAttribute('aria-pressed',d?'true':'false');b.setAttribute('aria-label',d?'Activer le thème clair':'Activer le thème sombre');}
     if(s!==false){try{localStorage.setItem('cahier-theme',d?'dark':'light');}catch(e){}}
   }
   function init(){
@@ -205,6 +224,66 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
   if(b){b.addEventListener('click',function(){
     apply(document.documentElement.dataset.theme==='dark'?'light':'dark');
   });}
+ })();
+(function(){
+  var sommaire=document.getElementById('sommaire');
+  var nav=document.querySelector('#sommaire nav.toc');
+  var entrees=nav?Array.prototype.slice.call(nav.querySelectorAll('li')):[];
+  var champ=document.getElementById('recherche');
+  var compte=document.getElementById('recherche-compte');
+  function filtrer(){
+    var q=(champ?champ.value:'').toLowerCase();
+    var visibles=[];
+    entrees.forEach(function(li){
+      var a=li.querySelector('a');
+      var t=a?a.textContent.toLowerCase():'';
+      var m=!q||t.indexOf(q)!==-1;
+      li.hidden=!m;
+      if(m&&a){visibles.push(a);}
+    });
+    if(nav){
+      Array.prototype.slice.call(nav.querySelectorAll('ul')).forEach(function(ul){
+        var enfants=Array.prototype.slice.call(ul.children);
+        ul.hidden=!!q&&enfants.length>0&&enfants.every(function(c){return c.hidden;});
+      });
+    }
+    if(compte){
+      if(!q){compte.textContent='';}
+      else if(!visibles.length){compte.textContent='Aucun résultat';}
+      else if(visibles.length===1){compte.textContent='1 résultat';}
+      else{compte.textContent=visibles.length+' résultats';}
+    }
+  }
+  if(champ){
+    champ.addEventListener('input',filtrer);
+    champ.addEventListener('keydown',function(ev){
+      if(ev.key==='Enter'){
+        var premiers=entrees.filter(function(li){return !li.hidden;});
+        if(premiers.length){var a=premiers[0].querySelector('a');if(a)a.click();}
+      }else if(ev.key==='Escape'||ev.key==='Esc'){
+        if(champ.value){champ.value='';filtrer();}
+      }
+    });
+    filtrer();
+  }
+  var bToc=document.getElementById('btn-toc');
+  if(bToc&&sommaire){
+    bToc.addEventListener('click',function(){
+      var ouvert=!sommaire.hidden;
+      sommaire.hidden=!ouvert;
+      bToc.setAttribute('aria-expanded',ouvert?'true':'false');
+    });
+    var mq=window.matchMedia?window.matchMedia('(min-width: 1000px)'):null;
+    function appliquerToc(){
+      if(!mq||!mq.matches){sommaire.hidden=true;bToc.setAttribute('aria-expanded','false');}
+      else{sommaire.hidden=false;bToc.setAttribute('aria-expanded','true');}
+    }
+    if(mq){
+      if(mq.addEventListener){mq.addEventListener('change',appliquerToc);}
+      else if(mq.addListener){mq.addListener(appliquerToc);}
+    }
+    appliquerToc();
+  }
 })();
 </script>
 </body>

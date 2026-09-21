@@ -8,6 +8,7 @@
     pdf.hidden=!isPdf; doc.style.display=isPdf?'none':'';
     bPdf.setAttribute('aria-pressed',isPdf?'true':'false');
     bDoc.setAttribute('aria-pressed',isPdf?'false':'true');
+    if(navSeances){navSeances.hidden=isPdf;}
     try{
       if(save!==false){try{localStorage.setItem('cahier-vue',mode);}catch(e){}}
       var u=new URL(window.location.href);
@@ -293,7 +294,7 @@
       selectSeance.addEventListener('change',function(){
         if(selectSeance.value){window.location.hash='#'+selectSeance.value;}
       });
-      navSeances.hidden=false;
+      navSeances.hidden=!pdf.hidden;
       window.addEventListener('hashchange',majSeances);
       majSeances();
     }

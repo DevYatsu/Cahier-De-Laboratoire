@@ -39,6 +39,23 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
 @media print{
   .bandeau-exemple,.attente{break-inside:avoid}
 }
+@media (max-width:760px){
+  .infos{grid-template-columns:1fr 1fr;gap:.5rem}
+  .cartes{grid-template-columns:1fr 1fr;gap:.5rem}
+  .carte{padding:.6rem .8rem}
+  .doc{padding:1.6rem 1.2rem}
+  .doc table{font-size:.86rem}
+  .doc th,.doc td{padding:.5em .6em}
+  .doc .table-scroll{overflow-x:auto;margin:1rem 0;padding:0 .25rem;-webkit-overflow-scrolling:touch}
+}
+@media (max-width:480px){
+  .infos{grid-template-columns:1fr;gap:.4rem}
+  .cartes{grid-template-columns:1fr;gap:.4rem}
+  .doc{padding:1.2rem .85rem;font-size:.95rem}
+  .doc table{font-size:.82rem}
+  .doc th,.doc td{padding:.4em .5em}
+  .doc .table-scroll{overflow-x:auto;margin:.7rem 0;padding:0 .15rem;-webkit-overflow-scrolling:touch}
+}
 </style>
 </head>
 <body>
@@ -153,7 +170,7 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
       </div>
 
       <p class="mention-source">Basé sur&nbsp;: LAR, Chris, HEIG-VD, ma version du cours QdL 2012 simplifiée, encore plus simplifiée pour 3275.</p>
-      <p class="note" style="text-align:left;max-width:none">Source&nbsp;: <a href="rapport-activite-template.xls" download>rapport-activite-template.xls</a> (feuille SUMMARY). Données figées dans <code>site/rapport-data.json</code> — voir <code>scripts/export_rapport.py</code> pour régénérer.</p>
+      <p class="note" style="text-align:left;max-width:none">Source&nbsp;: <a href="rapport-activite-template.xls" download>rapport-activite-template.xls</a> (feuille SUMMARY). Généré via <code>scripts/export_rapport.py</code> lors du build CI.</p>
 
     </article>
   </div>

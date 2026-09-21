@@ -32,6 +32,12 @@ jobs:
           python3 scripts/export_figures.py
           ls -lh public/ public/assets/figs/
 
+      - name: Generate rapport data
+        run: |
+          pip install xlrd -q
+          python3 scripts/export_rapport.py
+          ls -lh site/rapport-data.json
+
       - name: Generate website
         run: |
           python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html

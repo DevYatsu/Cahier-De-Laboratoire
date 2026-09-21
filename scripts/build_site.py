@@ -62,6 +62,45 @@ CAPTION_RE = re.compile(r"caption:\s*\[([^\]]*)\]", re.DOTALL)
 # A directive whose body we cannot express in HTML (fletcher, lq, ...).
 VISUAL_MARKER_RE = re.compile(r"#(?:diagram\b|lq\.)")
 
+# Diagrams exported to SVG in CI (figs/<stem>.typ -> public/assets/figs/<stem>.svg).
+# Keyed by source file name; value is (stem, alt text, caption or None).
+# The 3 fletcher figures have no source caption: emit figure+img with alt only.
+FIGURE_SVGS: dict[str, tuple[str, str, str | None]] = {
+    "02-criteres-principaux-secondaires.typ": (
+        "cia-triangle",
+        "Triangle CIA : Confidentialité, Intégrité, Disponibilité, entouré des critères secondaires",
+        None,
+    ),
+    "03-triade-cia-cas-concrets.typ": (
+        "cia-notes-chart",
+        "Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.",
+        "Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.",
+    ),
+    "10-role-responsable-securite.typ": (
+        "rss-chain",
+        "Chaîne des fonctions : Identifier, Protéger, Détecter, Répondre, Récupérer",
+        None,
+    ),
+    "12-travail-personnel-iso-27001.typ": (
+        "iso27001-chain",
+        "Flux ISO 27001 : Direction, Risques, SoA, Mesures",
+        None,
+    ),
+}
+
+
+def figure_svg(source: Path) -> str | None:
+    """Render a known diagram source as an HTML figure backed by an SVG export."""
+    entry = FIGURE_SVGS.get(source.name)
+    if entry is None:
+        return None
+    stem, alt, caption = entry
+    src = html.escape(f"assets/figs/{stem}.svg", quote=True)
+    img = f'<img src="{src}" alt="{html.escape(alt, quote=True)}" loading="lazy">'
+    if caption:
+        return f"<figure>{img}<figcaption>{inline_markup(caption)}</figcaption></figure>"
+    return f"<figure>{img}</figure>"
+
 
 def slugify(text: str) -> str:
     plain = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
@@ -417,7 +456,7 @@ def render_blocks(raw_lines: list[str]) -> str:
             if IMAGE_RE.search(block):
                 out.append(parse_image(block, source))
             else:
-                out.append(typst_placeholder(source))
+                out.append(figure_svg(source) or typst_placeholder(source))
             continue
 
         # Bare #image("...") anywhere on the line.
@@ -444,7 +483,7 @@ def render_blocks(raw_lines: list[str]) -> str:
             flush_list()
             block, i = balanced_block(lines, i, "[", "]")
             if VISUAL_MARKER_RE.search(block):
-                out.append(typst_placeholder(source))
+                out.append(figure_svg(source) or typst_placeholder(source))
             elif IMAGE_RE.search(block):
                 out.append(parse_image(block, source))
             continue
@@ -454,7 +493,7 @@ def render_blocks(raw_lines: list[str]) -> str:
             flush_para()
             flush_list()
             block, i = balanced_block(lines, i, "(", ")")
-            out.append(typst_placeholder(source))
+            out.append(figure_svg(source) or typst_placeholder(source))
             continue
 
         if stripped.startswith("#"):

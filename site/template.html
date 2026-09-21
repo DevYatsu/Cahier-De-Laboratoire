@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Cahier de laboratoire de Yanis Amani - lecture en ligne et PDF. Module 3275.1 / 3275.2, semestre d'automne.">
+<title>Cahier de laboratoire - Yanis Amani</title>
+<script>
+try{var t=null;try{t=localStorage.getItem('cahier-theme');}catch(e){}
+if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="saut" href="#contenu">Aller au contenu</a>
+<div class="liseret" aria-hidden="true"></div>
+<header class="site">
+  <div class="barre">
+    <div class="marque">
+      <div class="logo" aria-hidden="true"><small>HE-ARC</small><b>LAB</b></div>
+      <div class="titres">
+        <p class="sur">He-Arc · Cahier de laboratoire</p>
+        <h1 class="titre">Suivi de module - sécurité</h1>
+        <p class="meta"><strong>Yanis Amani</strong> · 3275.1 / 3275.2 · Semestre d'automne</p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="segmente" role="group" aria-label="Choisir le mode de lecture">
+        <button type="button" id="btn-doc" aria-pressed="true">Document</button>
+        <button type="button" id="btn-pdf" aria-pressed="false">PDF</button>
+      </div>
+      <button type="button" id="btn-theme" class="theme" aria-pressed="false">Thème sombre</button>
+      <a class="bouton" href="cahier.pdf" download>Télécharger le PDF</a>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="toc-barre">
+    <button type="button" id="btn-toc" class="toc-bouton" aria-expanded="false" aria-controls="sommaire">Sommaire <span class="fleche" aria-hidden="true">▾</span></button>
+  </div>
+  <div class="lecture" id="vue-doc">
+    <aside class="col-sommaire" id="sommaire" aria-label="Sommaire de navigation">
+      <div class="recherche" role="search">
+        <label class="recherche-label" for="recherche">Rechercher dans le sommaire</label>
+        <input type="search" id="recherche" name="recherche" autocomplete="off"
+          placeholder="Filtrer le sommaire…" aria-label="Filtrer le sommaire par mot-clé"
+          aria-describedby="recherche-compte">
+        <p class="recherche-compte" id="recherche-compte" role="status" aria-live="polite"></p>
+      </div>
+<!--TOC-->
+    </aside>
+    <article class="doc" id="contenu" aria-label="Version web du cahier" tabindex="-1">
+<!--FRAGMENT-->
+    </article>
+  </div>
+  <nav class="seances" id="nav-seances" aria-label="Navigation entre les séances" hidden>
+    <a class="seance-lien" id="seance-prec" href="#">← <span></span></a>
+    <label class="seance-saut">Aller à la séance
+      <select id="seance-select"></select>
+    </label>
+    <a class="seance-lien" id="seance-suiv" href="#"><span></span> →</a>
+  </nav>
+  <div class="panneau-pdf" id="vue-pdf" hidden>
+    <div class="cadre-pdf">
+      <object data="cahier.pdf" type="application/pdf" aria-label="Visionneuse PDF du cahier">
+        <iframe src="cahier.pdf" title="Cahier de laboratoire (PDF)"></iframe>
+        <p class="repli">Votre navigateur ne peut pas afficher le PDF intégré.
+          <a href="cahier.pdf">Ouvrir le PDF</a> ou
+          <a href="cahier.pdf" download>le télécharger</a>.</p>
+      </object>
+    </div>
+  </div>
+  <p class="note">Version web générée depuis <code>main.typ</code> - le <a href="cahier.pdf" download>PDF reste la version d'archivage</a> pour impression.</p>
+</main>
+<footer class="site">
+  <div class="pied">
+    <span><strong>HE-ARC</strong> · Cahier de laboratoire de Yanis Amani</span>
+    <span>Document compilé depuis main.typ · Lecture écran et mobile</span>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

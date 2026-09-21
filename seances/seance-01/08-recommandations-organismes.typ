@@ -70,6 +70,22 @@ J'applique les mises à jour cumulatives et de sécurité sans délai. Je contr�
 
 Les sept menaces se rangent en trois groupes. Le phishing, le ransomware, le DDoS et les leaks forment le socle OFCS avec des réflexes directs. La supply chain et l'open source déplacent la confiance vers les fournisseurs et les dépendances. Exchange montre ce qui arrive quand un patch critique dort. Chaque menace tient en deux recos : un réflexe humain et une mesure technique. Le point commun est la préparation : backups testés, contacts prêts, inventaires à jour.
 
+Le schéma regroupe les sept menaces en trois blocs : le socle OFCS, la confiance fournisseurs, puis le patch critique.
+#align(center)[
+  #diagram(
+    spacing: (6mm, 8mm),
+    node-inset: 6pt,
+    node-corner-radius: 4pt,
+    node-stroke: 0.8pt + encre,
+    edge-stroke: 0.8pt + rouge,
+    node((0, 0), align(center)[*Socle OFCS*\ Phishing, ransom, DDoS, leaks], fill: fond-rouge),
+    edge("->"),
+    node((1, 0), align(center)[*Confiance fournisseurs*\ Supply chain, open source], fill: white),
+    edge("->"),
+    node((2, 0), align(center)[*Patch critique*\ Exchange], fill: fond-rouge),
+  )
+]
+
 === Interprétation des résultats
 
 Ces recommandations protègent la triade CIA : confidentialité contre les leaks, intégrité contre le ransomware et la supply chain, disponibilité contre le DDoS. Elles appliquent la défense en profondeur : aucune mesure seule ne suffit et chaque couche rattrape la précédente. Elles suivent un cycle PDCA d'amélioration continue : patcher, tester, auditer, corriger. Pour mon projet de semestre, j'en retiens trois habitudes : SBOM à chaque build, backups testés, et playbook écrit avant l'incident.

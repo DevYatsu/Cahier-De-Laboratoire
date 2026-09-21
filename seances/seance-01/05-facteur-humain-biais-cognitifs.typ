@@ -68,6 +68,28 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 
 Le tableau mappe six familles de biais, du sensori-moteur jusqu'à la personnalité, avec une stratégie précise pour chacune. Les risques se partagent entre l'individuel (fatigue, Dunning-Kruger, expertise partielle) et le collectif (culture du blâme, hiérarchie qui verrouille la contradiction). Les mitigations suivent la même découpe : mentorat et suivi de charge d'un côté, post-mortems sans blâme et leadership exemplaire de l'autre. La synthèse retient cinq réflexes applicables : hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
 
+Le schéma range les six familles : perception et mémoire en haut, jugement et traits en bas.
+#align(center)[
+  #diagram(
+    spacing: (6mm, 8mm),
+    node-inset: 6pt,
+    node-corner-radius: 4pt,
+    node-stroke: 0.8pt + encre,
+    edge-stroke: 0.8pt + rouge,
+    node((0, 0), align(center)[*Sensori-moteurs*], fill: fond-rouge),
+    node((1, 0), align(center)[*Attentionnels*], fill: white),
+    node((2, 0), align(center)[*Mnésiques*], fill: white),
+    node((0, 1), align(center)[*Jugement*], fill: white),
+    node((1, 1), align(center)[*Raisonnement*], fill: white),
+    node((2, 1), align(center)[*Personnalité*], fill: fond-rouge),
+    edge((0, 0), (1, 0), "->"),
+    edge((1, 0), (2, 0), "->"),
+    edge((2, 0), (0, 1), "->"),
+    edge((0, 1), (1, 1), "->"),
+    edge((1, 1), (2, 1), "->"),
+  )
+]
+
 === Interprétation des résultats
 
 Le facteur humain explique pourquoi les mesures techniques échouent : un admin sous surcharge ignore une alerte, un utilisateur confiant clique sur un lien. Les risques varient selon la personne et la culture : la sécurité est un système sociotechnique, pas juste des pare-feu.

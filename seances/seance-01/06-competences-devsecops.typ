@@ -32,4 +32,22 @@ La partie 1 montre un socle général acquis : langages et scripting, triade CIA
 
 Ce découpage recoupe mon auto-évaluation : culture générale solide, lacune sur le cloisonnement et l'opérationnel. Mon expérience CI/CD automatise la détection, mais elle ne couvre ni la réponse à incident ni l'architecture à grande échelle.
 
+La feuille de route résume le chemin : socle acquis, deux blocs à construire, exploitation à viser.
+#align(center)[
+  #diagram(
+    spacing: (6mm, 8mm),
+    node-inset: 6pt,
+    node-corner-radius: 4pt,
+    node-stroke: 0.8pt + encre,
+    edge-stroke: 0.8pt + rouge,
+    node((0, 0), align(center)[*Socle acquis*], fill: fond-rouge),
+    edge("->"),
+    node((1, 0), align(center)[*Incident Response*], fill: white),
+    edge("->"),
+    node((2, 0), align(center)[*Secure Architecture*], fill: white),
+    edge("->"),
+    node((3, 0), align(center)[*Enterprise Ops*], fill: fond-rouge),
+  )
+]
+
 Prochaine étape : prioriser ces trois blocs, en commençant par Secure Architecture et Incident Response, puis compléter par du DAST, de l'analyse de dépendances et une revue de conception en amont.

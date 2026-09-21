@@ -43,6 +43,24 @@ Précision que je ne connaissais pas avant lecture :
 
 Le cycle est simple. La red team attaque. La blue team détecte et répond. La purple team compare l'attaque aux alertes, ajuste les règles SIEM/EDR, puis rejoue le scénario jusqu'à détection fiable.
 
+Le schéma boucle le cycle : attaque en haut, défense et rejeu en bas.
+#align(center)[
+  #diagram(
+    spacing: (14mm, 12mm),
+    node-inset: 8pt,
+    node-corner-radius: 4pt,
+    node-stroke: 0.8pt + encre,
+    edge-stroke: 0.8pt + rouge,
+    node((0, 1), [*Red team*], fill: fond-rouge),
+    node((-1.2, -0.6), [*Blue team*], fill: white),
+    node((1.2, -0.6), [*Purple team*], fill: white),
+    node((0, -0.1), text(size: 9pt, fill: gray)[rejeu], stroke: none),
+    edge((0, 1), (-1.2, -0.6), "->"),
+    edge((-1.2, -0.6), (1.2, -0.6), "->"),
+    edge((1.2, -0.6), (0, 1), "->"),
+  )
+]
+
 === Résultats
 
 Les six termes du glossaire se rangent en trois groupes. APT, drive-by download et Emotet décrivent l'attaque. Le CERT décrit l'organisation de la défense : il collecte les signalements et coordonne la réponse. Log4Shell et Shadow IT décrivent le terrain qui facilite l'attaque : une dépendance omniprésente ou des usages non contrôlés. Red, blue et purple team décrivent qui fait quoi : attaquer, défendre, faire progresser les deux.

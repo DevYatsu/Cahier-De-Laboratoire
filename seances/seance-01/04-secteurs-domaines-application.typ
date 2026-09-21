@@ -41,6 +41,28 @@ La question porte sur où la sécurité s'applique et sur qui elle concerne. Je 
 
 Côté public, la sécurité couvre la défense, la santé, l'état civil et la justice, plus les infrastructures critiques comme l'énergie et les transports. Côté privé, elle protège le SI interne, les contrats, la comptabilité et la propriété intellectuelle. Les domaines transverses relient les deux : dispositifs médicaux, cloud, banques, SCADA. À chaque niveau je suis concerné : mes comptes et mes projets, puis mon équipe et ses clients, puis les services collectifs que tout citoyen utilise.
 
+Le schéma résume la couverture : public et privé reliés par les transverses, qui irriguent les trois échelles.
+#align(center)[
+  #diagram(
+    spacing: (6mm, 8mm),
+    node-inset: 6pt,
+    node-corner-radius: 4pt,
+    node-stroke: 0.8pt + encre,
+    edge-stroke: 0.8pt + rouge,
+    node((0, 0), align(center)[*Public*], fill: fond-rouge),
+    node((1, 0), align(center)[*Transverses*], fill: white),
+    node((2, 0), align(center)[*Privé*], fill: white),
+    node((0, 1), align(center)[*Moi*], fill: fond-rouge),
+    node((1, 1), align(center)[*Nous*], fill: fond-rouge),
+    node((2, 1), align(center)[*Tous*], fill: fond-rouge),
+    edge((0, 0), (1, 0), "->"),
+    edge((1, 0), (2, 0), "->"),
+    edge((1, 0), (0, 1), "->"),
+    edge((1, 0), (1, 1), "->"),
+    edge((1, 0), (2, 1), "->"),
+  )
+]
+
 === Interprétation des résultats
 
 Aucun secteur ne fonctionne sans sécurité. Un hôpital, une banque et une chaîne logistique ont des objets différents à protéger, mais la compromission bloque leur activité de la même façon. Côté dev, je retiens que chaque ligne de code atterrit dans un de ces secteurs : une faille dans une app de vote ou de paiement ne reste jamais théorique. Pour le projet de semestre, cela fixe le périmètre : décrire qui utilise le service, ce qu'il protège, et ce qu'une compromission coûterait à chaque échelle.

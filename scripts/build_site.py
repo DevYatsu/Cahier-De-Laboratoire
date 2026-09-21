@@ -86,6 +86,46 @@ FIGURE_SVGS: dict[str, tuple[str, str, str | None]] = {
         "Flux ISO 27001 : Direction, Risques, SoA, Mesures",
         None,
     ),
+    "01-auto-evaluation-initiale.typ": (
+        "autoeval-chart",
+        "Auto-évaluation initiale par thème, notes de 1 à 5, creux sur le confinement",
+        "Auto-évaluation initiale par thème (1 à 5). Creux : confinement (2).",
+    ),
+    "04-secteurs-domaines-application.typ": (
+        "secteurs-spoke",
+        "Secteurs public, transverses et privé reliés aux échelles moi, nous et tous",
+        None,
+    ),
+    "05-facteur-humain-biais-cognitifs.typ": (
+        "biais-chain",
+        "Six familles de biais cognitifs, du sensori-moteur à la personnalité",
+        None,
+    ),
+    "06-competences-devsecops.typ": (
+        "devsecops-roadmap",
+        "Feuille de route : socle acquis, Incident Response, Secure Architecture, Enterprise Ops",
+        None,
+    ),
+    "08-recommandations-organismes.typ": (
+        "recos-groups",
+        "Trois groupes de menaces : socle OFCS, confiance fournisseurs, patch critique Exchange",
+        None,
+    ),
+    "09-vocabulaire-cybersecurite.typ": (
+        "teams-triangle",
+        "Cycle Red team, Blue team, Purple team avec rejeu",
+        None,
+    ),
+    "11-surface-attaque-kernel-linux.typ": (
+        "kernel-chain",
+        "Plan en quatre étapes : réduire, isoler, patcher, surveiller",
+        None,
+    ),
+    "13-synthese-seance.typ": (
+        "synthese-reperes",
+        "Trois repères : CIA et SoA, facteur humain, pratique CI/CD",
+        None,
+    ),
 }
 
 

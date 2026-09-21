@@ -46,23 +46,6 @@ Une phrase suffit par question.
 
 Mon profil est déséquilibré entre culture et technique. Je suis solide sur le facteur humain (5), et correct sur les enjeux généraux, la crypto, la conscience dev et la veille (4). Le reste plafonne à 3 : théorie, pratique, réflexes de dev sécurisé et gestion des risques. Le confinement OS et réseaux tombe à 2, mon seul vrai trou. En bref : je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
 
-Le graphique rend le creux visible d'un coup d'œil : tout tient sauf le confinement.
-#figure(
-  caption: [Auto-évaluation initiale par thème (1 à 5). Creux : confinement (2).],
-)[
-  #align(center)[
-    #lq.diagram(
-      width: 13cm,
-      height: 5.5cm,
-      xlabel: [Thème],
-      ylabel: [Note / 5],
-      xaxis: (ticks: ((0, [Enjeux]), (1, [Théorie]), (2, [Pratique]), (3, [Dev]), (4, [Réflexes]), (5, [Risques]), (6, [Crypto]), (7, [Confinement]), (8, [Humain]), (9, [Veille]), (10, [Envie])), subticks: none),
-      yaxis: (ticks: (0, 1, 2, 3, 4, 5), subticks: none),
-      lq.bar((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), (4, 3, 3, 4, 3, 3, 4, 2, 5, 4, 4), fill: rouge),
-    )
-  ]
-]
-
 === Interprétation des résultats
 
 Ce tableau me donne une direction pour le semestre. Mon point d'appui, c'est la sensibilisation : je pars avec le réflexe de me méfier du maillon humain. Mon chantier, c'est le confinement : sandboxing, segmentation, moindre privilège. Pour le projet de semestre, cela veut dire viser la confidentialité et l'intégrité par la technique, pas seulement par la vigilance, et mesurer le progrès en refaisant cette grille en fin de module.

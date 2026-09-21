@@ -58,11 +58,15 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 
 ==== Activité 4 : Que faire pour limiter ces risques de prise de décision ?
 
-À compléter.
+- *Écrire les hypothèses avant de décider* : noter ce qu'on suppose et pourquoi, puis relire à deux. L'ancrage devient visible.
+- *Faire relire par un profil différent* : un dev relit l'analyse d'un admin, ou l'inverse. Le red teaming joue le même rôle contre la confirmation.
+- *Appliquer une procédure écrite* : checklists et cadres type ISO 27001 pour les actions critiques, au lieu de compter sur la mémoire.
+- *Signaler sans être sanctionné* : post-mortem sans blâme et erreurs remontées vite. Le silence coûte plus cher que l'aveu.
+- *Surveiller la charge* : pauses, rotation des tâches de vigilance, alertes hiérarchisées. Un opérateur fatigué clique et ignore.
 
 === Résultats
 
-À compléter.
+Le tableau mappe six familles de biais, du sensori-moteur jusqu'à la personnalité, avec une stratégie précise pour chacune. Les risques se partagent entre l'individuel (fatigue, Dunning-Kruger, expertise partielle) et le collectif (culture du blâme, hiérarchie qui verrouille la contradiction). Les mitigations suivent la même découpe : mentorat et suivi de charge d'un côté, post-mortems sans blâme et leadership exemplaire de l'autre. La synthèse retient cinq réflexes applicables : hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
 
 === Interprétation des résultats
 

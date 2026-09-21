@@ -4,11 +4,11 @@
 == Exercice 3 : Évaluer la triade CIA sur des cas concrets
 #text(size: 0.9em, fill: gray)[Partie matin]
 
-#encadre("Objectifs")[À compléter.]
+#encadre("Objectifs")[Appliquer la triade CIA à quatre cas réels et justifier chaque note de 1 à 4. Comparer les profils obtenus pour voir quel critère domine selon le secteur.]
 
 === Métiers pertinents
 
-À compléter.
+Tous les métiers sont concernés, avec un poids différent selon le cas. J'ai pensé au RSSI et à l'analyste risques pour la banque, à l'admin réseau pour AlertSwiss et le streaming, au développeur pour l'e-commerce.
 
 === Déroulement
 
@@ -50,8 +50,8 @@ Pourquoi ces notes, en bref :
 
 === Résultats
 
-À compléter.
+La banque arrive au maximum partout avec 4/4/4. L'e-commerce reste équilibré à 3/3/3. AlertSwiss et le streaming partagent le même contraste : une confidentialité basse, 1 et 2, face à une disponibilité à 4. La différence se joue sur l'intégrité, maximale pour AlertSwiss, moyenne pour le streaming.
 
 === Interprétation des résultats
 
-À compléter.
+Chaque profil impose une priorité de conception différente. Pour la banque, je dois tout protéger sans compromis. Pour AlertSwiss, je protège surtout l'authenticité du message et sa diffusion en pleine crise. Pour le streaming, je dimensionne l'infrastructure pour absorber la charge du soir. Je retrouve ici la logique de l'analyse de risques vue avec ISO 27001 : la note dépend du contexte, et la SoA permet ensuite de tracer ce choix.

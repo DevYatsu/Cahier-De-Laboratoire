@@ -8,7 +8,7 @@
 
 === Métiers pertinents
 
-À compléter.
+Cette auto-évaluation sert de point de départ à tout le monde. Elle concerne autant le dev que l'admin sys/réseau ou le chef de projet : chacun doit savoir où il part avant de parler sécurité.
 
 === Déroulement
 
@@ -36,16 +36,16 @@ L'énoncé demande de noter de 1 à 5 mon niveau sur chaque thème. Je recopie l
 Une phrase suffit par question.
 
 - Sur quel(s) thème(s) je me sens le plus à l'aise, et pourquoi ?
-  À compléter.
+  Je suis le plus à l'aise sur le facteur humain (5/5). Je suis beaucoup d'histoires de hacking et ce constat revient sans arrêt : le phishing et l'ingénierie sociale restent la faille la plus simple à exploiter, bien avant la technique pure.
 - Sur quel(s) thème(s) j'aimerais progresser en priorité ?
-  À compléter.
+  Je veux progresser en priorité sur le confinement OS et réseaux (2/5). Je connais mal le sandboxing et la segmentation alors que le sujet m'intéresse, donc c'est là que la marge est la plus grande.
 - Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?
-  À compléter.
+  Oui, la distinction est claire pour moi. Sécuriser une entreprise intègre beaucoup plus de variables humaines, donc beaucoup plus de points d'attaque et de points de défense que sécuriser un seul logiciel.
 
 === Résultats
 
-À compléter.
+Mon profil est déséquilibré entre culture et technique. Je suis solide sur le facteur humain (5), et correct sur les enjeux généraux, la crypto, la conscience dev et la veille (4). Le reste plafonne à 3 : théorie, pratique, réflexes de dev sécurisé et gestion des risques. Le confinement OS et réseaux tombe à 2, mon seul vrai trou. En bref : je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
 
 === Interprétation des résultats
 
-À compléter.
+Ce tableau me donne une direction pour le semestre. Mon point d'appui, c'est la sensibilisation : je pars avec le réflexe de me méfier du maillon humain. Mon chantier, c'est le confinement : sandboxing, segmentation, moindre privilège. Pour le projet de semestre, cela veut dire viser la confidentialité et l'intégrité par la technique, pas seulement par la vigilance, et mesurer le progrès en refaisant cette grille en fin de module.

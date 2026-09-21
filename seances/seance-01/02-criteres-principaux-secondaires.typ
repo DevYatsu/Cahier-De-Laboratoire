@@ -49,8 +49,8 @@ Le schéma résume la triade et ses compléments : les trois critères principau
 
 === Résultats
 
-À compléter.
+J'ai retenu trois critères principaux et quatre appuis autour. La confidentialité, l'intégrité et la disponibilité forment le triangle du schéma. Autour, j'ai placé l'identification avec la traçabilité et l'accès, puis l'authentification, la sensibilisation et la résilience. Le schéma montre bien cette relation : le triangle au centre, les secondaires qui le rendent applicable.
 
 === Interprétation des résultats
 
-À compléter.
+Les critères secondaires m'ont paru plus concrets que la triade seule. En tant que développeur, je vois l'authentification et la traçabilité dans chaque fonction de login et chaque journal. Côté admin, la résilience se joue dans les sauvegardes et la reprise après incident. Je garde ce découpage pour le projet du semestre : il m'aidera à justifier chaque mesure par le critère qu'elle protège.

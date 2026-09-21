@@ -48,13 +48,39 @@ jobs:
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <meta name="description" content="Cahier de laboratoire de Yanis Amani — lecture en ligne et PDF. Module 3275.1 / 3275.2, semestre d'automne.">
           <title>Cahier de laboratoire — Yanis Amani</title>
+          <script>
+          try{var t=null;try{t=localStorage.getItem('cahier-theme');}catch(e){}
+          if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+          if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
+          </script>
           <style>
           :root{
             --rouge:#E30613; --rouge-fonce:#B0050F; --rouge-clair:#FDECEC;
             --noir:#111111; --gris-900:#1c1c1c; --gris-700:#444444; --gris-500:#6f6f6f;
             --gris-200:#e6e6e6; --gris-100:#f4f4f4; --fond:#ffffff; --carte:#ffffff;
             --bord:#e4e4e4; --ombre:0 18px 50px rgba(17,17,17,.10);
-            --rayon:14px;
+            --rayon:14px; color-scheme:light;
+            --entete:rgba(255,255,255,.96);
+            --contraste:#111111; --sur-contraste:#ffffff;
+            --lien:#B0050F; --lien-survol:#E30613;
+            --code-bloc:#141414; --code-bloc-texte:#f5f5f5;
+            --ligne-alt:#f7f7f7;
+            --appel-neutre:#f6f6f6; --appel-resultats:#f0f0f0;
+            --carte-2:#fafafa; --pied-fond:#fafafa; --pdf-fond:#2b2b2b;
+          }
+          [data-theme="dark"]{
+            --rouge:#E30613; --rouge-fonce:#FF7A82; --rouge-clair:#2b1416;
+            --noir:#ececec; --gris-900:#e8e8e8; --gris-700:#c4c4c4; --gris-500:#9d9d9d;
+            --gris-200:#333338; --gris-100:#1f1f24; --fond:#121214; --carte:#1a1a1f;
+            --bord:#2e2e36; --ombre:0 18px 50px rgba(0,0,0,.55);
+            color-scheme:dark;
+            --entete:rgba(18,18,20,.93);
+            --contraste:#f0f0f0; --sur-contraste:#141414;
+            --lien:#FF8A91; --lien-survol:#FF5B64;
+            --code-bloc:#0d0d10; --code-bloc-texte:#f0f0f0;
+            --ligne-alt:#222228;
+            --appel-neutre:#232329; --appel-resultats:#202027;
+            --carte-2:#1f1f25; --pied-fond:#161619; --pdf-fond:#2b2b2b;
           }
           *{box-sizing:border-box}
           html{scroll-behavior:smooth}
@@ -62,13 +88,13 @@ jobs:
             font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
             font-size:1rem;line-height:1.7;min-height:100dvh;display:flex;flex-direction:column}
           /* Bandeau superieur */
-          .liseret{height:6px;background:linear-gradient(90deg,var(--rouge) 0 55%,var(--noir) 55% 100%)}
-          header.site{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);
+          .liseret{height:6px;background:linear-gradient(90deg,var(--rouge) 0 55%,#111111 55% 100%)}
+          header.site{position:sticky;top:0;z-index:20;background:var(--entete);
             backdrop-filter:blur(8px);border-bottom:1px solid var(--bord)}
           .barre{max-width:1360px;margin:0 auto;padding:.9rem 1.25rem;display:flex;
             align-items:center;gap:1rem;flex-wrap:wrap}
           .marque{display:flex;align-items:center;gap:.8rem;margin-right:auto;min-width:0}
-          .logo{flex:none;width:52px;height:52px;border-radius:10px;background:var(--noir);
+          .logo{flex:none;width:52px;height:52px;border-radius:10px;background:#111111;
             color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
             line-height:1;font-weight:800;letter-spacing:.02em;position:relative;overflow:hidden}
           .logo::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:8px;background:var(--rouge)}
@@ -86,7 +112,7 @@ jobs:
           .segmente button{border:0;background:transparent;cursor:pointer;font:inherit;
             font-size:.88rem;font-weight:600;color:var(--gris-700);
             padding:.5rem .95rem;border-radius:999px;transition:background .15s,color .15s}
-          .segmente button[aria-pressed="true"]{background:var(--noir);color:#fff}
+          .segmente button[aria-pressed="true"]{background:var(--contraste);color:var(--sur-contraste)}
           .segmente button:focus-visible,.bouton:focus-visible,.doc a:focus-visible{
             outline:3px solid var(--rouge);outline-offset:2px;border-radius:6px}
           .bouton{display:inline-flex;align-items:center;gap:.5rem;background:var(--rouge);
@@ -94,6 +120,13 @@ jobs:
             font-size:.9rem;font-weight:700;box-shadow:0 8px 20px rgba(227,6,19,.28);
             transition:transform .15s,background .15s;white-space:nowrap}
           .bouton:hover{background:var(--rouge-fonce);transform:translateY(-1px)}
+          [data-theme="dark"] .bouton:hover{filter:brightness(1.08)}
+          .theme{border:1px solid var(--bord);background:var(--carte);color:var(--gris-700);
+            cursor:pointer;font:inherit;font-size:.88rem;font-weight:600;
+            padding:.5rem .95rem;border-radius:999px;transition:background .15s,color .15s,border-color .15s;
+            white-space:nowrap}
+          .theme:hover{background:var(--gris-100);color:var(--noir);border-color:var(--gris-200)}
+          .theme:focus-visible{outline:3px solid var(--rouge);outline-offset:2px}
           main{width:100%;max-width:1360px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:1}
           /* Zones de lecture */
           .lecture{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start}
@@ -131,11 +164,11 @@ jobs:
           .doc ul,.doc ol{margin:.85rem 0;padding-left:1.5rem}
           .doc li{margin:.35rem 0}
           .doc li::marker{color:var(--rouge);font-weight:700}
-          .doc a{color:var(--rouge-fonce);text-underline-offset:3px;text-decoration-thickness:1.5px}
-          .doc a:hover{color:var(--rouge)}
+          .doc a{color:var(--lien);text-underline-offset:3px;text-decoration-thickness:1.5px}
+          .doc a:hover{color:var(--lien-survol)}
           .doc blockquote{margin:1.2rem 0;padding:.9rem 1.1rem;border-left:5px solid var(--rouge);
             background:var(--rouge-clair);border-radius:0 10px 10px 0}
-          .doc pre{background:var(--noir);color:#f5f5f5;border-radius:10px;padding:1rem 1.2rem;overflow:auto}
+          .doc pre{background:var(--code-bloc);color:var(--code-bloc-texte);border-radius:10px;padding:1rem 1.2rem;overflow:auto}
           .doc code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
           .doc :not(pre)>code{background:var(--gris-100);border:1px solid var(--bord);
             border-radius:6px;padding:.1em .35em}
@@ -157,19 +190,19 @@ jobs:
           .doc .table-scroll{overflow-x:auto;margin:1.2rem -0.5rem;padding:0 .5rem}
           .doc thead th,.doc tr:first-child th,.doc tr:first-child td strong{font-weight:700}
           .doc th,.doc td{border:1px solid var(--gris-200);padding:.6em .75em;text-align:left;vertical-align:top}
-          .doc thead th,.doc tr:first-child{background:var(--noir);color:#fff}
-          .doc thead th a,.doc tr:first-child a{color:#fff}
-          .doc tbody tr:nth-child(even),.doc tr:nth-child(even){background:#f7f7f7}
+          .doc thead th,.doc tr:first-child{background:var(--contraste);color:var(--sur-contraste)}
+          .doc thead th a,.doc tr:first-child a{color:var(--sur-contraste)}
+          .doc tbody tr:nth-child(even),.doc tr:nth-child(even){background:var(--ligne-alt)}
           .doc thead{position:sticky;top:0}
           /* Encadrés Objectifs / Résultats / Interprétation */
           .doc .callout{border-radius:0 10px 10px 0;margin:1.3rem 0;
             padding:1rem 1.2rem 1rem 1.3rem;border-left:6px solid var(--gris-500);
-            background:#f6f6f6}
+            background:var(--appel-neutre)}
           .doc .callout-objectifs{border-left-color:var(--rouge);
             background:var(--rouge-clair)}
-          .doc .callout-resultats{border-left-color:var(--noir);background:#f0f0f0}
+          .doc .callout-resultats{border-left-color:var(--noir);background:var(--appel-resultats)}
           .doc .callout-interpretation{border-left-color:var(--gris-500);
-            background:#fff;border-top:1px solid var(--bord);
+            background:var(--carte);border-top:1px solid var(--bord);
             border-right:1px solid var(--bord);border-bottom:1px solid var(--bord)}
           .doc .callout-title{margin:0 0 .5rem;font-weight:800;
             letter-spacing:.04em;text-transform:uppercase;font-size:.85rem}
@@ -179,7 +212,7 @@ jobs:
           .doc .mention{font-size:.85rem;color:var(--gris-500);font-style:italic;
             margin:.4rem 0 .9rem}
           /* Constructs Typst non exprimables en HTML (fletcher / lq) */
-          .doc .typst-only{background:#fafafa;border:1px dashed var(--bord);
+          .doc .typst-only{background:var(--carte-2);border:1px dashed var(--bord);
             border-radius:var(--rayon);padding:1rem 1.2rem;margin:1.3rem 0;
             color:var(--gris-500);font-size:.92rem}
           .doc .typst-only p{margin:.2rem 0;text-align:left}
@@ -188,14 +221,14 @@ jobs:
           /* Panneau PDF */
           .panneau-pdf{max-width:1360px;margin:0 auto}
           .panneau-pdf[hidden]{display:none}
-          .cadre-pdf{background:#fff;border:1px solid var(--bord);border-radius:var(--rayon);
+          .cadre-pdf{background:var(--carte);border:1px solid var(--bord);border-radius:var(--rayon);
             box-shadow:var(--ombre);overflow:hidden}
-          .cadre-pdf iframe,.cadre-pdf object{display:block;width:100%;height:min(78vh,860px);border:0;background:#2b2b2b}
+          .cadre-pdf iframe,.cadre-pdf object{display:block;width:100%;height:min(78vh,860px);border:0;background:var(--pdf-fond)}
           .repli{padding:1.2rem;text-align:center;font-size:.94rem;color:var(--gris-700)}
-          .repli a{color:var(--rouge-fonce);font-weight:700}
+          .repli a{color:var(--lien);font-weight:700}
           .note{max-width:1020px;margin:1rem auto 0;font-size:.9rem;color:var(--gris-500);text-align:center}
-          .note a{color:var(--rouge-fonce);font-weight:600}
-          footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:#fafafa}
+          .note a{color:var(--lien);font-weight:600}
+          footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--pied-fond)}
           .pied{max-width:1360px;margin:0 auto;padding:1.1rem 1.25rem 1.6rem;color:var(--gris-500);
             font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
           .pied strong{color:var(--noir)}
@@ -203,7 +236,7 @@ jobs:
             .lecture{grid-template-columns:minmax(230px,280px) minmax(0,1fr)}
             .col-sommaire{position:sticky;top:6.5rem;align-self:start;
               max-height:calc(100dvh - 8rem);overflow-y:auto;overscroll-behavior:contain}
-            .col-sommaire nav.toc{margin:0;background:#fafafa;font-size:.9rem}
+            .col-sommaire nav.toc{margin:0;background:var(--carte-2);font-size:.9rem}
             .doc{max-width:none;margin:0}
           }
           @media (max-width:760px){
@@ -242,6 +275,7 @@ jobs:
                   <button type="button" id="btn-doc" aria-pressed="true">Document</button>
                   <button type="button" id="btn-pdf" aria-pressed="false">PDF</button>
                 </div>
+                <button type="button" id="btn-theme" class="theme" aria-pressed="false">Thème sombre</button>
                 <a class="bouton" href="cahier.pdf" download>Télécharger le PDF</a>
               </div>
             </div>
@@ -307,6 +341,31 @@ jobs:
             bDoc.addEventListener('click',function(){show('doc');});
             bPdf.addEventListener('click',function(){show('pdf');});
             show(initial(),false);
+
+            // Theme sombre / clair : meme motif que show()/initial() ci-dessus.
+            var bTheme=document.getElementById('btn-theme');
+            function applyTheme(theme,save){
+              var dark=(theme==='dark');
+              if(dark){document.documentElement.dataset.theme='dark';}
+              else{delete document.documentElement.dataset.theme;}
+              if(bTheme){
+                bTheme.setAttribute('aria-pressed',dark?'true':'false');
+                bTheme.textContent=dark?'Thème clair':'Thème sombre';
+              }
+              if(save!==false){try{localStorage.setItem('cahier-theme',dark?'dark':'light');}catch(e){}}
+            }
+            function initialTheme(){
+              try{
+                var s=null;try{s=localStorage.getItem('cahier-theme');}catch(e){}
+                if(s==='dark'||s==='light'){return s;}
+                if(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches){return 'dark';}
+              }catch(e){}
+              return 'light';
+            }
+            if(bTheme){bTheme.addEventListener('click',function(){
+              applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+            });}
+            applyTheme(initialTheme(),false);
 
             // Sommaire lateral : surligne la section en cours de lecture.
             var liens=Array.prototype.slice.call(

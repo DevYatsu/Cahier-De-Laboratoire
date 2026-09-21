@@ -23,12 +23,12 @@
     margin: 2cm,
   ),
   texte: (
-    font: ("DejaVu Sans", "Arial", "Helvetica"),
+    font: ("DejaVu Sans",),
     size: 11pt,
     lang: "fr",
   ),
   titres: (
-    font: ("DejaVu Sans", "Arial", "Helvetica"),
+    font: ("DejaVu Sans",),
     numbering: "1.",
     niveau2-size: 13pt,
     niveau3-size: 11.5pt,

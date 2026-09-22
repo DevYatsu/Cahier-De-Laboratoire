@@ -61,7 +61,7 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 - *Écrire les hypothèses avant de décider* : noter ce qu'on suppose et pourquoi, puis relire à deux. L'ancrage devient visible.
 - *Faire relire par un profil différent* : un dev relit l'analyse d'un admin, ou l'inverse. Le red teaming joue le même rôle contre la confirmation.
 - *Appliquer une procédure écrite* : checklists et cadres type ISO 27001 pour les actions critiques, au lieu de compter sur la mémoire.
-- *Signaler sans être sanctionné* : post-mortem sans blâme et erreurs remontées vite. Le silence coûte plus cher que l'aveu.
+- *Signaler sans être sanctionné* : post-mortem sans blâme et erreurs remontées vite. Le silence coûte plus cher que l'aveu. (exact)
 - *Surveiller la charge* : pauses, rotation des tâches de vigilance, alertes hiérarchisées. Un opérateur fatigué clique et ignore.
 
 === Résultats

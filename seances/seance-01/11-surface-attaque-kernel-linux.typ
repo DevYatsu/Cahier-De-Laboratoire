@@ -52,6 +52,8 @@ Le schéma ordonne le plan : durcir d'abord, surveiller en continu.
 
 *Étape 1 : réduire la surface du noyau (hardening).* La plupart des failles récentes visent des modules réseau ou des systèmes de fichiers inutiles en production cloud. Je bloque leur chargement via `modprobe.d`. Je désactive les protocoles non requis et les vieux filesystems. Je coupe les fonctions à risque comme `io_uring` si aucune architecture ne l'exige. Je restreins les appels système avec des profils Seccomp stricts sur les runtimes. J'interdis `clone3`, `unshare` ou `keyctl` aux charges clientes.
 
+Que pensez-vous de: https://forum.linux-gull.ch/pipermail/gull/2026-September/018335.html
+
 *Étape 2 : durcir l'isolation (sandboxing).* Le runtime Docker / containerd classique partage le noyau hôte. Si le noyau tombe, l'hôte tombe. Pour les charges non dignes de confiance, je remplace l'isolation par gVisor ou Kata Containers. gVisor intercepte et émule les syscalls en espace utilisateur. Kata Containers encapsule chaque conteneur dans une micro-VM avec son propre noyau.
 
 *Étape 3 : moderniser le patching.* Redémarrer des milliers d'hyperviseurs ralentit chaque correctif. Je déploie le live-patching (KernelCare, Kpatch, Livepatch). Il injecte le correctif en mémoire sans interrompre les clients. La fenêtre d'exposition tombe à zéro pour les CVE simples. Pour les correctifs structurels, je prévois un pipeline d'infrastructure : drain du nœud, mise à jour, test, redéploiement progressif et transparent.

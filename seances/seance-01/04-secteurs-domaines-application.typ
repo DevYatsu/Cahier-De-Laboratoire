@@ -66,3 +66,6 @@ Le schéma résume la couverture : public et privé reliés par les transverses,
 === Interprétation des résultats
 
 Aucun secteur ne fonctionne sans sécurité. Un hôpital, une banque et une chaîne logistique ont des objets différents à protéger, mais la compromission bloque leur activité de la même façon. Côté dev, je retiens que chaque ligne de code atterrit dans un de ces secteurs : une faille dans une app de vote ou de paiement ne reste jamais théorique. Pour le projet de semestre, cela fixe le périmètre : décrire qui utilise le service, ce qu'il protège, et ce qu'une compromission coûterait à chaque échelle.
+
+La cybersécurité à l'échelle d'un pays, voire même au sein d'alliances, fait
+partie des conditions cadres pour assurer le fonctionnement de la société.

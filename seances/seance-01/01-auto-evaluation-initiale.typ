@@ -41,11 +41,29 @@ Une phrase suffit par question.
   Je veux progresser en priorité sur le confinement OS et réseaux (2/5). Je connais mal le sandboxing et la segmentation alors que le sujet m'intéresse, donc c'est là que la marge est la plus grande.
 - Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?
   Oui, la distinction est claire pour moi. Sécuriser une entreprise intègre beaucoup plus de variables humaines, donc beaucoup plus de points d'attaque et de points de défense que sécuriser un seul logiciel.
+  Et des éléments de management (ressources, budgets, activités de l'entreprise, politique de l'entreprise, etc) qui
+  modifient les impératifs techniques.
 
 === Résultats
 
 Mon profil est déséquilibré entre culture et technique. Je suis solide sur le facteur humain (5), et correct sur les enjeux généraux, la crypto, la conscience dev et la veille (4). Le reste plafonne à 3 : théorie, pratique, réflexes de dev sécurisé et gestion des risques. Le confinement OS et réseaux tombe à 2, mon seul vrai trou. En bref : je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
 
+En fait, la modélisation des menaces et l'analyse des risques vous montrera
+pourquoi il faut cloisonner, et quel genre de cloisonnement est nécessaire.
+Mettre en place du cloisonnement réseau sera notamment étudié dans 3276.1, et
+pour le cloisonnement d'application il y aura également des éléments avancés.
+Après, dans le déploiement d'applications sécurisées, c'est beaucoup de bon
+sens comme limiter les interactions entre conteneurs au strict nécessaire,
+passer éventuellement par un proxy-filtrant, un WAF, etc.
+
 === Interprétation des résultats
 
 Ce tableau me donne une direction pour le semestre. Mon point d'appui, c'est la sensibilisation : je pars avec le réflexe de me méfier du maillon humain. Mon chantier, c'est le confinement : sandboxing, segmentation, moindre privilège. Pour le projet de semestre, cela veut dire viser la confidentialité et l'intégrité par la technique, pas seulement par la vigilance, et mesurer le progrès en refaisant cette grille en fin de module.
+
+Si vous voulez faire une réelle analyse de sécurité de votre P3, ça commence
+par les spécifications (ce qu'on veut et les risques associés, éventuellement
+renoncer à des fonctionnalités ou les encadrer), ensuite la conception devrait appliquer l'ensemble des
+réductions des risques (comportements sécurisés par défaut, sécurité en profondeur, etc), puis le codage
+également, et enfin le déploiement (segmentation, etc) et l'opération (observabilité).  Certains de ces
+éléments seront traités avec Vincent Duvanel.
+

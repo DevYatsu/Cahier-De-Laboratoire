@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Exercice 4 : Principaux secteurs, domaines et objets d'application
-#text(size: 0.9em, fill: gray)[Partie matin]
 
 #encadre("Objectifs")[Recenser où la sécurité s'applique et qui elle concerne. Je distingue les secteurs public et privé ainsi que les domaines transverses, puis les échelles moi, nous et tous.]
 
@@ -41,7 +40,6 @@ La question porte sur où la sécurité s'applique et sur qui elle concerne. Je 
 
 Côté public, la sécurité couvre la défense, la santé, l'état civil et la justice, plus les infrastructures critiques comme l'énergie et les transports. Côté privé, elle protège le SI interne, les contrats, la comptabilité et la propriété intellectuelle. Les domaines transverses relient les deux : dispositifs médicaux, cloud, banques, SCADA. À chaque niveau je suis concerné : mes comptes et mes projets, puis mon équipe et ses clients, puis les services collectifs que tout citoyen utilise.
 
-Le schéma résume la couverture : public et privé reliés par les transverses, qui irriguent les trois échelles.
 #align(center)[
   #diagram(
     spacing: (6mm, 8mm),

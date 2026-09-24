@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Exercice 1 : Auto-évaluation initiale
-#text(size: 0.9em, fill: gray)[Partie matin]
 
 #encadre("Objectifs")[Poser une base chiffrée de mon niveau initial en sécurité. Je note chaque thème de 1 à 5 pour repérer mes forces et mes lacunes avant le semestre.]
 

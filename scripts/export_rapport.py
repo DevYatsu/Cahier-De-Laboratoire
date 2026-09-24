@@ -11,8 +11,8 @@ Usage:
         --out site/rapport-data.json
 
 The JSON mirrors the SUMMARY sheet layout (title rows, module/ECTS rows,
-activity rows, TOTAL, footnote). site/rapport.html is a static transcription
-of that JSON — no runtime .xls parsing, so CI stays dependency-free.
+activity rows, TOTAL, footnote). The static site does not parse .xls at runtime,
+so CI stays dependency-free.
 """
 
 from __future__ import annotations
@@ -39,6 +39,8 @@ def read_summary(xls_path: Path) -> dict:
         sheet = book.sheet_by_index(0)
 
     def cell(r: int, c: int):
+        if r < 0 or r >= sheet.nrows or c < 0 or c >= sheet.ncols:
+            return ""
         return sheet.cell_value(r, c)
 
     def num(value) -> float | None:
@@ -64,10 +66,10 @@ def read_summary(xls_path: Path) -> dict:
             "categorie": str(cat),
             "description": str(desc),
             "heures": num(heures),
-            "exemple": True,
+            "exemple": False,
         })
         r += 1
-        if r > 40:  # safety bound; the template holds 5 example rows
+        if r > 40:  # safety bound for the legacy activity table
             break
 
     total = num(cell(49, 5))

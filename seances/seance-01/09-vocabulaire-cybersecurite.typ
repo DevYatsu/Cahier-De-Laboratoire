@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Activité 5 : Définir le vocabulaire de base de la cybersécurité
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 5]
 
 #encadre("Objectifs")[Extraire du glossaire Hucency les concepts que je ne connaissais pas encore et les résumer dans les grandes lignes. Définir ensuite red team, blue team et purple team.]
 
@@ -43,7 +42,6 @@ Précision que je ne connaissais pas avant lecture :
 
 Le cycle est simple. La red team attaque. La blue team détecte et répond. La purple team compare l'attaque aux alertes, ajuste les règles SIEM/EDR, puis rejoue le scénario jusqu'à détection fiable.
 
-Le schéma boucle le cycle : attaque en haut, défense et rejeu en bas.
 #align(center)[
   #diagram(
     spacing: (14mm, 12mm),

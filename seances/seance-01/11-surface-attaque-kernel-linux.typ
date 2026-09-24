@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Activité 7 : Pourquoi la surface d'attaque du kernel Linux est devenu récemment un problème ? Que faire (cas : opérateur cloud) ?
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 7]
 
 #encadre("Objectifs")[Comprendre pourquoi la surface d'attaque du kernel Linux est devenue un problème récemment, et quoi faire dans le cas d'un opérateur cloud.]
 
@@ -14,25 +13,24 @@ L'admin cloud et l'exploitant hyperviseur portent l'isolation et le patching des
 
 Je pars du risque propre à l'opérateur cloud : les conteneurs partagent le noyau de l'hôte. Une seule faille noyau casse la multi-tenancy. Un attaquant s'évade du conteneur ou de la VM. Il compromet l'hyperviseur ou le nœud hôte.
 
-Trois facteurs rendent ce risque critique en 2026. D'abord le fuzzing assisté par IA. Les chercheurs et les attaquants scannent un code de plus de 40 millions de lignes avec des LLM. Le noyau frôle 2 000 CVE corrigées par version, contre environ 500 auparavant. Les mainteneurs absorbent un flux constant.
+En 2026, ce risque est difficile à contenir parce que le fuzzing assisté par IA, l'industrialisation des proofs of concept et l'évolution rapide du noyau augmentent la pression sur les mainteneurs. Les chiffres de CVE par version varient selon la source et la période : le chiffre d'environ 2 000 cité dans certaines analyses est un instantané à vérifier, pas une constante.
 
-Ensuite la sérialisation des LPE (Local Privilege Escalation). Des failles comme Copy Fail, Dirty Frag ou Dirty Clone sortent avec un PoC immédiatement disponible. Un simple compte conteneur passe root en une commande. La manipulation du cache mémoire devient reproductible.
+Ensuite, des travaux décrivent des LPE (Local Privilege Escalation) comme Copy Fail, Dirty Frag ou Dirty Clone, souvent accompagnées d'un proof of concept public. Le délai entre publication et exploitation varie. Leur impact dépend du noyau, de la configuration et de l'isolation ; le passage d'un conteneur à root est un scénario à reproduire et à réduire, pas une conséquence systématique.
 
-Enfin l'automatisation des attaques. Des agents IA adaptent seuls un PoC public. Ils s'évadent du conteneur. Ils obtiennent root sur l'hôte. Puis ils se déplacent latéralement dans l'infrastructure.
+Enfin, des recherches décrivent des agents capables d'adapter des PoC publics. Leur capacité à s'échapper d'un conteneur, obtenir root sur l'hôte et se déplacer latéralement dépend de la vulnérabilité et des mesures en place ; ce scénario n'est pas systématique.
 
 #table(
   columns: (1fr, 2fr, 2fr),
   [*Facteur*], [*Mécanisme*], [*Effet pour l'opérateur cloud*],
-  [Fuzzing + IA], [Scan massif du code, ~2 000 CVE par version.], [Fenêtre d'exposition permanente, patching sous pression.],
-  [LPE sérialisées], [PoC public, élévation conteneur vers root.], [Un seul tenant compromet le nœud partagé.],
-  [Agents autonomes], [Adaptation auto du PoC, mouvement latéral.], [Compromission hôte puis propagation inter-tenants.],
+  [Fuzzing + IA], [Scan massif du code, volume de CVE signalé dans les sources consultées.], [Pression sur le rythme de publication et de correction.],
+  [LPE sérialisées], [PoC public, scénario d'élévation conteneur vers root.], [Risque pour le nœud partagé si la faille est exploitable et les mesures inefficaces.],
+  [Agents autonomes], [Adaptation de PoC publics ; scénario d'évasion et mouvement latéral.], [Risque de compromission de l'hôte et de propagation inter-tenants si les conditions sont réunies.],
 )
 
 === Résultats
 
-Un patch mensuel ne suffit plus. Je retiens un plan en quatre étapes : réduire, isoler, patcher à chaud, surveiller.
+Un cycle mensuel de patch ne suffit pas toujours. Je retiens un plan en quatre étapes : réduire, isoler, patcher à chaud, surveiller.
 
-Le schéma ordonne le plan : durcir d'abord, surveiller en continu.
 #align(center)[
   #diagram(
     spacing: (10mm, 8mm),
@@ -54,7 +52,7 @@ Le schéma ordonne le plan : durcir d'abord, surveiller en continu.
 
 *Étape 2 : durcir l'isolation (sandboxing).* Le runtime Docker / containerd classique partage le noyau hôte. Si le noyau tombe, l'hôte tombe. Pour les charges non dignes de confiance, je remplace l'isolation par gVisor ou Kata Containers. gVisor intercepte et émule les syscalls en espace utilisateur. Kata Containers encapsule chaque conteneur dans une micro-VM avec son propre noyau.
 
-*Étape 3 : moderniser le patching.* Redémarrer des milliers d'hyperviseurs ralentit chaque correctif. Je déploie le live-patching (KernelCare, Kpatch, Livepatch). Il injecte le correctif en mémoire sans interrompre les clients. La fenêtre d'exposition tombe à zéro pour les CVE simples. Pour les correctifs structurels, je prévois un pipeline d'infrastructure : drain du nœud, mise à jour, test, redéploiement progressif et transparent.
+*Étape 3 : moderniser le patching.* Redémarrer des milliers d'hyperviseurs ralentit chaque correctif. Le live-patching (KernelCare, Kpatch, Livepatch) permet, lorsque le correctif et le système le permettent, de charger un correctif en mémoire sans redémarrage immédiat. Il ne s'applique qu'aux correctifs compatibles et ne supprime pas tous les risques. Pour les changements structurels, je prévois un pipeline d'infrastructure : drain du nœud, mise à jour, test, puis redémarrage ou redéploiement progressif.
 
 *Étape 4 : détecter au runtime via eBPF.* Je déploie un outil CNAPP / CWPP basé sur eBPF, comme Cilium Tetragon ou Falco. Il observe le noyau en temps réel. Il lève une alerte sur une élévation de privilèges sans fichier modifié. Il signale une structure socket anormale.
 
@@ -63,19 +61,19 @@ Le schéma ordonne le plan : durcir d'abord, surveiller en continu.
   [*Étape*], [*Action que je pilote*], [*Outil ou mécanisme*],
   [Réduire], [Désactiver modules, filtrer syscalls.], [`modprobe.d`, Seccomp, sans `io_uring`.],
   [Isoler], [Runtime à isolation forte pour l'untrusted.], [gVisor, Kata Containers.],
-  [Patcher], [Corriger à chaud, redéployer sans coupure.], [KernelCare / Kpatch / Livepatch, pipeline drain.],
+  [Patcher], [Corriger à chaud lorsque c'est compatible ; drain et redémarrage pour les changements structurels.], [KernelCare / Kpatch / Livepatch, pipeline drain.],
   [Surveiller], [Détecter l'anomalie au cœur du noyau.], [eBPF, Tetragon, Falco.],
 )
 
 === Interprétation des résultats
 
-Ce plan applique la défense en profondeur. Chaque étape rattrape la précédente. Le hardening rate la CVE restante. Le sandboxing la confine. Le live-patching la ferme vite. La détection eBPF la voit quand elle s'exécute.
+Ce plan applique la défense en profondeur. Chaque étape rattrape la précédente. Le hardening réduit l'exposition. Le sandboxing confine les charges non fiables. Le live-patching réduit la fenêtre d'exposition lorsque le correctif est compatible. La détection eBPF signale les comportements suspects lorsqu'ils s'exécutent.
 
-Il protège la triade CIA côté opérateur. La confidentialité sépare les tenants. L'intégrité bloque l'élévation conteneur vers root. La disponibilité survit au patching grâce au live-patch et au drain progressif. Je retrouve le moindre privilège et Zero Trust : aucun workload client n'obtient un syscall sensible par défaut.
+Il protège la triade CIA côté opérateur. La confidentialité sépare les tenants. L'intégrité bloque ou réduit l'élévation d'un conteneur vers root. La disponibilité peut être maintenue pendant le patching lorsque le live-patch est compatible, avec drain ou redémarrage pour les changements structurels. Je retrouve le moindre privilège et Zero Trust : les workloads clients ne doivent pas obtenir par défaut un syscall sensible.
 
 Il suit un cycle PDCA. Je planifie avec l'inventaire des modules et des syscalls. Je déploie les profils et les runtimes. Je contrôle avec Tetragon et les audits. Je corrige avec le live-patch et la SoA. Côté ISO 27001, cela trace vers la gestion des vulnérabilités techniques et la sécurité des environnements de développement et d'exploitation. Le certificat ne prouve pas l'absence de CVE noyau. Il prouve qu'un système de patching et de surveillance tourne en continu.
 
-Pour mon projet de semestre, j'en retiens trois réflexes : runtime isolé pour tout workload non digne de confiance, Seccomp strict par défaut, et correctif noyau sans reboot dès qu'une LPE publique sort.
+Pour mon projet de semestre, j'en retiens trois réflexes : runtime isolé pour tout workload non digne de confiance, Seccomp strict par défaut, et live-patching lorsqu'il est compatible, avec drain ou redémarrage pour les changements structurels.
 
 === Références
 

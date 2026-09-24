@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Activité 4 : Aspect humain, risques et biais cognitifs
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 4]
 
 #encadre("Objectifs")[Comprendre les biais cognitifs qui affectent la sécurité : comment les repérer, les limiter, et pourquoi ils changent selon la personne et la culture.]
 
@@ -68,7 +67,6 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 
 Le tableau mappe six familles de biais, du sensori-moteur jusqu'à la personnalité, avec une stratégie précise pour chacune. Les risques se partagent entre l'individuel (fatigue, Dunning-Kruger, expertise partielle) et le collectif (culture du blâme, hiérarchie qui verrouille la contradiction). Les mitigations suivent la même découpe : mentorat et suivi de charge d'un côté, post-mortems sans blâme et leadership exemplaire de l'autre. La synthèse retient cinq réflexes applicables : hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
 
-Le schéma range les six familles : perception et mémoire en haut, jugement et traits en bas.
 #align(center)[
   #diagram(
     spacing: (6mm, 8mm),

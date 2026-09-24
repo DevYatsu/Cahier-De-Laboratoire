@@ -37,8 +37,8 @@
     var dark=(theme==='dark');
     if(dark){document.documentElement.dataset.theme='dark';}
     else{delete document.documentElement.dataset.theme;}
-  if(bTheme){bTheme.setAttribute('aria-pressed',d?'true':'false');
-    bTheme.setAttribute('aria-label',d?'Activer le thème clair':'Activer le thème sombre');}
+  if(bTheme){bTheme.setAttribute('aria-pressed',dark?'true':'false');
+    bTheme.setAttribute('aria-label',dark?'Activer le thème clair':'Activer le thème sombre');}
     if(save!==false){try{localStorage.setItem('cahier-theme',dark?'dark':'light');}catch(e){}}
   }
   function initialTheme(){

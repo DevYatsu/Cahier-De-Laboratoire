@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Activité 6 : Rôle de responsable de la sécurité d'une entreprise
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 6]
 
 #encadre("Objectifs")[Endosser le rôle de RSSI et montrer que les deux piliers (triade CIA et fonctions Identifier, Protéger, Détecter, Répondre, Récupérer) forment un cadre de pilotage utile face aux cybermenaces. Je relie chaque pilier à une décision RSSI concrète et je cite les standards qui les portent.]
 

@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Exercice 3 : Évaluer la triade CIA sur des cas concrets
-#text(size: 0.9em, fill: gray)[Partie matin]
 
 #encadre("Objectifs")[Appliquer la triade CIA à quatre cas réels et justifier chaque note de 1 à 4. Comparer les profils obtenus pour voir quel critère domine selon le secteur.]
 

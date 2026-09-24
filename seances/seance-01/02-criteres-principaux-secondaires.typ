@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Exercice 2 : Critères principaux et secondaires
-#text(size: 0.9em, fill: gray)[Partie matin]
 
 #encadre("Objectifs")[Distinguer les trois critères principaux CIA des critères secondaires qui les rendent applicables : identification et traçabilité, authentification, sensibilisation, résilience.]
 
@@ -27,7 +26,6 @@ On a rappelé les critères en cours. Je les note en vrac, sans chercher à tout
 - Sensibilisation
 - Résilience
 
-Le schéma résume la triade et ses compléments : les trois critères principaux forment le triangle, les critères secondaires l'entourent.
 #align(center)[
   #diagram(
     spacing: (14mm, 12mm),

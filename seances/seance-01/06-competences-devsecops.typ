@@ -2,7 +2,6 @@
 #import "/template.typ": *
 
 == Activité 1 : Évaluer ses compétences actuelles comme DevSecOps
-#text(size: 0.9em, fill: gray)[Partie après-midi]
 
 #encadre("Objectifs")[Mettre au clair les compétences actuelles et les lacunes, pour savoir où progresser. Prendre en compte les formations déjà suivies, les expériences passées, et les connaissances théoriques et pratiques.]
 

@@ -2,9 +2,8 @@
 #import "/template.typ": *
 
 == Activité 2 : Recommandations d'organismes de sécurité
-#text(size: 0.9em, fill: gray)[Partie après-midi · activité 2]
 
-#encadre("Objectifs")[Résumer et référencer les recommandations de l'OFCS (Office fédéral de la cybersécurité, bacs.admin.ch (ex-ncsc.admin.ch)) ou d'organismes similaires. Je couvre le phishing, le ransomware, le DDoS, les data leaks et les supply chains. J'ajoute les menaces de l'écosystème open source et de Microsoft Exchange.]
+#encadre("Objectifs")[Résumer et référencer les recommandations de l'OFCS (Office fédéral de la cybersécurité, bacs.admin.ch) ou d'organismes similaires. Je couvre le phishing, le ransomware, le DDoS, les data leaks et les supply chains. J'ajoute les menaces de l'écosystème open source et de Microsoft Exchange.]
 
 === Métiers pertinents
 
@@ -23,12 +22,12 @@ Le tableau ci-dessous résume les sept menaces et deux recommandations clés pou
   [Data leaks], [Notifier le PFPDT et l'OFCS selon la loi.], [Aucune base sur Internet. Appliquer le moindre privilège et le chiffrement.],
   [Supply chain], [Doctrine CISA / ESF, pas de page OFCS dédiée.], [Exiger un SBOM et un VEX. Cartographier les fournisseurs.],
   [Open source], [Principes CISA sur la sécurité open source.], [Verrouiller les lockfiles et scanner avec SCA. Tenir un miroir interne avec allowlist.],
-  [Exchange], [OFCS a relancé plus de 4500 entités.], [Appliquer les CU et SU sans délai. Considérer tout serveur non patché comme compromis.],
+  [Exchange], [Le NCSC (aujourd'hui OFCS) a signalé plus de 4 500 entités concernées.], [Appliquer les CU et SU sans délai. Considérer tout serveur non patché comme compromis.],
 )
 
 ==== Phishing
 
-Le phishing reste la menace n°1 en Suisse. L'OFCS compte 975 309 signalements en 2024, soit une hausse de 108 %. Le portail antiphishing.ch centralise les signalements via reports\@antiphishing.ch. Les attaques en temps réel imitent M365 et SharePoint et contournent la 2FA simple.
+Le phishing reste une menace majeure en Suisse. Selon antiphishing.ch, le bilan 2024 fait état de 975 309 signalements (+79 % sur un an) et de 20 872 sites de phishing confirmés (+108 % sur un an). Ce chiffre décrit les signalements centralisés par le portail, pas toutes les tentatives de phishing. Les attaques en temps réel imitent M365 et SharePoint et contournent parfois la 2FA simple.
 
 Je ne saisis jamais un mot de passe via un lien. Je passe par un favori enregistré. J'active la 2FA ou FIDO2 partout. Je signale chaque tentative. Si mon compte est compromis, je change le mot de passe et je dépose plainte. Côté domaine, je configure SPF, DKIM et DMARC.
 
@@ -62,15 +61,14 @@ Je tiens un miroir interne avec une allowlist. Je verrouille les lockfiles et je
 
 ==== Microsoft Exchange
 
-Exchange cumule trois familles de failles critiques. ProxyLogon couvre CVE-2021-26855, 26857, 26858 et 27065. Le groupe Hafnium l'exploite pour déposer un webshell SYSTEM. ProxyShell couvre CVE-2021-34473, 34523 et 31207. ProxyNotShell couvre CVE-2022-41040 et 41082. L'OFCS a relancé plus de 4500 entités suisses.
+Exchange cumule trois familles de failles critiques. ProxyLogon couvre CVE-2021-26855, 26857, 26858 et 27065. Le groupe Hafnium l'exploite pour déposer un webshell SYSTEM. ProxyShell couvre CVE-2021-34473, 34523 et 31207. ProxyNotShell couvre CVE-2022-41040 et 41082. Le NCSC suisse a informé plus de 4 500 entités exposées à ces vulnérabilités ; cette alerte historique est reprise par l'OFCS.
 
-J'applique les mises à jour cumulatives et de sécurité sans délai. Je contrôle avec HealthChecker et Test-ProxyLogon.ps1. Je considère tout serveur non patché comme compromis et je le passe en forensique.
+J'applique les mises à jour cumulatives et de sécurité sans délai. Je contrôle avec HealthChecker et Test-ProxyLogon.ps1. Je traite un serveur non patché comme un système à risque élevé et je l'isole pour investigation.
 
 === Résultats
 
 Les sept menaces se rangent en trois groupes. Le phishing, le ransomware, le DDoS et les leaks forment le socle OFCS avec des réflexes directs. La supply chain et l'open source déplacent la confiance vers les fournisseurs et les dépendances. Exchange montre ce qui arrive quand un patch critique dort. Chaque menace tient en deux recos : un réflexe humain et une mesure technique. Le point commun est la préparation : backups testés, contacts prêts, inventaires à jour.
 
-Le schéma regroupe les sept menaces en trois blocs : le socle OFCS, la confiance fournisseurs, puis le patch critique.
 #align(center)[
   #diagram(
     spacing: (6mm, 8mm),

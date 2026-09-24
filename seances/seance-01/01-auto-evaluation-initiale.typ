@@ -41,6 +41,7 @@ Une phrase suffit par question.
   Je veux progresser en priorité sur le confinement OS et réseaux (2/5). Je connais mal le sandboxing et la segmentation alors que le sujet m'intéresse, donc c'est là que la marge est la plus grande.
 - Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?
   Oui, la distinction est claire pour moi. Sécuriser une entreprise intègre beaucoup plus de variables humaines, donc beaucoup plus de points d'attaque et de points de défense que sécuriser un seul logiciel.
+  La sécurisation d'une entreprise tient aussi compte des contraintes de gestion, comme les ressources, les budgets, les activités et la politique de l'entreprise. Pour mon projet, je peux donc analyser les menaces et appliquer la sécurité à chaque étape du cycle de vie, avec un confinement adapté aux risques et aux impacts.
 
 === Résultats
 

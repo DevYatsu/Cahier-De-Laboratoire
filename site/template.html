@@ -39,6 +39,10 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
   </div>
 </header>
 <main>
+  <div class="note" id="seance-erreur" role="alert" hidden>
+    <p id="seance-erreur-texte"></p>
+    <button type="button" id="btn-toutes" class="bouton">Voir toutes les séances</button>
+  </div>
   <div class="toc-barre">
     <button type="button" id="btn-toc" class="toc-bouton" aria-expanded="false" aria-controls="sommaire">Sommaire <span class="fleche" aria-hidden="true">▾</span></button>
   </div>
@@ -60,7 +64,9 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
   <nav class="seances" id="nav-seances" aria-label="Navigation entre les séances" hidden>
     <a class="seance-lien" id="seance-prec" href="#">← <span></span></a>
     <label class="seance-saut">Aller à la séance
-      <select id="seance-select"></select>
+      <select id="seance-select">
+        <option value="">Toutes les séances</option>
+      </select>
     </label>
     <a class="seance-lien" id="seance-suiv" href="#"><span></span> →</a>
   </nav>

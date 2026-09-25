@@ -73,73 +73,119 @@ CAPTION_RE = re.compile(r"caption:\s*\[([^\]]*)\]", re.DOTALL)
 VISUAL_MARKER_RE = re.compile(r"#(?:diagram\b|lq\.)")
 
 # Diagrams exported to SVG in CI (figs/<stem>.typ -> public/assets/figs/<stem>.svg).
-# Keyed by source file name; value is (stem, alt text, caption or None).
+# Keyed by source file name; each list item is (stem, alt text, caption or None)
+# in textual occurrence order.
 # The 3 fletcher figures have no source caption: emit figure+img with alt only.
-FIGURE_SVGS: dict[str, tuple[str, str, str | None]] = {
-    "02-criteres-principaux-secondaires.typ": (
-        "cia-triangle",
-        "Triangle CIA : Confidentialité, Intégrité, Disponibilité, entouré des critères secondaires",
-        None,
-    ),
-    "03-triade-cia-cas-concrets.typ": (
-        "cia-notes-chart",
-        "Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.",
-        "Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.",
-    ),
-    "10-role-responsable-securite.typ": (
-        "rss-chain",
-        "Chaîne des fonctions : Identifier, Protéger, Détecter, Répondre, Récupérer",
-        None,
-    ),
-    "12-travail-personnel-iso-27001.typ": (
-        "iso27001-chain",
-        "Flux ISO 27001 : Direction, Risques, SoA, Mesures",
-        None,
-    ),
-    "04-secteurs-domaines-application.typ": (
-        "secteurs-spoke",
-        "Secteurs public, transverses et privé reliés aux échelles moi, nous et tous",
-        None,
-    ),
-    "05-facteur-humain-biais-cognitifs.typ": (
-        "biais-chain",
-        "Six familles de biais cognitifs, du sensori-moteur à la personnalité",
-        None,
-    ),
-    "06-competences-devsecops.typ": (
-        "devsecops-roadmap",
-        "Feuille de route : socle acquis, Incident Response, Secure Architecture, Enterprise Ops",
-        None,
-    ),
-    "08-recommandations-organismes.typ": (
-        "recos-groups",
-        "Trois groupes de menaces : socle OFCS, confiance fournisseurs, patch critique Exchange",
-        None,
-    ),
-    "09-vocabulaire-cybersecurite.typ": (
-        "teams-triangle",
-        "Cycle Red team, Blue team, Purple team avec rejeu",
-        None,
-    ),
-    "11-surface-attaque-kernel-linux.typ": (
-        "kernel-chain",
-        "Plan en quatre étapes : réduire, isoler, patcher, surveiller",
-        None,
-    ),
-    "13-synthese-seance.typ": (
-        "synthese-reperes",
-        "Trois repères : CIA et SoA, facteur humain, pratique CI/CD",
-        None,
-    ),
+FigureSvg = tuple[str, str, str | None]
+FIGURE_SVGS: dict[str, list[FigureSvg]] = {
+    "02-criteres-principaux-secondaires.typ": [
+        (
+            "cia-triangle",
+            "Triangle CIA : Confidentialité, Intégrité, Disponibilité, entouré des critères secondaires",
+            None,
+        ),
+    ],
+    "03-triade-cia-cas-concrets.typ": [
+        (
+            "cia-notes-chart",
+            "Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.",
+            "Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.",
+        ),
+    ],
+    "10-role-responsable-securite.typ": [
+        (
+            "rss-chain",
+            "Chaîne des fonctions : Identifier, Protéger, Détecter, Répondre, Récupérer",
+            None,
+        ),
+    ],
+    "12-travail-personnel-iso-27001.typ": [
+        (
+            "iso27001-chain",
+            "Flux ISO 27001 : Direction, Risques, SoA, Mesures",
+            None,
+        ),
+    ],
+    "04-secteurs-domaines-application.typ": [
+        (
+            "secteurs-spoke",
+            "Secteurs public, transverses et privé reliés aux échelles moi, nous et tous",
+            None,
+        ),
+    ],
+    "05-facteur-humain-biais-cognitifs.typ": [
+        (
+            "biais-chain",
+            "Six familles de biais cognitifs, du sensori-moteur à la personnalité",
+            None,
+        ),
+    ],
+    "06-competences-devsecops.typ": [
+        (
+            "devsecops-roadmap",
+            "Feuille de route : socle acquis, Incident Response, Secure Architecture, Enterprise Ops",
+            None,
+        ),
+    ],
+    "08-recommandations-organismes.typ": [
+        (
+            "recos-groups",
+            "Trois groupes de menaces : socle OFCS, confiance fournisseurs, patch critique Exchange",
+            None,
+        ),
+    ],
+    "09-vocabulaire-cybersecurite.typ": [
+        (
+            "teams-triangle",
+            "Cycle Red team, Blue team, Purple team avec rejeu",
+            None,
+        ),
+    ],
+    "11-surface-attaque-kernel-linux.typ": [
+        (
+            "kernel-chain",
+            "Plan en quatre étapes : réduire, isoler, patcher, surveiller",
+            None,
+        ),
+    ],
+    "13-synthese-seance.typ": [
+        (
+            "synthese-reperes",
+            "Trois repères : CIA et SoA, facteur humain, pratique CI/CD",
+            None,
+        ),
+    ],
+    "02-les-menaces.typ": [
+        (
+            "menace-evenement",
+            "Événement et dommage reliés à l'accident naturel, la malveillance intentionnelle et l'erreur humaine",
+            None,
+        ),
+        (
+            "menace-vulnerabilite",
+            "Vulnérabilité comme faiblesse exploitable par une menace",
+            None,
+        ),
+        (
+            "menace-risque",
+            "Risque comme probabilité de survenue d'une menace et impact sur le dommage",
+            None,
+        ),
+    ],
+    "03-sensibilisation-zones-ombres.typ": [
+        (
+            "traitement-risque",
+            "Traitement du risque : réduire ou atténuer, transférer, accepter et éviter, avec les mesures associées",
+            None,
+        ),
+    ],
 }
-
-
-def figure_svg(source: Path) -> str | None:
-    """Render a known diagram source as an HTML figure backed by an SVG export."""
-    entry = FIGURE_SVGS.get(source.name)
-    if entry is None:
+def figure_svg(source: Path, occurrence: int) -> str | None:
+    """Render one registered diagram occurrence as a lazy HTML figure."""
+    entries = FIGURE_SVGS.get(source.name)
+    if entries is None or not 0 <= occurrence < len(entries):
         return None
-    stem, alt, caption = entry
+    stem, alt, caption = entries[occurrence]
     src = html.escape(f"assets/figs/{stem}.svg", quote=True)
     img = f'<img src="{src}" alt="{html.escape(alt, quote=True)}" loading="lazy">'
     if caption:
@@ -435,6 +481,14 @@ def render_blocks(raw_lines: list[str]) -> str:
     # Source file of the lines being rendered; set by build_fragment so nested
     # callout bodies keep the same séance context for asset/diagram rewriting.
     source = _CURRENT_SOURCE
+    figure_occurrence = 0
+
+    def diagram_html() -> str:
+        nonlocal figure_occurrence
+        rendered = figure_svg(source, figure_occurrence)
+        figure_occurrence += 1
+        return rendered or typst_placeholder(source)
+
     lines = [ln.rstrip() for ln in raw_lines]
     out: list[str] = []
     headings: list[tuple[int, str, str]] = []  # collected globally elsewhere
@@ -501,7 +555,7 @@ def render_blocks(raw_lines: list[str]) -> str:
             if IMAGE_RE.search(block):
                 out.append(parse_image(block, source))
             else:
-                out.append(figure_svg(source) or typst_placeholder(source))
+                out.append(diagram_html())
             continue
 
         # Bare #image("...") anywhere on the line.
@@ -528,7 +582,7 @@ def render_blocks(raw_lines: list[str]) -> str:
             flush_list()
             block, i = balanced_block(lines, i, "[", "]")
             if VISUAL_MARKER_RE.search(block):
-                out.append(figure_svg(source) or typst_placeholder(source))
+                out.append(diagram_html())
             elif IMAGE_RE.search(block):
                 out.append(parse_image(block, source))
             continue

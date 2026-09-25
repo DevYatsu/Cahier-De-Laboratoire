@@ -4,7 +4,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import build_site
+from scripts import build_site, export_figures
 
 
 class CollectHeadingsTest(unittest.TestCase):
@@ -225,6 +225,97 @@ class ReportPageContractTest(unittest.TestCase):
     def test_obsolete_modules_section_stays_removed(self) -> None:
         self.assertNotIn("Modules, ECTS et périodes", self.html)
         self.assertNotIn('id="modules"', self.html)
+
+
+
+
+class SessionDiagramMarkupTest(unittest.TestCase):
+    def test_session_02_renders_four_registered_svgs_in_order(self) -> None:
+        _, fragment = build_site.build_fragment()
+        match = re.search(
+            r'<div class="bloc-seance" data-seance="seance-02">'
+            r'(?P<body>.*?)(?=<div class="bloc-seance"|\Z)',
+            fragment,
+            flags=re.DOTALL,
+        )
+        self.assertIsNotNone(match)
+        body = match.group("body") if match is not None else ""
+        self.assertEqual(
+            re.findall(r'<img src="(assets/figs/[^\"]+\.svg)"', body),
+            [
+                "assets/figs/menace-evenement.svg",
+                "assets/figs/menace-vulnerabilite.svg",
+                "assets/figs/menace-risque.svg",
+                "assets/figs/traitement-risque.svg",
+            ],
+        )
+        self.assertNotIn('class="typst-only"', body)
+
+    def test_registered_diagrams_render_15_unique_svgs_without_fallbacks(self) -> None:
+        _, fragment = build_site.build_fragment()
+        svg_sources = re.findall(r'<img src="(assets/figs/[^"]+\.svg)"', fragment)
+        self.assertEqual(len(svg_sources), 15)
+        self.assertEqual(len(set(svg_sources)), 15)
+        self.assertNotIn('class="typst-only"', fragment)
+
+
+
+class FigureJobsTest(unittest.TestCase):
+    def test_registry_pairs_all_source_occurrences(self) -> None:
+        jobs = export_figures.figure_jobs()
+
+        self.assertEqual(len(jobs), 15)
+        self.assertEqual(
+            {
+                source: sum(job.source.name == source for job in jobs)
+                for source in {job.source.name for job in jobs}
+            },
+            {
+                "02-criteres-principaux-secondaires.typ": 1,
+                "03-triade-cia-cas-concrets.typ": 1,
+                "10-role-responsable-securite.typ": 1,
+                "12-travail-personnel-iso-27001.typ": 1,
+                "04-secteurs-domaines-application.typ": 1,
+                "05-facteur-humain-biais-cognitifs.typ": 1,
+                "06-competences-devsecops.typ": 1,
+                "08-recommandations-organismes.typ": 1,
+                "09-vocabulaire-cybersecurite.typ": 1,
+                "11-surface-attaque-kernel-linux.typ": 1,
+                "13-synthese-seance.typ": 1,
+                "02-les-menaces.typ": 3,
+                "03-sensibilisation-zones-ombres.typ": 1,
+            },
+        )
+
+        menaces = [job for job in jobs if job.source.name == "02-les-menaces.typ"]
+        self.assertEqual(
+            [job.stem for job in menaces],
+            ["menace-evenement", "menace-vulnerabilite", "menace-risque"],
+        )
+        self.assertIn("Malveillance intentionnelle", menaces[0].diagram)
+        self.assertIn("Faiblesse exploitable par une menace", menaces[1].diagram)
+        self.assertIn("Probabilité de survenue", menaces[2].diagram)
+
+        traitement = next(
+            job
+            for job in jobs
+            if job.source.name == "03-sensibilisation-zones-ombres.typ"
+        )
+        self.assertEqual(traitement.stem, "traitement-risque")
+        self.assertIn("Réduire / atténuer", traitement.diagram)
+
+    def test_cardinality_mismatch_fails_before_export(self) -> None:
+        one_spec = [("only-one", "Alt", None)]
+        with patch.dict(
+            export_figures.FIGURE_SVGS,
+            {"02-les-menaces.typ": one_spec},
+            clear=True,
+        ):
+            with self.assertRaisesRegex(
+                SystemExit,
+                r"02-les-menaces\.typ.*3.*1",
+            ):
+                export_figures.figure_jobs()
 
 
 if __name__ == "__main__":

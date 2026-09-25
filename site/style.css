@@ -78,6 +78,25 @@ h1.titre{margin:.1rem 0 0;font-size:1.35rem;line-height:1.2;letter-spacing:-.01e
 .theme:hover{background:var(--gris-100);color:var(--noir);border-color:var(--gris-200)}
 .theme:focus-visible{outline:3px solid var(--rouge);outline-offset:2px}
 main{width:100%;max-width:1360px;margin:0 auto;padding:1.6rem 1.25rem 1rem;flex:1}
+/* Les commandes de lecture suivent exactement la région visible. */
+.col-sommaire[hidden]{display:none}
+.toc-barre[hidden]{display:none}
+
+/* Index des seances */
+#index-seances{max-width:1020px;margin:0 auto;padding:2rem;background:var(--carte);
+  border:1px solid var(--bord);border-radius:var(--rayon);box-shadow:var(--ombre)}
+#index-seances[hidden]{display:none}
+#index-seances h2{margin:0 0 1.2rem;font-size:1.65rem;line-height:1.25}
+#liste-seances{list-style:none;margin:0;padding:0;border-top:1px solid var(--bord)}
+#liste-seances li{min-width:0;border-bottom:1px solid var(--bord)}
+#liste-seances a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  gap:1rem;min-width:0;padding:1rem .25rem;color:var(--noir);text-decoration:none}
+#liste-seances a:hover{color:var(--rouge-fonce);background:var(--rouge-clair)}
+#liste-seances a:focus-visible{outline:3px solid var(--rouge);outline-offset:-3px;
+  border-radius:6px}
+#liste-seances .seance-index-titre{min-width:0;font-weight:750;overflow-wrap:anywhere}
+#liste-seances .seance-index-action{color:var(--lien);font-weight:700;white-space:nowrap}
+
 /* Zones de lecture */
 .lecture{display:grid;grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start}
 .lecture[hidden]{display:none}
@@ -245,6 +264,11 @@ footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--
   .note{font-size:.8rem;padding:0 .5rem}
   .recherche input[type="search"]{font-size:.88rem;padding:.45rem .65rem;min-height:44px}
   .recherche-compte{font-size:.78rem}
+  #index-seances{padding:1rem .85rem;border-radius:10px}
+  #index-seances h2{font-size:1.25rem;margin-bottom:.9rem}
+  #liste-seances a{grid-template-columns:1fr;gap:.35rem;padding:.9rem .2rem}
+  #liste-seances .seance-index-action{justify-self:start;font-size:.85rem}
+  #btn-index{width:100%;justify-content:center}
 }
 @media (pointer:coarse){
   .segmente button,.theme,.bouton,.toc-bouton{
@@ -291,7 +315,7 @@ footer.site{border-top:4px solid var(--noir);margin-top:1.5rem;background:var(--
 }
 @media (min-width:1000px){
   .toc-barre{display:none}
-  .col-sommaire[hidden]{display:block}
+  .col-sommaire[hidden]{display:none}
 }
 /* Pointeurs tactiles : ancres de titre toujours legerement visibles */
 @media (pointer:coarse){

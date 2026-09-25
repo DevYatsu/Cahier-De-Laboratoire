@@ -20,6 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Run index runtime tests
+        run: node --test tests/test_app_runtime.js
+
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
         with:
@@ -29,8 +32,6 @@ jobs:
         run: |
           mkdir -p public
           typst compile main.typ public/cahier.pdf
-          python3 scripts/export_figures.py
-          ls -lh public/ public/assets/figs/
 
       - name: Generate rapport data
         run: |
@@ -40,17 +41,36 @@ jobs:
 
       - name: Generate website
         run: |
+          set -e
           python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html
+          python3 scripts/export_figures.py --outdir public/assets/figs --workdir /tmp/diagram-wrappers
+          test "$(find public/assets/figs -maxdepth 1 -type f -name '*.svg' | wc -l | tr -d ' ')" = "15"
+          python3 -B - <<'PY'
+          from pathlib import Path
+          from scripts.assemble_site import audit_built_page
+
+          fragment = Path('/tmp/fragment.html').read_text(encoding='utf-8')
+          report = audit_built_page(fragment)
+          assert report.svg_count == 15, report
+          counts = report.session_svg_counts
+          assert counts.get('seance-02') == 4, report
+          assert report.placeholder_count == 0, report
+          print('Pre-assembly audit: 15 SVG, 4 images séance 02, 0 placeholder')
+          PY
           python3 scripts/assemble_site.py --toc /tmp/toc.html --fragment /tmp/fragment.html --out public/index.html
+          python3 -B - <<'PY'
+          from pathlib import Path
+          from scripts.assemble_site import audit_site
+
+          root = Path('public')
+          report = audit_site(root, (root / 'index.html').read_text(encoding='utf-8'))
+          assert report.svg_count == 15, report
+          counts = report.session_svg_counts
+          assert counts.get('seance-02') == 4, report
+          assert report.placeholder_count == 0, report
+          print('Final artifact audit: 15 SVG, 4 images séance 02, 0 placeholder')
+          PY
           cp rapport-activite-template.xls public/rapport-activite-template.xls
-          # Flatten each séance's assets under public/assets/<seance-dir>/ so
-          # that "assets/foo.jpg" references resolve on the deployed site.
-          for assets in seances/*/assets; do
-            [ -d "$assets" ] || continue
-            seance="$(basename "$(dirname "$assets")")"
-            mkdir -p "public/assets/$seance"
-            cp -R "$assets/." "public/assets/$seance/"
-          done
           ls -lh public/
 
       - uses: actions/upload-pages-artifact@v3

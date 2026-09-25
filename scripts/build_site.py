@@ -21,6 +21,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SEANCES_DIR = ROOT / "seances"
+SEANCE_KEY_RE = re.compile(r"seance-\d{2}\Z")
+
+
+def source_seance_key(path: Path) -> str:
+    """Return the stable seance-NN directory key, or context for non-session sources."""
+    try:
+        first = path.resolve().relative_to(SEANCES_DIR.resolve()).parts[0]
+    except (ValueError, IndexError):
+        return "contexte"
+    return first if SEANCE_KEY_RE.fullmatch(first) else "contexte"
 
 # The site flattens every séance's images under public/assets/<seance-dir>/,
 # so a source-relative "assets/foo.jpg" must become "assets/seance-01/foo.jpg".
@@ -563,12 +573,15 @@ def render_blocks(raw_lines: list[str]) -> str:
             hid = unique_slug(re.sub(r"\*", "", text))
             # Typst numbering: level N gets "1.", "1.2.", "1.2.3.", "1.2.3.1.".
             num = next_heading_number(level)
+            key = source_seance_key(source)
             title_html = (f'<span class="num">{num}</span> '
                           f'{inline_markup(text)}')
             tag = f"h{level}"
-            out.append(f'<{tag} id="{hid}">{title_html} '
-                       f'<a class="ancre" href="#{hid}" aria-label="Lien vers cette section">¶</a></{tag}>')
-            headings.append((level, hid, num + " " + text.replace("*", "")))
+            out.append(
+                f'<{tag} id="{hid}" data-seance="{html.escape(key, quote=True)}">'
+                f'{title_html} '
+                f'<a class="ancre" href="#{hid}" aria-label="Lien vers cette section">¶</a></{tag}>'
+            )
             i += 1
             continue
 
@@ -603,43 +616,68 @@ def render_blocks(raw_lines: list[str]) -> str:
 TOC_MAX_LEVEL = 2  # Sessions and activity/work titles only; mirrors main.typ.
 
 
-def collect_headings(fragment: str) -> list[tuple[int, str, str, str]]:
-    """Return summary headings through level 2, independent of their labels.
-
-    Level-3+ headings remain in the body but are excluded from the summary.
-    """
-    found = []
-    for m in re.finditer(r'<h([1-9]) id="([^"]+)">(.*?) <a class="ancre"', fragment):
-        level = int(m.group(1))
+def collect_headings(fragment: str) -> list[tuple[int, str, str, str, str]]:
+    """Return summary headings through level 2 with their stable section key."""
+    found: list[tuple[int, str, str, str, str]] = []
+    for match in re.finditer(
+        r'<h([1-9]) id="([^"]+)" data-seance="([^"]+)">'
+        r'(.*?) <a class="ancre"',
+        fragment,
+    ):
+        level = int(match.group(1))
         if level > TOC_MAX_LEVEL:
             continue
-        inner = m.group(3)
-        num_m = re.match(r'<span class="num">([^<]*)</span>\s*', inner)
-        num = num_m.group(1) if num_m else ""
-        if num_m:
-            inner = inner[num_m.end():]
+        inner = match.group(4)
+        num_match = re.match(r'<span class="num">([^<]*)</span>\s*', inner)
+        num = num_match.group(1) if num_match else ""
+        if num_match:
+            inner = inner[num_match.end():]
         label = html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()
-        found.append((level, m.group(2), num, label))
+        found.append((level, match.group(2), num, label, match.group(3)))
     return found
 
 
-def build_toc(headings: list[tuple[int, str, str, str]]) -> str:
+def build_toc(headings: list[tuple[int, str, str, str, str]]) -> str:
     if not headings:
         return ""
-    out = ['<nav class="toc" aria-label="Sommaire"><p class="toc-titre">Sommaire</p>']
-    current = 0
-    for level, hid, num, label in headings:
-        while current < level:
-            out.append("<ul>")
-            current += 1
-        while current > level:
-            out.append("</ul>")
-            current -= 1
-        prefix = f'<span class="num">{html.escape(num)}</span> ' if num else ""
-        out.append(f'<li><a href="#{hid}">{prefix}{html.escape(label)}</a></li>')
-    while current > 0:
-        out.append("</ul>")
-        current -= 1
+    root: list[dict[str, object]] = []
+    stack: list[tuple[int, list[dict[str, object]]]] = [(0, root)]
+    for level, hid, num, label, key in headings:
+        while stack[-1][0] >= level:
+            stack.pop()
+        parent = stack[-1][1]
+        node: dict[str, object] = {
+            "level": level,
+            "id": hid,
+            "num": num,
+            "label": label,
+            "key": key,
+            "children": [],
+        }
+        parent.append(node)
+        stack.append((level, node["children"]))  # type: ignore[arg-type]
+
+    def render(nodes: list[dict[str, object]]) -> list[str]:
+        rendered = ["<ul>"]
+        for node in nodes:
+            num = str(node["num"])
+            prefix = f'<span class="num">{html.escape(num)}</span> ' if num else ""
+            rendered.append(
+                f'<li data-seance="{html.escape(str(node["key"]), quote=True)}">'
+                f'<a href="#{node["id"]}">{prefix}{html.escape(str(node["label"]))}</a>'
+            )
+            children = node["children"]
+            if children:
+                rendered.extend(render(children))  # type: ignore[arg-type]
+            rendered.append("</li>")
+        rendered.append("</ul>")
+        return rendered
+
+    out = [
+        '<nav class="toc" aria-label="Sommaire">',
+        '<p class="toc-titre">Sommaire</p>',
+    ]
+    out.extend(render(root))
     out.append("</nav>")
     return "\n".join(out)
 
@@ -675,15 +713,21 @@ def build_fragment() -> tuple[str, str]:
     global _CURRENT_SOURCE
     _SLUG_COUNTS.clear()
     _HEADING_COUNTERS[:] = []
-    parts: list[str] = []
+    grouped: dict[str, list[str]] = {}
     for path in source_files_in_order():
         _CURRENT_SOURCE = path
-        text = path.read_text(encoding="utf-8")
-        parts.append(render_blocks(text.splitlines()))
-    fragment = "\n".join(p for p in parts if p.strip())
+        rendered = render_blocks(path.read_text(encoding="utf-8").splitlines())
+        if rendered.strip():
+            grouped.setdefault(source_seance_key(path), []).append(rendered)
+    fragment = "\n".join(
+        f'<div class="bloc-seance" data-seance="{html.escape(key, quote=True)}">\n'
+        + "\n".join(parts)
+        + "\n</div>"
+        for key, parts in grouped.items()
+    )
     # Drop the source "Sommaire" section: it only held the Typst outline.
     fragment = re.sub(
-        r'<h1 id="sommaire">.*?</h1>\s*',
+        r'<h1 id="sommaire"[^>]*>.*?</h1>\s*',
         "",
         fragment,
         count=1,

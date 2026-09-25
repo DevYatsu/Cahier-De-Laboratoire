@@ -13,7 +13,7 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a class="saut" href="#contenu">Aller au contenu</a>
+<a class="saut" id="saut-region" href="#index-seances">Aller à l’index des séances</a>
 <div class="liseret" aria-hidden="true"></div>
 <header class="site">
   <div class="barre">
@@ -43,10 +43,14 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
     <p id="seance-erreur-texte"></p>
     <button type="button" id="btn-toutes" class="bouton">Voir toutes les séances</button>
   </div>
-  <div class="toc-barre">
+  <section id="index-seances" aria-labelledby="titre-index-seances" tabindex="-1">
+    <h2 id="titre-index-seances">Choisir une séance</h2>
+    <ul id="liste-seances" aria-labelledby="titre-index-seances"></ul>
+  </section>
+  <div class="toc-barre" id="toc-barre" hidden>
     <button type="button" id="btn-toc" class="toc-bouton" aria-expanded="false" aria-controls="sommaire">Sommaire <span class="fleche" aria-hidden="true">▾</span></button>
   </div>
-  <div class="lecture" id="vue-doc">
+  <div class="lecture" id="vue-doc" hidden>
     <aside class="col-sommaire" id="sommaire" aria-label="Sommaire de navigation">
       <div class="recherche" role="search">
         <label class="recherche-label" for="recherche">Rechercher dans le sommaire</label>
@@ -62,6 +66,7 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
     </article>
   </div>
   <nav class="seances" id="nav-seances" aria-label="Navigation entre les séances" hidden>
+    <button type="button" id="btn-index" class="bouton">Toutes les séances</button>
     <a class="seance-lien" id="seance-prec" href="#">← <span></span></a>
     <label class="seance-saut">Aller à la séance
       <select id="seance-select">
@@ -70,7 +75,7 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
     </label>
     <a class="seance-lien" id="seance-suiv" href="#"><span></span> →</a>
   </nav>
-  <div class="panneau-pdf" id="vue-pdf" hidden>
+  <div class="panneau-pdf" id="vue-pdf" tabindex="-1" hidden>
     <div class="cadre-pdf">
       <object data="cahier.pdf" type="application/pdf" aria-label="Visionneuse PDF du cahier">
         <iframe src="cahier.pdf" title="Cahier de laboratoire (PDF)"></iframe>

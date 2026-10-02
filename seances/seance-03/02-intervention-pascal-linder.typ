@@ -3,8 +3,13 @@
 
 == Intervention Pascal Linder
 
-#encadre("Objectifs")[Nous parler du piratage survenu il y a quelques années
-à la HE-Arc.]
+#encadre("Objectifs")[Noter en vrac le déroulé de l'intervention de Pascal
+Linder sur l'intrusion subie par la HE-Arc, en gardant ces objectifs en
+tête. Consolider le vocabulaire : acronymes, définitions, relations.
+Résumer ce que j'en retiens en trois à cinq thématiques. Indiquer les
+aspects que je voudrais approfondir. Répondre à la question : que faut-il
+absolument réussir dans une entreprise pour progresser en
+cybersécurité ? Ajouter du recul et de la critique.]
 
 === Métiers pertinents
 

@@ -27,3 +27,4 @@
 #include "contexte.typ"
 #include "seances/seance-01/index.typ"
 #include "seances/seance-02/index.typ"
+#include "seances/seance-03/index.typ"

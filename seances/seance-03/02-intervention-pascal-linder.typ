@@ -122,17 +122,17 @@ Membres du service info. À compléter.
 
 ==== Vocabulaire
 
-- *EDR* — Endpoint Detection and Response.
-- *SWITCH CERT* — CERT national suisse, l'organisme à alerter.
-- *SRP* — Secure Remote Password.
-- *EPT* — External Penetration Testing.
-- *VPN* — Virtual Private Network.
-- *MFA* — Multi-Factor Authentication.
-- *DNS* — Domain Name System.
-- *NCSC* — centre national de cyber-sécurité suisse.
-- *SI* — Systèmes d'information.
-- *SQL* — Structured Query Language.
-- *IP* — Internet Protocol.
+- *EDR* : Endpoint Detection and Response.
+- *SWITCH CERT* : CERT national suisse, l'organisme à alerter.
+- *SRP* : Secure Remote Password.
+- *EPT* : External Penetration Testing.
+- *VPN* : Virtual Private Network.
+- *MFA* : Multi-Factor Authentication.
+- *DNS* : Domain Name System.
+- *NCSC* : centre national de cyber-sécurité suisse.
+- *SI* : Systèmes d'information.
+- *SQL* : Structured Query Language.
+- *IP* : Internet Protocol.
 
 === Résultats
 
@@ -169,7 +169,7 @@ reconstruction du domaine et la réinstallation de plus de 1000 postes ne
 peuvent être ni planifiées ni chiffrées. Détecter tôt et rétablir vite :
 entre le 9 juin et le 1er juillet, la compromise est restée invisible en
 interne pendant trois semaines, puis le rétablissement a pris des
-semaines — ces deux durées sont les seules qui comptent vraiment.
+semaines : ces deux durées sont les seules qui comptent vraiment.
 Enfin savoir dire ce que l'on ne sait pas : l'export est confirmé mais
 non caractérisé, et c'est aujourd'hui le risque que je retiens comme le
 plus sérieux.
@@ -177,7 +177,7 @@ plus sérieux.
 *Ce que je critique.* Le changement de mot de passe du 10 juin n'a rien
 arrêté : l'attaquant est entré par le VPN le 13. Changer un mot de passe
 sans révoquer les sessions actives ne referme rien quand les identifiants
-ont déjà été exfiltrés — c'est la MFA qui traite ce cas, pas le
+ont déjà été exfiltrés : c'est la MFA qui traite ce cas, pas le
 changement de secret. De même, la limitation géographique du VPN a été
 retirée parce que trop limitante en pratique : la mesure théoriquement
 excellente et la mesure effectivement déployable ne sont pas la même
@@ -186,7 +186,7 @@ de l'attaquant, mais la copie des sauvegardes faite sur support externe
 au début de la crise n'a, elle, jamais été cartonnée.
 
 *Ce que je voudrais approfondir.* L'obligation de déclaration : ce qui
-déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai —
+déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai :
 mes notes donnent la chronologie mais pas la règle. Ensuite le choix du
 périmètre de la reconstruction : tout réinitialiser, comme le proposait
 SWITCH CERT, ou réparer chirurgicalement ? La décision se joue sur des

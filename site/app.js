@@ -17,9 +17,14 @@
       selectSeance=document.getElementById('seance-select'),
       erreur=document.getElementById('seance-erreur'),
       erreurTexte=document.getElementById('seance-erreur-texte'),
-      btnToutes=document.getElementById('btn-toutes'),
-      bToc=document.getElementById('btn-toc'),
-      colonne=document.getElementById('sommaire'),
+       btnToutes=document.getElementById('btn-toutes'),
+       bToc=document.getElementById('btn-toc'),
+       colonne=document.getElementById('sommaire'),
+       fil=document.getElementById('fil'),
+       filCourant=document.getElementById('fil-courant'),
+       filIndex=document.getElementById('fil-index'),
+       surPage=document.getElementById('sur-page'),
+       listePage=document.getElementById('liste-page'),
       pointRupture=window.matchMedia&&window.matchMedia('(min-width: 1000px)');
   var etat={demandee:null,courante:null,index:-1,dernierHref:null},
       modeCourante='doc',
@@ -243,6 +248,65 @@
     sautRegion.setAttribute('href',cible);
     sautRegion.textContent=texte;
   }
+  function grouperToc(){
+    var nav=document.querySelector('.col-sommaire nav.toc');
+    if(!nav||nav._groupes)return;
+    nav._groupes=true;
+    var vu={};
+    Array.prototype.slice.call(nav.querySelectorAll('li[data-seance]')).forEach(function(li){
+      if(li.parentElement!==nav&&li.parentElement.parentElement!==nav){return;}
+      var cle=li.getAttribute('data-seance');
+      if(!cle||vu[cle])return;
+      vu[cle]=true;
+      var nom=null;
+      seances.forEach(function(s){if(s.cle===cle){nom=s.titre;}});
+      var p=document.createElement('p');
+      p.className='toc-groupe';
+      p.textContent=nom||cle;
+      nav.insertBefore(p,li);
+    });
+  }
+  function majFil(){
+    if(!fil)return;
+    var visible=modeCourante==='doc'&&!!etat.courante;
+    fil.hidden=!visible;
+    if(!visible)return;
+    var nom=etat.courante;
+    seances.forEach(function(s){if(s.cle===etat.courante){nom=s.titre;}});
+    if(filCourant){filCourant.textContent=nom;}
+  }
+  function construireRail(){
+    if(!surPage||!listePage)return;
+    while(listePage.firstChild){listePage.removeChild(listePage.firstChild);}
+    if(modeCourante!=='doc'||!etat.courante){surPage.hidden=true;return;}
+    var bloc=blocsParCle[etat.courante];
+    if(!bloc){surPage.hidden=true;return;}
+    var titres=Array.prototype.slice.call(bloc.querySelectorAll('h2[id],h3[id]'));
+    if(!titres.length){surPage.hidden=true;return;}
+    titres.forEach(function(h){
+      var li=document.createElement('li'),
+          a=document.createElement('a');
+      a.href='#'+h.id;
+      a.textContent=libelleSeance(h);
+      if(h.tagName==='H3'){a.style.paddingLeft='1rem';}
+      li.appendChild(a);
+      listePage.appendChild(li);
+    });
+    surPage.hidden=false;
+  }
+  function syncRail(){
+    if(!listePage||!surPage||surPage.hidden)return;
+    var seas=Array.prototype.slice.call(listePage.querySelectorAll('a'));
+    seas.forEach(function(a){a.classList.remove('active');a.removeAttribute('aria-current');});
+    if(actif&&actif.getAttribute){
+      var id=(actif.getAttribute('href')||'').slice(1);
+      seas.forEach(function(a){
+        if(a.getAttribute('href')==='#'+id){
+          a.classList.add('active');a.setAttribute('aria-current','location');
+        }
+      });
+    }
+  }
   function offsetBandeau(){
     var h=document.querySelector('header.site');
     return (h?h.getBoundingClientRect().height:0)+16;
@@ -265,6 +329,7 @@
       actif.removeAttribute('aria-current');
     }
     actif=null;
+    syncRail();
   }
   function mettreAJour(){
     planifie=false;
@@ -287,6 +352,7 @@
     actif=paires[courant].lien;
     actif.classList.add('active');
     actif.setAttribute('aria-current','location');
+    syncRail();
     if(sommaire&&sommaire.scrollHeight>sommaire.clientHeight){
       var haut=actif.offsetTop,
           bas=haut+actif.offsetHeight;
@@ -359,6 +425,9 @@
     });
     afficherRegions();
     appliquerFiltre();
+    grouperToc();
+    construireRail();
+    majFil();
     majNavigation();
     mettreAJour();
     if(options.focusAncre){
@@ -429,6 +498,7 @@
     });
   }
   if(btnIndex){btnIndex.addEventListener('click',function(){choisirIndex(true);});}
+  if(filIndex){filIndex.addEventListener('click',function(){choisirIndex(true);});}
   if(btnToutes){btnToutes.addEventListener('click',function(){choisirIndex(true);});}
   if(lienPrec){
     lienPrec.addEventListener('click',function(ev){

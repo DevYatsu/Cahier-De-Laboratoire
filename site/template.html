@@ -20,9 +20,9 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
     <div class="marque">
       <div class="logo" aria-hidden="true"><small>HE-ARC</small><b>LAB</b></div>
       <div class="titres">
-        <p class="sur">He-Arc · Cahier de laboratoire</p>
+        <p class="sur">Cahier de laboratoire, He-Arc</p>
         <h1 class="titre">Suivi de module - sécurité</h1>
-        <p class="meta"><strong>Yanis Amani</strong> · 3275.1 / 3275.2 · Semestre d'automne</p>
+        <p class="meta"><strong>Yanis Amani</strong>, 3275.1 / 3275.2, semestre d'automne</p>
       </div>
     </div>
     <div class="actions">
@@ -62,8 +62,19 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
 <!--TOC-->
     </aside>
     <article class="doc" id="contenu" aria-label="Version web du cahier" tabindex="-1">
+      <nav class="fil" id="fil" aria-label="Fil d'Ariane" hidden>
+        <ol>
+          <li><button type="button" id="fil-index" class="fil-lien">Toutes les séances</button></li>
+          <li aria-hidden="true" class="fil-sep">/</li>
+          <li><span id="fil-courant" aria-current="page"></span></li>
+        </ol>
+      </nav>
 <!--FRAGMENT-->
     </article>
+    <aside class="col-page" id="sur-page" aria-label="Sur cette page" hidden>
+      <p class="col-page-titre">Sur cette page</p>
+      <nav aria-label="Sections de la séance"><ul id="liste-page"></ul></nav>
+    </aside>
   </div>
   <nav class="seances" id="nav-seances" aria-label="Navigation entre les séances" hidden>
     <button type="button" id="btn-index" class="bouton">Toutes les séances</button>
@@ -88,7 +99,7 @@ if(t==='dark'){document.documentElement.dataset.theme='dark';}}catch(e){}
 </main>
 <footer class="site">
   <div class="pied">
-    <span><strong>HE-ARC</strong> · Cahier de laboratoire de Yanis Amani</span>
+    <span><strong>HE-ARC</strong>, cahier de laboratoire de Yanis Amani</span>
   </div>
 </footer>
 <script src="app.js" defer></script>

@@ -23,22 +23,14 @@ class PreAssemblyAuditTest(unittest.TestCase):
 
 
 class AssembledPageAuditTest(unittest.TestCase):
-    """The deployed page must carry the same inventory, with files on disk."""
+    """The deployed pages must carry the same inventory, with files on disk."""
 
     def _assemble(self, out: Path) -> Path:
-        """Run the real CLI (build + assemble) into an out-of-repo directory."""
-        with tempfile.TemporaryDirectory() as temporary:
-            staging = Path(temporary)
-            for script, args in (
-                ("build_site.py", ["-o", str(staging / "fragment.html"),
-                                   "--toc", str(staging / "toc.html")]),
-                ("assemble_site.py", ["--toc", str(staging / "toc.html"),
-                                      "--fragment", str(staging / "fragment.html"),
-                                      "--out", str(out)]),
-            ):
-                subprocess.run([sys.executable, "-B",
-                                str(assemble_site.ROOT / "scripts" / script), *args],
-                               cwd=assemble_site.ROOT, check=True, capture_output=True)
+        """Run the real CLI into an out-of-repo directory."""
+        subprocess.run([sys.executable, "-B",
+                        str(assemble_site.ROOT / "scripts" / "assemble_site.py"),
+                        "--out", str(out), "--no-git"],
+                       cwd=assemble_site.ROOT, check=True, capture_output=True)
         return out
 
     def _stage_figures(self, page: str, root: Path) -> list[str]:
@@ -51,17 +43,34 @@ class AssembledPageAuditTest(unittest.TestCase):
             destination.write_text("<svg/>", encoding="utf-8")
         return sources
 
-    def test_assembled_page_reports_the_same_inventory(self) -> None:
+    def test_assembled_pages_report_the_same_inventory(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            page = self._assemble(root / "index.html").read_text(encoding="utf-8")
-            self._stage_figures(page, root)
+            root = self._assemble(Path(temporary))
+            pages = "\n".join(p.read_text(encoding="utf-8") for p in root.glob("*.html"))
+            self._stage_figures(pages, root)
 
-            report = assemble_site.audit_site(root, page)
+            report = assemble_site.audit_pages(root)
 
         self.assertEqual(report.svg_count, 15)
         self.assertEqual(report.session_svg_counts.get("seance-02"), 4)
         self.assertEqual(report.placeholder_count, 0)
+
+    def test_every_session_gets_its_own_page_and_photos_are_copied(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self._assemble(Path(temporary))
+            names = {p.name for p in root.glob("*.html")}
+            sessions = sorted(p.name for p in (assemble_site.ROOT / "seances").glob("seance-*"))
+            for key in sessions:
+                self.assertIn(f"{key}.html", names)
+            self.assertTrue({"index.html", "suivi.html", "rapport.html", "404.html"} <= names)
+            for photo in (assemble_site.ROOT / "seances").glob("seance-*/assets/*"):
+                self.assertTrue(
+                    (root / "assets" / photo.parent.parent.name / photo.name).is_file(),
+                    photo,
+                )
+            self.assertTrue((root / "search-index.json").is_file())
+            for page in root.glob("*.html"):
+                self.assertNotRegex(page.read_text(encoding="utf-8"), r"\{\{\w+\}\}", page.name)
 
 
 class MissingReferenceTest(unittest.TestCase):
@@ -181,8 +190,10 @@ class SessionKeyTest(unittest.TestCase):
 
         counts = assemble_site.audit_built_page(fragment).session_svg_counts
 
-        self.assertEqual(set(counts), {"seance-01", "seance-02"})
-        self.assertEqual(counts["seance-01"] + counts["seance-02"], 15)
+        sessions = {p.name for p in (build_site.ROOT / "seances").glob("seance-*")
+                    if (p / "index.typ").is_file()}
+        self.assertEqual(set(counts), sessions)
+        self.assertEqual(sum(counts.values()), 15)
 
 
 if __name__ == "__main__":

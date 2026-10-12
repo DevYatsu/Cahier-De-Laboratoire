@@ -155,12 +155,8 @@ class SessionMarkupTest(unittest.TestCase):
         self.assertNotIn('id="sommaire"', fragment)
         self.assertNotIn("Sommaire</h1>", fragment)
 
-    def test_build_output_supplies_runtime_navigation_contract(self) -> None:
+    def test_build_output_keeps_session_wrappers_and_keys(self) -> None:
         toc, fragment = build_site.build_fragment()
-        runtime = (build_site.ROOT / "site" / "app.js").read_text(encoding="utf-8")
-        self.assertIn('#contenu h1[data-seance]', runtime)
-        self.assertIn('#contenu > .bloc-seance[data-seance]', runtime)
-        self.assertIn('.col-sommaire nav.toc a[href^="#"]', runtime)
         self.assertIsNotNone(
             re.search(
                 r'<div class="bloc-seance" data-seance="seance-01">.*?'
@@ -198,35 +194,33 @@ class SessionMarkupTest(unittest.TestCase):
         )
 
 
-class SessionControlsMarkupTest(unittest.TestCase):
-    def test_template_has_all_sessions_and_reversible_error(self) -> None:
-        template = (build_site.ROOT / "site" / "template.html").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn('<option value="">Toutes les séances</option>', template)
-        self.assertIn('id="seance-erreur"', template)
-        self.assertIn('id="seance-erreur-texte"', template)
-        self.assertIn('id="btn-toutes"', template)
+class LayoutContractTest(unittest.TestCase):
+    def test_layout_exposes_navigation_search_and_skip_link(self) -> None:
+        layout = (build_site.ROOT / "site" / "layout.html").read_text(encoding="utf-8")
+        for needle in ('class="saut" href="#contenu"', 'id="sidebar"', 'id="recherche"',
+                       'id="recherche-input"', 'data-search-open', 'id="btn-theme"',
+                       'id="btn-menu"', '<main id="contenu"', 'href="cahier.pdf"'):
+            self.assertIn(needle, layout)
 
 
 class ReportPageContractTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         root = Path(__file__).resolve().parent.parent
-        cls.html = (root / "site" / "rapport.html").read_text(encoding="utf-8")
+        cls.js = (root / "site" / "rapport.js").read_text(encoding="utf-8")
+        cls.body = (root / "site" / "rapport-body.html").read_text(encoding="utf-8")
 
     def test_runtime_activities_contract(self) -> None:
-        self.assertIn("fetch('rapport-data.json')", self.html)
-        self.assertIn("nombreEstValide(activity.heures)", self.html)
-        self.assertIn("typeof valeur==='number'&&Number.isFinite(valeur)", self.html)
-        self.assertIn("textContent=contenu", self.html)
-        self.assertNotIn("innerHTML", self.html)
+        self.assertIn("fetch('rapport-data.json')", self.js)
+        self.assertIn("nombreEstValide(activity.heures)", self.js)
+        self.assertIn("typeof valeur==='number'&&Number.isFinite(valeur)", self.js)
+        self.assertIn("textContent=contenu", self.js)
+        self.assertNotIn("innerHTML", self.js)
+        self.assertIn('id="heures-resultats"', self.body)
 
     def test_obsolete_modules_section_stays_removed(self) -> None:
-        self.assertNotIn("Modules, ECTS et périodes", self.html)
-        self.assertNotIn('id="modules"', self.html)
-
-
+        self.assertNotIn("Modules, ECTS et périodes", self.body)
+        self.assertNotIn('id="modules"', self.body)
 
 
 class SessionDiagramMarkupTest(unittest.TestCase):

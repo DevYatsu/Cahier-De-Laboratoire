@@ -762,17 +762,29 @@ def source_files_in_order() -> list[Path]:
     return files
 
 
-def build_fragment() -> tuple[str, str]:
-    """Return (toc_html, content_html) with unique heading ids."""
+def render_sources() -> list[tuple[Path, str, str]]:
+    """Render every source in document order as (path, séance key, html).
+
+    Heading ids and numbers are unique across the whole document, so a
+    multi-page site can split the result without anchor collisions.
+    """
     global _CURRENT_SOURCE
     _SLUG_COUNTS.clear()
     _HEADING_COUNTERS[:] = []
-    grouped: dict[str, list[str]] = {}
+    rendered_sources: list[tuple[Path, str, str]] = []
     for path in source_files_in_order():
         _CURRENT_SOURCE = path
         rendered = render_blocks(path.read_text(encoding="utf-8").splitlines())
         if rendered.strip():
-            grouped.setdefault(source_seance_key(path), []).append(rendered)
+            rendered_sources.append((path, source_seance_key(path), rendered))
+    return rendered_sources
+
+
+def build_fragment() -> tuple[str, str]:
+    """Return (toc_html, content_html) with unique heading ids."""
+    grouped: dict[str, list[str]] = {}
+    for _, key, rendered in render_sources():
+        grouped.setdefault(key, []).append(rendered)
     fragment = "\n".join(
         f'<div class="bloc-seance" data-seance="{html.escape(key, quote=True)}">\n'
         + "\n".join(parts)

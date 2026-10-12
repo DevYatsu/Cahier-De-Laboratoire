@@ -19,9 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history: each entry shows the date of its last commit.
+          fetch-depth: 0
 
-      - name: Run index runtime tests
-        run: node --test tests/test_app_runtime.js
+      - name: Run site tests
+        run: |
+          node --test tests/test_app_runtime.js
+          python3 -m unittest tests.test_build_site tests.test_assemble_site tests.test_site_pages
 
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
@@ -42,35 +47,29 @@ jobs:
       - name: Generate website
         run: |
           set -e
-          python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html
+          python3 -B - <<'PY'
+          from scripts import build_site
+          from scripts.assemble_site import audit_built_page
+
+          report = audit_built_page(build_site.build_fragment()[1])
+          assert report.svg_count == 15, report
+          assert report.session_svg_counts.get('seance-02') == 4, report
+          assert report.placeholder_count == 0, report
+          print('Pre-assembly audit: 15 SVG, 4 images séance 02, 0 placeholder')
+          PY
+          python3 -B -m scripts.assemble_site --out public
           python3 scripts/export_figures.py --outdir public/assets/figs --workdir /tmp/diagram-wrappers
           test "$(find public/assets/figs -maxdepth 1 -type f -name '*.svg' | wc -l | tr -d ' ')" = "15"
           python3 -B - <<'PY'
           from pathlib import Path
-          from scripts.assemble_site import audit_built_page
+          from scripts.assemble_site import audit_pages
 
-          fragment = Path('/tmp/fragment.html').read_text(encoding='utf-8')
-          report = audit_built_page(fragment)
+          report = audit_pages(Path('public'))
           assert report.svg_count == 15, report
-          counts = report.session_svg_counts
-          assert counts.get('seance-02') == 4, report
-          assert report.placeholder_count == 0, report
-          print('Pre-assembly audit: 15 SVG, 4 images séance 02, 0 placeholder')
-          PY
-          python3 scripts/assemble_site.py --toc /tmp/toc.html --fragment /tmp/fragment.html --out public/index.html
-          python3 -B - <<'PY'
-          from pathlib import Path
-          from scripts.assemble_site import audit_site
-
-          root = Path('public')
-          report = audit_site(root, (root / 'index.html').read_text(encoding='utf-8'))
-          assert report.svg_count == 15, report
-          counts = report.session_svg_counts
-          assert counts.get('seance-02') == 4, report
+          assert report.session_svg_counts.get('seance-02') == 4, report
           assert report.placeholder_count == 0, report
           print('Final artifact audit: 15 SVG, 4 images séance 02, 0 placeholder')
           PY
-          cp rapport-activite-template.xls public/rapport-activite-template.xls
           ls -lh public/
 
       - uses: actions/upload-pages-artifact@v3

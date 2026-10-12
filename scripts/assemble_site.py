@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-"""Assemble public/index.html from the versioned site shell.
+"""Assemble the static multi-page site under public/.
 
-Stdlib only. Reads site/template.html and substitutes the <!--TOC--> and
-<!--FRAGMENT--> placeholders with the fragment files produced by
-scripts/build_site.py. Copies site/style.css and site/app.js next to the
-output so the page stays a fully static GitHub Pages artifact.
+Stdlib only. Builds the structured document (scripts/site_model.py), renders
+one page per séance plus the home, tracking-grid, report and 404 pages
+(scripts/site_pages.py), and copies the static assets next to them so the
+output stays a fully static GitHub Pages artifact.
 
 audit_built_page() / audit_site() inventory the diagrams a generated page
 references, so a build that drops a figure or leaves a PDF-only fallback is
 rejected before deployment.
 
 Usage:
-    python3 scripts/build_site.py -o /tmp/fragment.html --toc /tmp/toc.html
-    python3 scripts/assemble_site.py --toc /tmp/toc.html \\
-        --fragment /tmp/fragment.html --out public/index.html
+    python3 -m scripts.assemble_site --out public
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import shutil
 from html.parser import HTMLParser
@@ -27,8 +26,6 @@ from typing import NamedTuple
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
-TOC_MARKER = "<!--TOC-->"
-FRAGMENT_MARKER = "<!--FRAGMENT-->"
 
 # Diagrams rendered by build_site.py live under assets/figs/ and are the only
 # SVG the site references; everything else is a copied photo or icon.
@@ -139,30 +136,78 @@ def audit_site(root: Path, page: str) -> AuditReport:
     return report
 
 
+def audit_pages(root: Path) -> AuditReport:
+    """Audit every generated page of a multi-page site as one document."""
+    pages = sorted(root.glob("*.html"))
+    if not pages:
+        raise SystemExit(f"No HTML page under {root}")
+    return audit_site(root, "\n".join(p.read_text(encoding="utf-8") for p in pages))
+
+
+def copy_seance_assets(out: Path) -> int:
+    """seances/<seance-NN>/assets/* -> <out>/assets/<seance-NN>/*.
+
+    build_site.asset_src() rewrites image paths to this layout.
+    """
+    copied = 0
+    for source in sorted((ROOT / "seances").glob("seance-*/assets")):
+        target = out / "assets" / source.parent.name
+        shutil.copytree(source, target, dirs_exist_ok=True)
+        copied += sum(1 for p in source.rglob("*") if p.is_file())
+    return copied
+
+
+def figure_count(page: str) -> int:
+    return _report(page)[1].svg_count
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Assemble the static site.")
-    parser.add_argument("--template", default=str(SITE / "template.html"))
-    parser.add_argument("--toc", required=True, help="TOC nav file from build_site.py.")
-    parser.add_argument("--fragment", required=True, help="Body fragment from build_site.py.")
-    parser.add_argument("--out", required=True, help="Assembled index.html to write.")
+    parser = argparse.ArgumentParser(description="Assemble the static multi-page site.")
+    parser.add_argument("--out", default=str(ROOT / "public"), help="Output directory.")
+    parser.add_argument("--no-git", action="store_true",
+                        help="Skip per-entry modification dates (no git history).")
     args = parser.parse_args()
 
-    template = Path(args.template).read_text(encoding="utf-8")
-    if TOC_MARKER not in template or FRAGMENT_MARKER not in template:
-        raise SystemExit("template.html must contain <!--TOC--> and <!--FRAGMENT--> markers")
-    toc = Path(args.toc).read_text(encoding="utf-8").rstrip() + "\n"
-    fragment = Path(args.fragment).read_text(encoding="utf-8").rstrip() + "\n"
-    page = template.replace(TOC_MARKER, toc).replace(FRAGMENT_MARKER, fragment)
+    # Imported here so the audit helpers stay usable without the page renderer.
+    try:
+        from scripts import site_model, site_pages
+    except ImportError:  # executed as a script from scripts/
+        import site_model, site_pages  # type: ignore[no-redef]
 
     out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(page, encoding="utf-8")
-    for asset in ("style.css", "app.js", "rapport.html", "rapport-data.json"):
-        shutil.copyfile(SITE / asset, out.parent / asset)
+    out.mkdir(parents=True, exist_ok=True)
+    doc = site_model.build_document(with_git=not args.no_git)
+    meta = site_pages.build_meta()
+
+    rapport_json = SITE / "rapport-data.json"
+    total_heures = None
+    if rapport_json.exists():
+        total = json.loads(rapport_json.read_text(encoding="utf-8")).get("total_heures")
+        total_heures = total if isinstance(total, (int, float)) and total > 0 else None
+    figures = figure_count("\n".join(e.html for e in doc.entrees))
+
+    pages = {"index.html": site_pages.page_index(doc, meta, total_heures, figures),
+             "suivi.html": site_pages.page_suivi(doc, meta),
+             "rapport.html": site_pages.page_rapport(doc, meta),
+             "404.html": site_pages.page_404(doc, meta)}
+    for index, seance in enumerate(doc.seances):
+        pages[seance.slug] = site_pages.page_seance(doc, meta, index)
+    for name, page in pages.items():
+        (out / name).write_text(page, encoding="utf-8")
+    (out / "search-index.json").write_text(
+        json.dumps(site_pages.search_index(doc), ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
+    for asset in ("style.css", "app.js", "rapport.js"):
+        shutil.copyfile(SITE / asset, out / asset)
+    if rapport_json.exists():
+        shutil.copyfile(rapport_json, out / rapport_json.name)
     xls = ROOT / "rapport-activite-template.xls"
     if xls.exists():
-        shutil.copyfile(xls, out.parent / xls.name)
-    print(f"Site assemblé : {out} ({len(page)} caractères)")
+        shutil.copyfile(xls, out / xls.name)
+    photos = copy_seance_assets(out)
+    print(f"Site assemblé : {out} ({len(pages)} pages, {len(doc.seances)} séances, "
+          f"{len(doc.entrees)} entrées, {figures} figures, {photos} photos)")
 
 
 if __name__ == "__main__":

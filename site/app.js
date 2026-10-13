@@ -324,15 +324,4 @@
     loupe.addEventListener('click',function(ev){if(ev.target===loupe){loupe.close();}});
   }
 
-  // Grille de suivi : filtre « en cours seulement »
-  var filtres=doc.querySelectorAll('[data-filtre]');
-  filtres.forEach(function(bouton){
-    bouton.addEventListener('click',function(){
-      var mode=bouton.getAttribute('data-filtre');
-      filtres.forEach(function(b){b.setAttribute('aria-pressed',b===bouton?'true':'false');});
-      doc.querySelectorAll('.grille tr[data-complete]').forEach(function(tr){
-        tr.hidden=mode==='non'&&tr.getAttribute('data-complete')==='oui';
-      });
-    });
-  });
 })(typeof window!=='undefined'?window:this);

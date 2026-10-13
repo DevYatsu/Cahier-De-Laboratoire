@@ -235,7 +235,6 @@ main:focus{outline:none}
 .journal-entrees a{display:flex;gap:.55rem;padding:.2rem 0;font-size:.86rem;color:var(--encre-2);text-decoration:none;line-height:1.4}
 .journal-entrees a:hover{color:var(--rouge-texte)}
 .journal-entrees .folio{min-width:2.3rem;line-height:1.75}
-.journal-entrees a.en-cours::after{content:"en cours";margin-left:auto;padding-left:.4rem;font:600 .68rem/1.9 var(--mono);color:var(--todo);white-space:nowrap}
 
 .guide{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 .guide-bloc{background:var(--papier);border:1px solid var(--bord);border-radius:10px;padding:1.1rem 1.3rem}

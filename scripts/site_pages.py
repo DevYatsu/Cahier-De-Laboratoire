@@ -132,10 +132,7 @@ def type_badge(entree: Entree) -> str:
 def statut_global(entree: Entree) -> str:
     if entree.complete:
         return '<span class="statut statut-ok">Complète</span>'
-    manquantes = [label for key, label, required in RUBRIQUES
-                  if required and entree.rubriques.get(key) != "ok"]
-    titre = "Rubriques à compléter : " + ", ".join(manquantes)
-    return f'<span class="statut statut-todo" title="{esc(titre)}">En cours</span>'
+    return ""
 
 
 def rubriques_chips(entree: Entree, seance: Seance | None = None) -> str:
@@ -416,7 +413,7 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
             _, m, d = seance.date_iso.split("-")
             day, month = str(int(d)), MOIS_COURTS[int(m) - 1]
         chips = "".join(
-            f'<li><a href="{esc(entry_href(seance, e))}" class="{"" if e.complete else "en-cours"}">'
+            f'<li><a href="{esc(entry_href(seance, e))}">'
             f'<span class="folio">{esc(folio(e.heading.num))}</span>{esc(e.heading.title)}</a></li>'
             for e in seance.entrees
         )
@@ -449,8 +446,6 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         'un renvoi fonctionne dans les deux supports.</p></div>'
         f'<div class="guide-bloc"><h3>Structure d’une entrée</h3><ol class="guide-rubriques">{guide}</ol></div>'
         '<div class="guide-bloc"><h3>Repères</h3><ul class="legende">'
-        '<li><span class="statut statut-ok">Complète</span> les quatre rubriques attendues sont rédigées.</li>'
-        '<li><span class="statut statut-todo">En cours</span> au moins une rubrique est absente ou marquée « À compléter ».</li>'
         '<li><span class="rubrique rubrique-ok"><span class="puce">✓</span>Résultats</span> '
         'rubrique rédigée — cliquer pour y accéder.</li>'
         '<li><kbd>Ctrl</kbd> <kbd>K</kbd> ou <kbd>/</kbd> recherche plein texte dans tout le cahier.</li>'
@@ -543,12 +538,7 @@ def page_suivi(doc: Document, meta: Meta) -> str:
         '<ul class="chiffres" aria-label="Synthèse">'
         f'<li><b>{len(entrees)}</b><span>entrées</span></li>'
         f'<li><b>{completes}</b><span>complètes</span></li>'
-        f'<li><b>{len(entrees) - completes}</b><span>en cours</span></li>'
         f'<li><b>{todo}</b><span>rubriques « À compléter »</span></li></ul>',
-        '<div class="filtres" role="group" aria-label="Filtrer les entrées">'
-        '<button type="button" class="filtre" data-filtre="tout" aria-pressed="true">Toutes</button>'
-        '<button type="button" class="filtre" data-filtre="non" aria-pressed="false">En cours seulement</button>'
-        '</div>',
         '<ul class="legende legende-ligne"><li><span class="cellule-ok legende-pastille">✓</span> rédigée</li>'
         '<li><span class="cellule-todo legende-pastille">…</span> à compléter</li>'
         '<li><span class="cellule-absent legende-pastille">—</span> absente</li></ul>',

@@ -191,10 +191,6 @@ main:focus{outline:none}
 .rubrique-absent .puce{border:1px solid currentColor}
 .rubrique a:hover{color:var(--encre)}
 
-.progression{display:flex;align-items:center;gap:.6rem;font:600 .75rem/1 var(--mono);color:var(--crayon)}
-.progression-barre{flex:none;width:110px;height:6px;border-radius:99px;background:var(--absent-doux);overflow:hidden;border:1px solid var(--bord)}
-.progression-barre span{display:block;height:100%;background:var(--ok);border-radius:99px}
-
 .chiffres{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin:1.6rem 0;padding:0}
 .chiffres li{background:var(--papier);border:1px solid var(--bord);border-radius:10px;padding:.85rem 1rem;display:flex;flex-direction:column}
 .chiffres b{font:600 1.65rem/1.1 var(--serif);color:var(--encre)}

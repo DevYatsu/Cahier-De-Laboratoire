@@ -154,12 +154,7 @@ def rubriques_chips(entree: Entree, seance: Seance | None = None) -> str:
 
 
 def progression(entrees: list[Entree]) -> str:
-    total = len(entrees)
-    done = sum(1 for e in entrees if e.complete)
-    pct = round(100 * done / total) if total else 0
-    return (f'<div class="progression" role="img" aria-label="{done} entrées complètes sur {total}">'
-            f'<span class="progression-barre"><span style="width:{pct}%"></span></span>'
-            f'<span class="progression-texte">{done}/{total} complètes</span></div>')
+    return ""
 
 
 def strip_h1(fragment: str) -> str:
@@ -296,7 +291,7 @@ def page_seance(doc: Document, meta: Meta, index: int) -> str:
     if seance.entrees:
         out.append('<section class="programme" aria-labelledby="programme-titre">'
                    '<div class="programme-tete"><h2 id="programme-titre" class="petit-titre">Au programme</h2>'
-                   f'{progression(seance.entrees)}</div><ol class="programme-liste">')
+                   '</div><ol class="programme-liste">')
         for entree in seance.entrees:
             out.append(
                 f'<li><a href="#{esc(entree.heading.id)}">'
@@ -371,7 +366,6 @@ GUIDE_RUBRIQUES = (
 def page_index(doc: Document, meta: Meta, total_heures: float | None,
                figure_count: int) -> str:
     entrees = doc.entrees
-    completes = sum(1 for e in entrees if e.complete)
     first = doc.seances[0] if doc.seances else None
     dernier = max((s.modified for s in doc.seances if s.modified), default=None)
 
@@ -396,7 +390,6 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
     chiffres = [
         (len(doc.seances), "séances"),
         (len(entrees), "entrées"),
-        (f"{completes}/{len(entrees)}", "entrées complètes"),
         (figure_count, "figures"),
     ]
     if total_heures:
@@ -428,7 +421,6 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
             f'{len(seance.entrees)} entrée{"s" if len(seance.entrees) != 1 else ""}</p>'
             f'<h3><a href="{seance.slug}">{esc(capitaliser(seance.theme) or seance.heading.title)}</a></h3>'
             + (f'<p class="journal-resume">{esc(resume)}</p>' if resume else "")
-            + (progression(seance.entrees) if seance.entrees else "")
             + (f'<ol class="journal-entrees">{chips}</ol>' if chips else "")
             + "</div></li>"
         )
@@ -492,8 +484,6 @@ def legacy_anchor_map(doc: Document) -> str:
 
 def page_suivi(doc: Document, meta: Meta) -> str:
     entrees = doc.entrees
-    completes = sum(1 for e in entrees if e.complete)
-    todo = sum(1 for e in entrees for s in e.rubriques.values() if s == "todo")
     head = "".join(f'<th scope="col" class="col-rubrique">{esc(label)}'
                    f'{"" if required else "<small>facultatif</small>"}</th>'
                    for _, label, required in RUBRIQUES)
@@ -536,9 +526,7 @@ def page_suivi(doc: Document, meta: Meta) -> str:
         'La grille est recalculée depuis les sources à chaque publication : une rubrique '
         'marquée « À compléter » ou absente y apparaît immédiatement.</p></header>',
         '<ul class="chiffres" aria-label="Synthèse">'
-        f'<li><b>{len(entrees)}</b><span>entrées</span></li>'
-        f'<li><b>{completes}</b><span>complètes</span></li>'
-        f'<li><b>{todo}</b><span>rubriques « À compléter »</span></li></ul>',
+        f'<li><b>{len(entrees)}</b><span>entrées</span></li></ul>',
         '<ul class="legende legende-ligne"><li><span class="cellule-ok legende-pastille">✓</span> rédigée</li>'
         '<li><span class="cellule-todo legende-pastille">…</span> à compléter</li>'
         '<li><span class="cellule-absent legende-pastille">—</span> absente</li></ul>',

@@ -456,6 +456,14 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         'publiée reconstruit automatiquement ce site et le PDF.</p></div></section>'
     )
 
+    out.append(
+        '<section aria-labelledby="usage-ia"><h2 id="usage-ia" class="section-titre">Usage de l’IA</h2>'
+        '<div class="prose">'
+        '<p>Ce site web a été entièrement créé à l’aide de l’intelligence artificielle.</p>'
+        '<p>Pour le contenu du cahier, l’IA est utilisée exclusivement pour reformuler et mettre en '
+        'forme les activités.</p></div></section>'
+    )
+
     return render_layout(
         meta,
         title=f"{meta.title} — {meta.author}",
@@ -464,7 +472,7 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         sidebar_html=sidebar(doc, "index"),
         main="\n".join(out),
         rail=rail_simple([("journal", "Journal des séances"), ("guide", "Guide de lecture"),
-                          ("contexte", "Contexte")]),
+                          ("contexte", "Contexte"), ("usage-ia", "Usage de l’IA")]),
         scripts=f'<script type="application/json" id="ancres">{legacy_anchor_map(doc)}</script>',
     )
 

@@ -4,3 +4,5 @@
 
 #pagebreak()
 = Séance du 9 octobre 2026
+#include "01-qu-est-ce-qui-alimente-la-veille-cybersecurite-et-technologique.typ"
+#include "02-schema-general-conception-et-operation-de-la-securite.typ"

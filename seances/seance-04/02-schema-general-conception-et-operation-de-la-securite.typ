@@ -7,25 +7,13 @@
 
 Schéma au niveau de l'entreprise, donc très global : il cadre le pilotage, pas l'implémentation.
 
-#align(center)[
-  #diagram(
-    spacing: (5mm, 7mm),
-    node-inset: 6pt,
-    node-corner-radius: 4pt,
-    node-stroke: 0.8pt + encre,
-    edge-stroke: 0.8pt + rouge,
-    node((0, 0), align(center)[*Gouverner*], fill: fond-rouge),
-    edge("->"),
-    node((1, 0), align(center)[*Planifier*], fill: white),
-    edge("->"),
-    node((2, 0), align(center)[*Déployer*], fill: white),
-    edge("->"),
-    node((3, 0), align(center)[*Piloter*], fill: white),
-    edge((3, 0), (0, 1), "->"),
-    node((0, 1), align(center)[*Revoir*], fill: fond-rouge),
-    edge((0, 1), (1, 0), "->"),
-  )
-]
+#table(
+  columns: (1fr, auto, 1fr, auto, 1fr, auto, 1fr, auto, 1fr),
+  align: center + horizon,
+  [*Gouverner*], [→], [*Planifier*], [→], [*Déployer*], [→], [*Piloter*], [→], [*Revoir*],
+)
+
+Boucle d'amélioration continue : *Revoir* → *Planifier*.
 
 - *Gouverner :* la direction oriente, arbitre les risques et alloue les budgets.
 - *Planifier :* périmètre, analyse de risques, PSSI, programme et priorités.

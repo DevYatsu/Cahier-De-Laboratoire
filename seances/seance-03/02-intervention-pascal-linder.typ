@@ -138,7 +138,7 @@
 - *EDR* : Endpoint Detection and Response.
 - *SWITCH CERT* : CERT national suisse, l'organisme à alerter.
 - *SRP* : Secure Remote Password.
-- *EPT* : External Penetration Testing.
+- *EPT* : équivalent plein temps (un poste à 100 %).
 - *VPN* : Virtual Private Network.
 - *MFA* : Multi-Factor Authentication.
 - *DNS* : Domain Name System.

@@ -9,6 +9,7 @@ page"). Pages produced:
     seance-NN.html      one page per séance, one <article> per entry
     suivi.html          grille de suivi: rubric status of every entry
     rapport.html        rapport d'activité (data loaded from rapport-data.json)
+    usage-ia.html       déclaration d'usage de l'IA
     404.html            GitHub Pages fallback
     search-index.json   full-text index for the search dialog
 """
@@ -180,6 +181,8 @@ def sidebar(doc: Document, current: str, seance_courante: Seance | None = None) 
                 icon("M4 4h16v16H4zM4 10h16M4 15h16M10 4v16")),
            lien("rapport.html", "Rapport d'activité", "rapport",
                 icon("M5 21V9M12 21V3M19 21v-7")),
+           lien("usage-ia.html", "Usage de l’IA", "usage-ia",
+                icon("M12 3v3M12 18v3M3 12h3M18 12h3M8 8h8v8H8z")),
            '<li><a href="cahier.pdf" target="_blank" rel="noopener">'
            + icon("M14 3H6v18h12V7zM14 3v4h4")
            + '<span>Version PDF</span><span class="externe" aria-label="(nouvel onglet)">↗</span></a></li>',
@@ -456,14 +459,6 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         'publiée reconstruit automatiquement ce site et le PDF.</p></div></section>'
     )
 
-    out.append(
-        '<section aria-labelledby="usage-ia"><h2 id="usage-ia" class="section-titre">Usage de l’IA</h2>'
-        '<div class="prose">'
-        '<p>Ce site web a été entièrement créé à l’aide de l’intelligence artificielle.</p>'
-        '<p>Pour le contenu du cahier, l’IA est utilisée exclusivement pour reformuler et mettre en '
-        'forme les activités.</p></div></section>'
-    )
-
     return render_layout(
         meta,
         title=f"{meta.title} — {meta.author}",
@@ -472,7 +467,7 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         sidebar_html=sidebar(doc, "index"),
         main="\n".join(out),
         rail=rail_simple([("journal", "Journal des séances"), ("guide", "Guide de lecture"),
-                          ("contexte", "Contexte"), ("usage-ia", "Usage de l’IA")]),
+                          ("contexte", "Contexte")]),
         scripts=f'<script type="application/json" id="ancres">{legacy_anchor_map(doc)}</script>',
     )
 
@@ -564,6 +559,26 @@ def page_rapport(doc: Document, meta: Meta) -> str:
         sidebar_html=sidebar(doc, "rapport"),
         main=main,
         scripts='<script src="rapport.js" defer></script>',
+    )
+
+
+def page_usage_ia(doc: Document, meta: Meta) -> str:
+    main = (
+        fil(("index.html", "Accueil"), (None, "Usage de l’IA"))
+        + '<header class="page-tete"><p class="surtitre"><span class="tampon">Déclaration</span></p>'
+        '<h1>Usage de l’IA</h1></header>'
+        '<div class="prose">'
+        '<p>Ce site web a été entièrement créé à l’aide de l’intelligence artificielle.</p>'
+        '<p>Pour le contenu du cahier, l’IA est utilisée exclusivement pour reformuler et mettre en '
+        'forme les activités.</p></div>'
+    )
+    return render_layout(
+        meta,
+        title="Usage de l’IA · Cahier de laboratoire",
+        description="Déclaration de l’usage de l’intelligence artificielle dans ce cahier de laboratoire.",
+        page_class="page-usage-ia",
+        sidebar_html=sidebar(doc, "usage-ia"),
+        main=main,
     )
 
 

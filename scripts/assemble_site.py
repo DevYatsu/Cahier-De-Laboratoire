@@ -189,6 +189,7 @@ def main() -> None:
     pages = {"index.html": site_pages.page_index(doc, meta, total_heures, figures),
              "suivi.html": site_pages.page_suivi(doc, meta),
              "rapport.html": site_pages.page_rapport(doc, meta),
+             "usage-ia.html": site_pages.page_usage_ia(doc, meta),
              "404.html": site_pages.page_404(doc, meta)}
     for index, seance in enumerate(doc.seances):
         pages[seance.slug] = site_pages.page_seance(doc, meta, index)

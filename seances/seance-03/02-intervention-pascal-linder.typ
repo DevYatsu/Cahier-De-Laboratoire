@@ -74,7 +74,20 @@
 
 ==== Réflexions/Contraintes
 
-- SWITCH CERT propose de tout remettre à zéro
+- *Délai imposé :* tout remettre en service avant la rentrée académique 2022-2023, soit environ un mois et demi.
+  - La direction doit trancher fin juillet ; repartir d'un domaine neuf en un mois est jugé irréaliste.
+- *Choix de reconstruction :* SWITCH CERT propose de tout repartir de zéro, l'école ne retient pas cette option.
+  - Elle restaure la sauvegarde antérieure à l'intrusion (date de début connue), puis réinstalle l'OS de chaque poste.
+  - Comptes et objets machines désactivés ; mots de passe des comptes de services et des 3500 utilisateurs changés.
+- *Joindre les utilisateurs sans messagerie :* vacances, six sites, une partie du personnel pas encore au courant.
+  - Les utilisateurs doivent contacter l'école eux-mêmes.
+- *Ingénierie sociale :* l'annuaire volé sert à de faux appels pour se faire passer pour des utilisateurs.
+  - Réinitialisation des comptes en personne uniquement, sur présentation d'une carte d'identité.
+- *Priorités de remise en service :* l'infrastructure de base passe avant les besoins métiers.
+  - La direction ne comprend pas toujours cet ordre, ce qui crée des tensions.
+- *Facteur humain :* personnel épuisé en pleine période de vacances, enseignants stressés pour préparer la rentrée.
+  - La direction accepte un rythme soutenable pour garder le personnel efficace.
+  - Le service informatique n'a aucune expérience de la MFA pour accompagner les utilisateurs : documentation interne et FAQ à créer.
 
 ==== Conséquences / Défis
 

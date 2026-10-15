@@ -570,7 +570,7 @@ def page_usage_ia(doc: Document, meta: Meta) -> str:
         '<div class="prose">'
         '<p>Ce site web a été entièrement créé à l’aide de l’intelligence artificielle.</p>'
         '<p>Pour le contenu du cahier, l’IA est utilisée exclusivement pour reformuler et mettre en '
-        'forme les activités.</p></div>'
+        'forme les activités, ainsi que pour rédiger les messages de commit.</p></div>'
     )
     return render_layout(
         meta,

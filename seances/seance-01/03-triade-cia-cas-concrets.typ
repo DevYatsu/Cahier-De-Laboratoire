@@ -3,15 +3,23 @@
 
 == Exercice 3 : Évaluer la triade CIA sur des cas concrets
 
-#encadre("Objectifs")[Appliquer la triade CIA à quatre cas réels et justifier chaque note de 1 à 4. Comparer les profils obtenus pour voir quel critère domine selon le secteur.]
+#encadre("Objectifs")[
+  - Appliquer la triade CIA à quatre cas réels.
+  - Justifier chaque note de 1 à 4.
+  - Comparer les profils pour voir quel critère domine selon le secteur.
+]
 
 === Métiers pertinents
 
-Tous les métiers sont concernés, avec un poids différent selon le cas. J'ai pensé au RSSI et à l'analyste risques pour la banque, à l'admin réseau pour AlertSwiss et le streaming, au développeur pour l'e-commerce.
+Tous les métiers sont concernés, avec un poids différent selon le cas :
+- *Banque :* RSSI, analyste risques.
+- *AlertSwiss, streaming :* administrateur réseau.
+- *E-commerce :* développeur.
 
 === Déroulement
 
-On note de 1 à 4 (maximum) la confidentialité, l'intégrité et la disponibilité pour chaque cas. Je recopie le tableau et je le remplis.
+- Noter de 1 à 4 (maximum) la confidentialité (C), l'intégrité (I) et la disponibilité (A) de chaque cas.
+- Recopier le tableau, puis le remplir.
 
 #table(
   columns: (1fr, auto, auto, auto),
@@ -22,7 +30,6 @@ On note de 1 à 4 (maximum) la confidentialité, l'intégrité et la disponibili
   [Service de streaming vidéo], [2], [2], [4],
 )
 
-Le graphique rend les écarts visibles d'un coup d'œil : dans mon évaluation, la banque donne une importance maximale aux trois critères, tandis qu'AlertSwiss privilégie l'intégrité et la disponibilité.
 #figure(
   caption: [Notes C-I-A par cas (1 à 4). Rouge : C, noir : I, gris : A.],
 )[
@@ -41,16 +48,33 @@ Le graphique rend les écarts visibles d'un coup d'œil : dans mon évaluation, 
   ]
 ]
 
-Pourquoi ces notes, en bref :
-- *E-commerce (3/3/3) :* une commande modifiée ou une minute d'indisponibilité coûte directement de l'argent, donc I et A élevés ; C à 3 car données clients et paiement, sans atteindre le niveau d'une banque.
-- *Banque en ligne (4/4/4) :* la confidentialité des données financières et l'exactitude des opérations sont prioritaires, et l'accès continu l'est aussi dans mon évaluation. Les contraintes légales et réglementaires peuvent influencer ces objectifs, sans dicter à elles seules une note maximale pour chaque critère.
-- *AlertSwiss (1/4/4) :* messages publics (C à 1), mais une fausse alerte peut provoquer une panique (I à 4) et le message doit passer en pleine crise (A à 4).
-- *Streaming (2/2/4) :* catalogue public et image corrompue peu coûteuse (C et I à 2), par contre un service qui rame fait fuir les abonnés (A à 4).
+Justification des notes :
+- *E-commerce (3/3/3) :*
+  - I et A élevés : une commande modifiée ou une minute d'indisponibilité coûte directement de l'argent.
+  - C à 3 : données clients et paiement, sans atteindre le niveau d'une banque.
+- *Banque en ligne (4/4/4) :*
+  - C et I prioritaires : données financières et exactitude des opérations.
+  - A à 4 dans mon évaluation : l'accès continu est aussi attendu.
+  - Les contraintes légales influencent ces objectifs, sans imposer à elles seules la note maximale.
+- *AlertSwiss (1/4/4) :*
+  - C à 1 : messages publics.
+  - I à 4 : une fausse alerte peut provoquer une panique.
+  - A à 4 : le message doit passer en pleine crise.
+- *Streaming (2/2/4) :*
+  - C et I à 2 : catalogue public, image corrompue peu coûteuse.
+  - A à 4 : un service qui rame fait fuir les abonnés.
 
 === Résultats
 
-La banque atteint le profil 4/4/4 dans mon évaluation. L'e-commerce reste équilibré à 3/3/3. AlertSwiss et le streaming partagent le même contraste : une confidentialité basse, 1 et 2, face à une disponibilité à 4. La différence se joue sur l'intégrité, maximale pour AlertSwiss, moyenne pour le streaming.
+- *Banque :* profil maximal 4/4/4.
+- *E-commerce :* profil équilibré 3/3/3.
+- *AlertSwiss et streaming :* même contraste, C basse (1 et 2) face à A à 4.
+- *Différence entre les deux :* l'intégrité, maximale pour AlertSwiss, moyenne pour le streaming.
 
 === Interprétation des résultats
 
-Chaque profil impose une priorité de conception différente. Pour la banque, je donne la priorité à la confidentialité et à l'intégrité, tout en maintenant la disponibilité. Pour AlertSwiss, je protège surtout l'authenticité du message et sa diffusion en pleine crise. Pour le streaming, je dimensionne l'infrastructure pour absorber la charge du soir. Je retrouve ici la logique de l'analyse de risques vue avec ISO 27001 : la note dépend du contexte, et la SoA permet ensuite de tracer ce choix.
+Chaque profil impose une priorité de conception différente :
+- *Banque :* prioriser C et I, tout en maintenant A.
+- *AlertSwiss :* protéger l'authenticité du message et sa diffusion en pleine crise.
+- *Streaming :* dimensionner l'infrastructure pour absorber la charge du soir.
+- *Lien ISO 27001 :* la note dépend du contexte, comme dans l'analyse de risques ; la SoA (déclaration d'applicabilité) trace ensuite ce choix.

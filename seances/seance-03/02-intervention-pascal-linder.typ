@@ -3,13 +3,14 @@
 
 == Intervention Pascal Linder
 
-#encadre("Objectifs")[Noter en vrac le déroulé de l'intervention de Pascal
-Linder sur l'intrusion subie par la HE-Arc, en gardant ces objectifs en
-tête. Consolider le vocabulaire : acronymes, définitions, relations.
-Résumer ce que j'en retiens en trois à cinq thématiques. Indiquer les
-aspects que je voudrais approfondir. Répondre à la question : que faut-il
-absolument réussir dans une entreprise pour progresser en
-cybersécurité ? Ajouter du recul et de la critique.]
+#encadre("Objectifs")[
+  - Noter en vrac le déroulé de l'intervention de Pascal Linder sur l'intrusion subie par la HE-Arc.
+  - Consolider le vocabulaire : acronymes, définitions, relations.
+  - Résumer ce que j'en retiens en trois à cinq thématiques.
+  - Indiquer les aspects à approfondir.
+  - Répondre à la question : que faut-il absolument réussir dans une entreprise pour progresser en cybersécurité ?
+  - Ajouter du recul et de la critique.
+]
 
 === Métiers pertinents
 
@@ -136,67 +137,44 @@ Membres du service info. À compléter.
 
 === Résultats
 
-Quelques thématiques se dégagent de l'intervention.
-
-- *L'intrusion vient d'un utilisateur, pas d'une faille technique.* Le 9
-  juin, un poste télécharge un malware en voulant installer un logiciel ;
-  l'hébergeur alerte le lendemain sur des connexions suspectes. Aucun
-  exploit, aucune campagne ciblée : c'est l'opportunité qui a été saisie.
-
+- *L'intrusion vient d'un utilisateur, pas d'une faille technique.*
+  - 9 juin : un poste télécharge un malware en voulant installer un logiciel.
+  - 10 juin : l'hébergeur alerte sur des connexions suspectes.
+  - Aucun exploit, aucune campagne ciblée : une opportunité saisie.
 - *La persistance passe par le VPN, puis par les comptes à privilèges.*
-  Du 13 au 23 juin, l'attaquant utilise le VPN, scanne les ports et tente
-  un mouvement latéral. Le point de bascule est le 29-30 juin, quand il
-  accède à un compte à privilèges : c'est ce passage qui élargit
-  réellement la portée de l'incident, pas l'intrusion initiale.
-
-- *La réponse est tenue, mais elle se paie cher.* Cellule de crise,
-  isolement du réseau, alerte du NCSC et de SWITCH CERT, saisines police
-  et FedPol : la procédure est suivie. Le prix se paie en semaines
-  d'interruption, plus de 1000 postes réinstallés et 3500 comptes à
-  reprendre un par un.
-
-- *L'attaquant n'a pas utilisé son levier.* Ni chiffrement, ni
-  publication, et toujours aucune identification des données exportées.
-  L'absence de chiffrement ne rassure pas pour autant : le compte à
-  privilèges lui ouvrait la voie.
+  - 13 au 23 juin : VPN, scan de ports, tentative de mouvement latéral.
+  - 29-30 juin, point de bascule : accès à un compte à privilèges.
+  - C'est ce passage qui élargit réellement la portée de l'incident, pas l'intrusion initiale.
+- *La réponse est tenue, mais elle se paie cher.*
+  - Procédure suivie : cellule de crise, isolement du réseau, alerte du NCSC et de SWITCH CERT, saisines police et FedPol.
+  - Prix : des semaines d'interruption, plus de 1000 postes réinstallés, 3500 comptes repris un par un.
+- *L'attaquant n'a pas utilisé son levier.*
+  - Ni chiffrement, ni publication.
+  - Données exportées toujours non identifiées.
+  - L'absence de chiffrement ne rassure pas : le compte à privilèges lui ouvrait la voie.
 
 === Interprétation des résultats
 
-*Que faut-il absolument réussir dans une entreprise pour progresser en
-cybersécurité ?* Ni un outil, ni une certification. Trois choses, dans
-cet ordre. Savoir ce que l'on protège et où : sans inventaire fiable, la
-reconstruction du domaine et la réinstallation de plus de 1000 postes ne
-peuvent être ni planifiées ni chiffrées. Détecter tôt et rétablir vite :
-entre le 9 juin et le 1er juillet, la compromise est restée invisible en
-interne pendant trois semaines, puis le rétablissement a pris des
-semaines : ces deux durées sont les seules qui comptent vraiment.
-Enfin savoir dire ce que l'on ne sait pas : l'export est confirmé mais
-non caractérisé, et c'est aujourd'hui le risque que je retiens comme le
-plus sérieux.
+*Que faut-il absolument réussir pour progresser en cybersécurité ?* Ni un outil, ni une certification, mais trois choses, dans cet ordre :
+- *Savoir ce que l'on protège et où :* sans inventaire fiable, reconstruire le domaine et réinstaller plus de 1000 postes ne peut être ni planifié ni chiffré.
+- *Détecter tôt et rétablir vite :* ces deux durées sont les seules qui comptent vraiment.
+  - Du 9 juin au 1er juillet : compromission invisible en interne pendant trois semaines.
+  - Puis des semaines de rétablissement.
+- *Savoir dire ce que l'on ne sait pas :* l'export est confirmé mais non caractérisé ; c'est le risque que je retiens comme le plus sérieux.
 
-*Ce que je critique.* Le changement de mot de passe du 10 juin n'a rien
-arrêté : l'attaquant est entré par le VPN le 13. Changer un mot de passe
-sans révoquer les sessions actives ne referme rien quand les identifiants
-ont déjà été exfiltrés : c'est la MFA qui traite ce cas, pas le
-changement de secret. De même, la limitation géographique du VPN a été
-retirée parce que trop limitante en pratique : la mesure théoriquement
-excellente et la mesure effectivement déployable ne sont pas la même
-chose. Enfin, l'absence de chiffrement a tenu les données hors de portée
-de l'attaquant, mais la copie des sauvegardes faite sur support externe
-au début de la crise n'a, elle, jamais été cartonnée.
+*Ce que je critique :*
+- *Le changement de mot de passe du 10 juin n'a rien arrêté :* l'attaquant entre par le VPN le 13.
+  - Changer un mot de passe sans révoquer les sessions actives ne referme rien si les identifiants sont déjà exfiltrés.
+  - C'est la MFA qui traite ce cas, pas le changement de secret.
+- *Limitation géographique du VPN retirée, trop limitante :* la mesure théoriquement excellente et la mesure effectivement déployable ne sont pas la même chose.
+- *Sauvegardes :* l'absence de chiffrement a tenu les données hors de portée de l'attaquant, mais la copie des sauvegardes sur support externe au début de la crise n'a, elle, jamais été cartonnée.
 
-*Ce que je voudrais approfondir.* L'obligation de déclaration : ce qui
-déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai :
-mes notes donnent la chronologie mais pas la règle. Ensuite le choix du
-périmètre de la reconstruction : tout réinitialiser, comme le proposait
-SWITCH CERT, ou réparer chirurgicalement ? La décision se joue sur des
-critères de coût et de risque que je n'ai pas encore les moyens
-d'évaluer. Enfin le volet forensique, car identifier quelles données ont
-été exportées suppose des méthodes que je n'ai jamais pratiquées.
+*Ce que je voudrais approfondir :*
+- *L'obligation de déclaration :* ce qui déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai ; mes notes donnent la chronologie, pas la règle.
+- *Le périmètre de la reconstruction :* tout réinitialiser (proposition de SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères de coût et de risque que je ne sais pas encore évaluer.
+- *Le volet forensique :* identifier les données exportées suppose des méthodes que je n'ai jamais pratiquées.
 
-*Ce que cela change pour moi.* Cet incident relie le travail de dev et
-d'admin que je vise à celui du RSSI : mes correctifs et mon inventaire
-sont ce qui détermine si la reconstitution sera possible, et le temps de
-rétablissement se mesure sur ce que j'ai produit. Je retiens deux
-réflexes : tenir l'inventaire à jour, et traiter la MFA et la restauration
-testée comme des prérequis et non comme des améliorations.
+*Ce que cela change pour moi :*
+- Cet incident relie mon futur travail de dev et d'admin à celui du RSSI : mes correctifs et mon inventaire déterminent si la reconstitution est possible.
+- Le temps de rétablissement se mesure sur ce que j'ai produit.
+- *Deux réflexes :* tenir l'inventaire à jour ; traiter la MFA et la restauration testée comme des prérequis, pas comme des améliorations.

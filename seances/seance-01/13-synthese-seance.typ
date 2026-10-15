@@ -5,13 +5,29 @@
 
 === Résultats
 
-Tableau d'auto-évaluation rempli avec point faible en confinement OS/réseaux (exercice 1), critères principaux CIA et secondaires rappelés et schématisés (exercice 2), triade CIA notée et comparée sur quatre cas avec graphique (exercice 3), secteurs public/privé et échelles moi/nous/tous recensés (exercice 4), positionnement DevSecOps via CI/CD GitLab et roadmap (activité 1), six familles de biais cognitifs mappées avec mitigations individuelles et collectives (activité 4), fonctionnement d'ISO 27001 décortiqué avec schéma Direction → Risques → SoA → Mesures (travail personnel). Activité 3 : OSINT et veille collective autorisée, recensement de serveurs WordPress, simulation d’attaque générique et ciblée, puis recul sur les protections.
+- *Exercice 1 :* auto-évaluation remplie, point faible en confinement OS/réseaux.
+- *Exercice 2 :* critères principaux CIA et secondaires rappelés et schématisés.
+- *Exercice 3 :* triade CIA notée et comparée sur quatre cas, avec graphique.
+- *Exercice 4 :* secteurs public/privé et échelles moi/nous/tous recensés.
+- *Activité 1 :* positionnement DevSecOps via CI/CD GitLab et roadmap.
+- *Activité 3 :* OSINT et veille collective autorisée, recensement de serveurs WordPress, simulation d'attaque générique et ciblée, recul sur les protections.
+- *Activité 4 :* six familles de biais cognitifs, mitigations individuelles et collectives.
+- *Travail personnel :* ISO 27001 décortiqué, schéma Direction → Risques → SoA → Mesures.
 
 === Interprétation des résultats
 
-Cette première séance me donne trois repères pour le semestre. La triade C/I/A n'est pas abstraite : chaque cas (banque 4/4/4, AlertSwiss 1/4/4, streaming, e-commerce) impose une priorité de conception propre, et ISO 27001 oblige à tracer ce choix dans la SoA. La sécurité est un système sociotechnique : les biais cognitifs et la culture d'équipe font échouer les mesures techniques, d'où les réflexes hypothèses écrites, relecture croisée et post-mortems sans blâme. Côté pratique, mon automatisation CI/CD couvre surtout des contrôles statiques et des vérifications fournies par les langages ; il me manque encore le confinement (2/5), le DAST et l'analyse de dépendances. Prochaine étape : utiliser cette grille CIA + SoA + facteur humain pour évaluer le projet de semestre ; l'activité 3 confirme que la veille OSINT autorisée complète la détection, à condition de valider les faux positifs et de tester les protections.
+Trois repères pour le semestre :
+- *La triade CIA n'est pas abstraite :* chaque cas (banque 4/4/4, AlertSwiss 1/4/4, streaming, e-commerce) impose sa priorité de conception ; ISO 27001 oblige à tracer ce choix dans la SoA.
+- *La sécurité est un système sociotechnique :* biais cognitifs et culture d'équipe font échouer les mesures techniques.
+  - Réflexes : hypothèses écrites, relecture croisée, post-mortems sans blâme.
+- *Côté pratique :* mon CI/CD couvre surtout des contrôles statiques et les vérifications des langages.
+  - Il manque encore : le confinement (2/5), le DAST, l'analyse de dépendances.
 
-Les trois repères tiennent en une chaîne : cadrer avec CIA et SoA, intégrer l'humain, puis pratiquer en CI/CD.
+Suite :
+- *Prochaine étape :* évaluer le projet de semestre avec la grille CIA + SoA + facteur humain.
+- *Apport de l'activité 3 :* la veille OSINT autorisée complète la détection, à condition de valider les faux positifs et de tester les protections.
+- *Chaîne :* cadrer avec CIA et SoA, intégrer l'humain, puis pratiquer en CI/CD.
+
 #align(center)[
   #diagram(
     spacing: (6mm, 8mm),

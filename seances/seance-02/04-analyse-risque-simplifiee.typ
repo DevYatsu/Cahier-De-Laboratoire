@@ -3,11 +3,17 @@
 
 == Exercice 11 : Exemple d’analyse de risque simplifiée
 
-#encadre("Objectifs")[Identifier une menace, préciser son type, sa catégorie et son impact, puis proposer des mesures de réduction adaptées.]
+#encadre("Objectifs")[
+  - Identifier une menace : type, catégorie, impact.
+  - Proposer des mesures de réduction adaptées.
+]
 
 === Contexte
 
-Ce cas réel simplifié concerne une réception unique de données propriétaires auprès d’un fournisseur de données. L’étudiant doit les exploiter sur son ordinateur portable dans une base de données MySQL. Son code ne présente pas de contrainte particulière et aucune exigence de confidentialité ne porte sur la structure des données.
+- *Cas réel simplifié :* réception unique de données propriétaires auprès d'un fournisseur de données.
+- *Usage :* l'étudiant les exploite sur son ordinateur portable, dans une base MySQL.
+- *Code :* aucune contrainte particulière.
+- *Structure des données :* aucune exigence de confidentialité.
 
 === Contraintes
 
@@ -15,7 +21,7 @@ Ce cas réel simplifié concerne une réception unique de données propriétaire
 - La destruction des données est garantie après une date fixe.
 - Les procédures sont documentées et toute violation est signalée immédiatement.
 
-Toute violation de ces contraintes peut entraîner une pénalité financière pouvant aller jusqu’à 50 000 CHF.
+- *Sanction :* toute violation peut entraîner une pénalité allant jusqu'à 50 000 CHF.
 
 #table(
   columns: (1.3fr, 1.65fr, 1.1fr, 0.95fr, 1.7fr),

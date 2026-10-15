@@ -3,15 +3,21 @@
 
 == Exercice 1 : Auto-évaluation initiale
 
-#encadre("Objectifs")[Poser une base chiffrée de mon niveau initial en sécurité. Je note chaque thème de 1 à 5 pour repérer mes forces et mes lacunes avant le semestre.]
+#encadre("Objectifs")[
+  - Poser une base chiffrée de mon niveau initial en sécurité.
+  - Noter chaque thème de 1 à 5.
+  - Repérer mes forces et mes lacunes avant le semestre.
+]
 
 === Métiers pertinents
 
-Cette auto-évaluation sert de point de départ à tout le monde. Elle concerne autant le dev que l'admin sys/réseau ou le chef de projet : chacun doit savoir où il part avant de parler sécurité.
+- *Tous les métiers :* point de départ commun avant de parler sécurité.
+- *Exemples :* développeur, admin systèmes/réseau, chef de projet.
 
 === Déroulement
 
-L'énoncé demande de noter de 1 à 5 mon niveau sur chaque thème. Je recopie le tableau et je le remplis pendant la séance.
+- Noter de 1 à 5 mon niveau sur chaque thème.
+- Recopier le tableau, puis le remplir pendant la séance.
 
 #table(
   columns: (1fr, auto),
@@ -32,20 +38,29 @@ L'énoncé demande de noter de 1 à 5 mon niveau sur chaque thème. Je recopie l
 
 ==== Questions de synthèse
 
-Une phrase suffit par question.
-
-- Sur quel(s) thème(s) je me sens le plus à l'aise, et pourquoi ?
-  Je suis le plus à l'aise sur le facteur humain (5/5). Je suis beaucoup d'histoires de hacking et ce constat revient sans arrêt : le phishing et l'ingénierie sociale restent la faille la plus simple à exploiter, bien avant la technique pure.
-- Sur quel(s) thème(s) j'aimerais progresser en priorité ?
-  Je veux progresser en priorité sur le confinement OS et réseaux (2/5). Je connais mal le sandboxing et la segmentation alors que le sujet m'intéresse, donc c'est là que la marge est la plus grande.
-- Ai-je déjà conscience que sécuriser une entreprise n'est pas la même chose que sécuriser un développement logiciel ? Si non, pourquoi cette distinction me semble-t-elle floue ?
-  Oui, la distinction est claire pour moi. Sécuriser une entreprise intègre beaucoup plus de variables humaines, donc beaucoup plus de points d'attaque et de points de défense que sécuriser un seul logiciel.
-  La sécurisation d'une entreprise tient aussi compte des contraintes de gestion, comme les ressources, les budgets, les activités et la politique de l'entreprise. Pour mon projet, je peux donc analyser les menaces et appliquer la sécurité à chaque étape du cycle de vie, avec un confinement adapté aux risques et aux impacts.
+- *Thème le plus à l'aise :* facteur humain (5/5).
+  - Je suis beaucoup d'histoires de hacking.
+  - Constat récurrent : phishing et ingénierie sociale restent la faille la plus simple, bien avant la technique pure.
+- *Thème à progresser en priorité :* confinement OS et réseaux (2/5).
+  - Je connais mal le sandboxing et la segmentation, alors que le sujet m'intéresse.
+  - C'est là que la marge de progrès est la plus grande.
+- *Entreprise vs développement logiciel :* la distinction est claire pour moi.
+  - L'entreprise intègre plus de variables humaines, donc plus de points d'attaque et de défense.
+  - Elle tient aussi compte des contraintes de gestion : ressources, budgets, activités, politique interne.
+  - Pour mon projet : analyser les menaces et appliquer la sécurité à chaque étape du cycle de vie, avec un confinement adapté aux risques et impacts.
 
 === Résultats
 
-Mon profil est déséquilibré entre culture et technique. Je suis solide sur le facteur humain (5), et correct sur les enjeux généraux, la crypto, la conscience dev et la veille (4). Le reste plafonne à 3 : théorie, pratique, réflexes de dev sécurisé et gestion des risques. Le confinement OS et réseaux tombe à 2, mon seul vrai trou. En bref : je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
+Profil déséquilibré entre culture et technique :
+- *5 :* facteur humain.
+- *4 :* enjeux généraux, cryptographie, conscience dev, veille, envie d'appliquer.
+- *3 :* théorie, pratique, réflexes de dev sécurisé, gestion des risques.
+- *2 :* confinement OS et réseaux, mon seul vrai trou.
+- *En bref :* je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
 
 === Interprétation des résultats
 
-Ce tableau me donne une direction pour le semestre. Mon point d'appui, c'est la sensibilisation : je pars avec le réflexe de me méfier du maillon humain. Mon chantier, c'est le confinement : sandboxing, segmentation, moindre privilège. Pour le projet de semestre, cela veut dire viser la confidentialité et l'intégrité par la technique, pas seulement par la vigilance, et mesurer le progrès en refaisant cette grille en fin de module.
+- *Point d'appui :* la sensibilisation, avec le réflexe de me méfier du maillon humain.
+- *Chantier :* le confinement (sandboxing, segmentation, moindre privilège).
+- *Projet de semestre :* viser la confidentialité et l'intégrité par la technique, pas seulement par la vigilance.
+- *Mesure du progrès :* refaire cette grille en fin de module.

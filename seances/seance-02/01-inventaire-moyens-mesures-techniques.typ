@@ -3,7 +3,11 @@
 
 == Exercice 5 : Inventaire des moyens/mesures techniques de la cybersécurité
 
-#encadre("Objectifs")[Créer un tableau mentionnant les catégories du slide, explicitant leur objectif pour chacune, puis des exemples de mesures techniques.]
+#encadre("Objectifs")[
+  - Créer un tableau des catégories du slide.
+  - Expliciter l'objectif de chacune.
+  - Donner des exemples de mesures techniques.
+]
 
 #table(
   columns: (1.2fr, 3fr),

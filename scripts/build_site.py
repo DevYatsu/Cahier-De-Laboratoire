@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import html
 import re
+import textwrap
 import unicodedata
 from pathlib import Path
 
@@ -391,7 +392,8 @@ def parse_encadre(block: str) -> str:
     # Body is the final [...] group following the title parens.
     mbody = re.search(r"\)\s*\[(.*)\]\s*$", block, flags=re.DOTALL)
     body = mbody.group(1) if mbody else ""
-    inner = render_blocks(body.splitlines())
+    # Bodies are indented inside `[ … ]`; dedent so a list starts at level 0.
+    inner = render_blocks(textwrap.dedent(body).splitlines())
     return (f'<aside class="{callout_class(title)}">'
             f'<p class="callout-title">{html.escape(title)}</p>\n{inner}\n</aside>')
 

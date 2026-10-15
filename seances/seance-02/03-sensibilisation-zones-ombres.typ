@@ -2,7 +2,11 @@
 
 == Exercice 9 : Sensibilisation aux zones d'ombres liées à l'inventaire des menaces
 
-#encadre("Objectifs")[Identifier les stratégies de traitement du risque ; distinguer réduire/atténuer, transférer, éviter et accepter le risque ; comprendre comment les mesures agissent sur la probabilité et l'impact du risque.]
+#encadre("Objectifs")[
+  - Identifier les stratégies de traitement du risque.
+  - Distinguer réduire/atténuer, transférer, éviter et accepter le risque.
+  - Comprendre comment les mesures agissent sur la probabilité et l'impact du risque.
+]
 
 
 === Traiter

@@ -3,13 +3,26 @@
 
 == Activité 3 : Protection concrète d'un WordPress (Ricardo)
 
-#encadre("Objectifs")[Utiliser l'OSINT et l'intelligence collective pour recenser des serveurs WordPress, puis simuler une attaque générique et ciblée dans un cadre autorisé. Évaluer les protections mises en place. Durée indicative : 30 minutes.]
+#encadre("Objectifs")[
+  - Recenser des serveurs WordPress par OSINT et intelligence collective.
+  - Simuler une attaque générique puis ciblée, dans un cadre autorisé.
+  - Évaluer les protections mises en place.
+  - Durée indicative : 30 minutes.
+]
 
 === Métiers pertinents
-L'analyste OSINT, le RSSI, l'administrateur WordPress et le SOC couvrent respectivement la collecte, l'arbitrage, les mises à jour et la surveillance. L'équipe blue applique les contrôles ; l'équipe red décrit seulement les scénarios de l'adversaire.
+- *Analyste OSINT :* collecte des indices.
+- *RSSI :* arbitrage.
+- *Administrateur WordPress :* mises à jour.
+- *SOC :* surveillance.
+- *Équipe blue :* applique les contrôles.
+- *Équipe red :* décrit seulement les scénarios de l'adversaire.
 
 === Déroulement
-Je travaille sur le site fictif de Ricardo, avec une autorisation écrite et un périmètre limité aux sources passives. Je croise les index publics, les pages d'archives, les certificats et les annonces du propriétaire, puis je qualifie chaque indice et limite les données partagées aux informations nécessaires. Une concordance devient une hypothèse à confirmer par le propriétaire, jamais une preuve de vulnérabilité.
+- *Cadre :* site fictif de Ricardo, autorisation écrite, périmètre limité aux sources passives.
+- *Sources croisées :* index publics, pages d'archives, certificats, annonces du propriétaire.
+- *Méthode :* qualifier chaque indice, partager uniquement les informations nécessaires.
+- *Règle :* une concordance reste une hypothèse à confirmer par le propriétaire, jamais une preuve de vulnérabilité.
 
 #table(
   columns: (1fr, 2fr, 1.4fr), [*Protection*], [*Contrôle*], [*Effet*],
@@ -21,16 +34,30 @@ Je travaille sur le site fictif de Ricardo, avec une autorisation écrite et un 
 )
 
 === Temps 1 : Recensement passif de serveurs WordPress
-Je rapproche les signaux publics, contrôle les dates et supprime les doublons. Je conserve pour chaque ressource sa source, son indice et son niveau de confiance ; le propriétaire confirme les correspondances. Je n'effectue aucun scan actif et je ne teste aucune cible réelle.
+- Rapprocher les signaux publics, contrôler les dates, supprimer les doublons.
+- Conserver pour chaque ressource : source, indice, niveau de confiance.
+- Faire confirmer les correspondances par le propriétaire.
+- Aucun scan actif, aucune cible réelle testée.
 
 === Temps 2 : Attaque générique puis ciblée
-La campagne générique cherche des erreurs de configuration, des composants obsolètes et des accès d'administration. Dans la simulation, le WAF et les journaux signalent une activité répétée : je vérifie les faux positifs avant de conclure. L'attaque ciblée utilise ensuite l'inventaire pour choisir le serveur le plus exposé ; la MFA, le moindre privilège et la segmentation limitent l'accès et le mouvement vers la base. Je simule l'analyse, l'isolation et la restauration, sans commande, payload, credential ni exploitation réelle.
+- *Campagne générique :* recherche d'erreurs de configuration, de composants obsolètes et d'accès d'administration.
+  - Le WAF et les journaux signalent une activité répétée.
+  - Je vérifie les faux positifs avant de conclure.
+- *Attaque ciblée :* l'inventaire sert à choisir le serveur le plus exposé.
+  - MFA, moindre privilège et segmentation limitent l'accès et le mouvement vers la base.
+- *Réponse simulée :* analyse, isolation, restauration.
+- *Limites :* aucune commande, payload, credential ni exploitation réelle.
 
 === Résultats
-J'obtiens un inventaire vérifiable de ressources candidates et un scénario montrant l'effet des mises à jour, de la MFA, du moindre privilège, de la segmentation, du WAF, des sauvegardes et des alertes. La simulation est contenue, mais je conserve les écarts et la nécessité d'une réponse préparée.
+- Un inventaire vérifiable de ressources candidates.
+- Un scénario montrant l'effet de chaque protection : mises à jour, MFA, moindre privilège, segmentation, WAF, sauvegardes, alertes.
+- Une simulation contenue, avec des écarts conservés et le besoin d'une réponse préparée.
 
 === Interprétation des résultats
-La détection vient du croisement d'indices, pas d'une source isolée. La protection améliore réellement la détection, limite la portée d'un incident et réduit le temps de rétablissement ; elle ne garantit pas l'absence de compromission. Je retiens l'inventaire à jour, les faux positifs vérifiés et la restauration testée comme contrôles essentiels.
+- La détection vient du croisement d'indices, pas d'une source isolée.
+- La protection améliore la détection, limite la portée d'un incident et réduit le temps de rétablissement.
+- Elle ne garantit pas l'absence de compromission.
+- *Contrôles essentiels retenus :* inventaire à jour, faux positifs vérifiés, restauration testée.
 
 === Références
 - #link("https://developer.wordpress.org/advanced-administration/security/hardening/")[WordPress : Hardening WordPress]

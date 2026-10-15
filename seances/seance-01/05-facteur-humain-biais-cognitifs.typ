@@ -3,17 +3,23 @@
 
 == Activité 4 : Aspect humain, risques et biais cognitifs
 
-#encadre("Objectifs")[Comprendre les biais cognitifs qui affectent la sécurité : comment les repérer, les limiter, et pourquoi ils changent selon la personne et la culture.]
+#encadre("Objectifs")[
+  - Comprendre les biais cognitifs qui affectent la sécurité.
+  - Savoir les repérer et les limiter.
+  - Comprendre pourquoi ils changent selon la personne et la culture.
+]
 
 === Métiers pertinents
 
-RSSI, auditeur, chef de projet, dev : tout le monde est concerné. La sensibilisation n'est pas un bonus : c'est une mesure de réduction du risque.
+- *Tous concernés :* RSSI, auditeur, chef de projet, développeur.
+- *La sensibilisation n'est pas un bonus :* c'est une mesure de réduction du risque.
 
 === Déroulement
 
 ==== Risques et biais cognitifs liés au cerveau
 
-Le cerveau utilise des raccouris (heuristiques) utiles au quotidien mais dangereux en sécurité. Six types :
+- *Heuristiques :* raccourcis du cerveau, utiles au quotidien mais dangereux en sécurité.
+- *Six types :*
 
 #table(
   columns: (1.6fr, 2fr, 2fr),
@@ -57,15 +63,25 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 
 ==== Activité 4 : Que faire pour limiter ces risques de prise de décision ?
 
-- *Écrire les hypothèses avant de décider* : noter ce qu'on suppose et pourquoi, puis relire à deux. L'ancrage devient visible.
-- *Faire relire par un profil différent* : un dev relit l'analyse d'un admin, ou l'inverse. Le red teaming joue le même rôle contre la confirmation.
-- *Appliquer une procédure écrite* : checklists et cadres type ISO 27001 pour les actions critiques, au lieu de compter sur la mémoire.
-- *Signaler sans être sanctionné* : post-mortem sans blâme et erreurs remontées vite. Le silence coûte plus cher que l'aveu.
-- *Surveiller la charge* : pauses, rotation des tâches de vigilance, alertes hiérarchisées. Un opérateur fatigué clique et ignore.
+- *Écrire les hypothèses avant de décider :* noter ce qu'on suppose et pourquoi, puis relire à deux.
+  - L'ancrage devient visible.
+- *Faire relire par un profil différent :* un dev relit l'analyse d'un admin, ou l'inverse.
+  - Le red teaming joue le même rôle contre la confirmation.
+- *Appliquer une procédure écrite :* checklists et cadres type ISO 27001 pour les actions critiques, au lieu de compter sur la mémoire.
+- *Signaler sans être sanctionné :* post-mortem sans blâme, erreurs remontées vite.
+  - Le silence coûte plus cher que l'aveu.
+- *Surveiller la charge :* pauses, rotation des tâches de vigilance, alertes hiérarchisées.
+  - Un opérateur fatigué clique et ignore.
 
 === Résultats
 
-Le tableau mappe six familles de biais, du sensori-moteur jusqu'à la personnalité, avec une stratégie précise pour chacune. Les risques se partagent entre l'individuel (fatigue, Dunning-Kruger, expertise partielle) et le collectif (culture du blâme, hiérarchie qui verrouille la contradiction). Les mitigations suivent la même découpe : mentorat et suivi de charge d'un côté, post-mortems sans blâme et leadership exemplaire de l'autre. La synthèse retient cinq réflexes applicables : hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
+- *Six familles de biais :* du sensori-moteur à la personnalité, chacune avec une stratégie précise.
+- *Risques individuels :* fatigue, Dunning-Kruger, expertise partielle.
+- *Risques collectifs :* culture du blâme, hiérarchie qui verrouille la contradiction.
+- *Mitigations, même découpe :*
+  - individuel : mentorat, suivi de charge ;
+  - collectif : post-mortems sans blâme, leadership exemplaire.
+- *Cinq réflexes retenus :* hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
 
 #align(center)[
   #diagram(
@@ -90,6 +106,8 @@ Le tableau mappe six familles de biais, du sensori-moteur jusqu'à la personnali
 
 === Interprétation des résultats
 
-Le facteur humain explique pourquoi les mesures techniques échouent : un admin sous surcharge ignore une alerte, un utilisateur confiant clique sur un lien. Les risques varient selon la personne et la culture : la sécurité est un système sociotechnique, pas juste des pare-feu.
-
-Prochaine étape : intégrer ces observations dans l'évaluation du projet de semestre (charge cognitive, culture d'équipe, diversité des points de vue).
+- *Le facteur humain explique l'échec des mesures techniques :*
+  - un admin en surcharge ignore une alerte ;
+  - un utilisateur confiant clique sur un lien.
+- *Les risques varient selon la personne et la culture :* la sécurité est un système sociotechnique, pas juste des pare-feu.
+- *Prochaine étape :* intégrer ces observations au projet de semestre (charge cognitive, culture d'équipe, diversité des points de vue).

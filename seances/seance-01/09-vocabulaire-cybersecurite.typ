@@ -3,15 +3,24 @@
 
 == Activité 5 : Définir le vocabulaire de base de la cybersécurité
 
-#encadre("Objectifs")[Extraire du glossaire Hucency les concepts que je ne connaissais pas encore et les résumer dans les grandes lignes. Définir ensuite red team, blue team et purple team.]
+#encadre("Objectifs")[
+  - Extraire du glossaire Hucency les concepts que je ne connaissais pas encore.
+  - Les résumer dans les grandes lignes.
+  - Définir red team, blue team et purple team.
+]
 
 === Métiers pertinents
 
-Le RSSI arbitre le vocabulaire et les priorités. Le SOC et la blue team détectent et répondent aux incidents. La red team simule l'attaquant en pentest. Le CERT coordonne la réponse. Le dev et l'admin appliquent les correctifs et contrôlent le Shadow IT.
+- *RSSI :* arbitre le vocabulaire et les priorités.
+- *SOC, blue team :* détectent et répondent aux incidents.
+- *Red team :* simule l'attaquant en pentest.
+- *CERT :* coordonne la réponse.
+- *Développeur, admin :* appliquent les correctifs, contrôlent le Shadow IT.
 
 === Déroulement
 
-Source principale : #link("https://hucency.com/glossaire-de-la-cybersecurite/")[Hucency - Glossaire de la cybersécurité (55 définitions, sourcées ANSSI, CNIL, Cybermalveillance, ENISA)]. Les définitions ci-dessous sont reformulées dans les grandes lignes, pas recopiées.
+- *Source principale :* #link("https://hucency.com/glossaire-de-la-cybersecurite/")[Hucency - Glossaire de la cybersécurité (55 définitions, sourcées ANSSI, CNIL, Cybermalveillance, ENISA)].
+- *Méthode :* définitions reformulées dans les grandes lignes, pas recopiées.
 
 ==== Six concepts extraits du glossaire
 
@@ -26,9 +35,9 @@ Source principale : #link("https://hucency.com/glossaire-de-la-cybersecurite/")[
   [Shadow IT], [Usages sans aval de la DSI : SaaS, cloud, applis ou appareils perso utilisés par les collaborateurs. Il crée des angles morts, complique la surveillance et augmente le risque de fuite.],
 )
 
-Précision que je ne connaissais pas avant lecture :
-
-- *Emotet et Log4Shell montrent deux échelles.* Emotet illustre la menace persistante qui mute (botnet loué à d'autres attaquants). Log4Shell illustre la faille supply chain : une seule bibliothèque omniprésente compromet tout l'écosystème.
+Précision que je ne connaissais pas avant lecture, Emotet et Log4Shell montrent deux échelles :
+- *Emotet :* menace persistante qui mute (botnet loué à d'autres attaquants).
+- *Log4Shell :* faille supply chain, une seule bibliothèque omniprésente compromet tout l'écosystème.
 
 ==== Red team, blue team, purple team
 
@@ -40,7 +49,10 @@ Précision que je ne connaissais pas avant lecture :
   [Purple team], [Fonction de liaison, pas une troisième armée. Elle fait rejouer ensemble les scénarios de la red team à la blue team pour corriger les détections et valider les playbooks. Son but est l'apprentissage continu.],
 )
 
-Le cycle est simple. La red team attaque. La blue team détecte et répond. La purple team compare l'attaque aux alertes, ajuste les règles SIEM/EDR, puis rejoue le scénario jusqu'à détection fiable.
+Le cycle :
+- *Red team :* attaque.
+- *Blue team :* détecte et répond.
+- *Purple team :* compare l'attaque aux alertes, ajuste les règles SIEM/EDR, rejoue le scénario jusqu'à détection fiable.
 
 #align(center)[
   #diagram(
@@ -61,8 +73,19 @@ Le cycle est simple. La red team attaque. La blue team détecte et répond. La p
 
 === Résultats
 
-Les six termes du glossaire se rangent en trois groupes. APT, drive-by download et Emotet décrivent l'attaque. Le CERT décrit l'organisation de la défense : il collecte les signalements et coordonne la réponse. Log4Shell et Shadow IT décrivent le terrain qui facilite l'attaque : une dépendance omniprésente ou des usages non contrôlés. Red, blue et purple team décrivent qui fait quoi : attaquer, défendre, faire progresser les deux.
+Les six termes se rangent en trois groupes, plus les équipes :
+- *L'attaque :* APT, drive-by download, Emotet.
+- *L'organisation de la défense :* le CERT collecte les signalements et coordonne la réponse.
+- *Le terrain qui facilite l'attaque :* Log4Shell (dépendance omniprésente), Shadow IT (usages non contrôlés).
+- *Qui fait quoi :* red, blue et purple team (attaquer, défendre, faire progresser les deux).
 
 === Interprétation des résultats
 
-Le vocabulaire révèle une logique de défense en profondeur. Aucun acteur ne couvre tout seul la triade CIA. Le CERT coordonne, la blue team opère au quotidien, la red team vérifie, la purple team boucle l'amélioration. Pour mon projet de semestre, j'en retiens deux réflexes : nommer chaque risque avec le bon terme (APT, drive-by, Shadow IT) et associer chaque mesure à son équipe (qui détecte, qui teste, qui corrige).
+- *Défense en profondeur :* aucun acteur ne couvre seul la triade CIA.
+  - Le CERT coordonne.
+  - La blue team opère au quotidien.
+  - La red team vérifie.
+  - La purple team boucle l'amélioration.
+- *Deux réflexes pour le projet de semestre :*
+  - nommer chaque risque avec le bon terme (APT, drive-by, Shadow IT) ;
+  - associer chaque mesure à son équipe (qui détecte, qui teste, qui corrige).

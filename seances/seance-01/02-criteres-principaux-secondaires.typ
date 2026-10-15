@@ -3,15 +3,19 @@
 
 == Exercice 2 : Critères principaux et secondaires
 
-#encadre("Objectifs")[Distinguer les trois critères principaux CIA des critères secondaires qui les rendent applicables : identification et traçabilité, authentification, sensibilisation, résilience.]
+#encadre("Objectifs")[
+  - Distinguer les trois critères principaux CIA.
+  - Identifier les critères secondaires qui les rendent applicables : identification et traçabilité, authentification, sensibilisation, résilience.
+]
 
 === Métiers pertinents
 
-Tous les métiers sont concernés. Chaque rôle arbitre entre ces critères à son niveau, du développeur à l'administrateur jusqu'au RSSI.
+- *Tous les métiers :* chaque rôle arbitre entre ces critères à son niveau.
+- *Exemples :* développeur, administrateur, RSSI.
 
 === Déroulement
 
-On a rappelé les critères en cours. Je les note en vrac, sans chercher à tout reformuler.
+Critères rappelés en cours, notés en vrac.
 
 *Critères principaux :*
 - Confidentialité
@@ -47,8 +51,17 @@ On a rappelé les critères en cours. Je les note en vrac, sans chercher à tout
 
 === Résultats
 
-J'ai retenu trois critères principaux et quatre appuis autour. La confidentialité, l'intégrité et la disponibilité forment le triangle du schéma. Autour, j'ai placé l'identification avec la traçabilité et l'accès, puis l'authentification, la sensibilisation et la résilience. Le schéma montre bien cette relation : le triangle au centre, les secondaires qui le rendent applicable.
+- *Trois critères principaux :* confidentialité, intégrité, disponibilité, le triangle du schéma.
+- *Quatre appuis autour :*
+  - identification (avec traçabilité et accès) ;
+  - authentification ;
+  - sensibilisation ;
+  - résilience.
+- *Relation :* le triangle au centre, les secondaires le rendent applicable.
 
 === Interprétation des résultats
 
-Les critères secondaires m'ont paru plus concrets que la triade seule. En tant que développeur, je vois l'authentification et la traçabilité dans chaque fonction de login et chaque journal. Côté admin, la résilience se joue dans les sauvegardes et la reprise après incident. Je garde ce découpage pour le projet du semestre : il m'aidera à justifier chaque mesure par le critère qu'elle protège.
+- Les critères secondaires sont plus concrets que la triade seule.
+- *Côté développeur :* authentification et traçabilité apparaissent dans chaque login et chaque journal.
+- *Côté admin :* la résilience se joue dans les sauvegardes et la reprise après incident.
+- *Projet de semestre :* justifier chaque mesure par le critère qu'elle protège.

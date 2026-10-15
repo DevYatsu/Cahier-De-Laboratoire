@@ -3,15 +3,21 @@
 
 == Exercice 4 : Principaux secteurs, domaines et objets d'application
 
-#encadre("Objectifs")[Recenser où la sécurité s'applique et qui elle concerne. Je distingue les secteurs public et privé ainsi que les domaines transverses, puis les échelles moi, nous et tous.]
+#encadre("Objectifs")[
+  - Recenser où la sécurité s'applique et qui elle concerne.
+  - Distinguer secteurs public, privé et domaines transverses.
+  - Situer les échelles moi, nous et tous.
+]
 
 === Métiers pertinents
 
-Tous les secteurs listés en Déroulement ont leurs métiers : admin systèmes et réseau sur les infrastructures critiques et l'OT, dev sur le cloud et les logiciels, RSSI en entreprise, DPO sur les dossiers patients et la fiscalité. Je me place côté dev : je construis une partie des services que les autres protègent.
+- *Admin systèmes et réseau :* infrastructures critiques, OT.
+- *Développeur :* cloud, logiciels.
+- *RSSI :* entreprise.
+- *DPO :* dossiers patients, fiscalité.
+- *Ma position :* côté dev, je construis une partie des services que les autres protègent.
 
 === Déroulement
-
-La question porte sur où la sécurité s'applique et sur qui elle concerne. Je distingue le secteur public, le secteur privé, puis les domaines transverses.
 
 *Secteur public :*
 - Défense et sécurité nationale : armée, renseignement, police, protection civile.
@@ -38,7 +44,13 @@ La question porte sur où la sécurité s'applique et sur qui elle concerne. Je 
 
 === Résultats
 
-Côté public, la sécurité couvre la défense, la santé, l'état civil et la justice, plus les infrastructures critiques comme l'énergie et les transports. Côté privé, elle protège le SI interne, les contrats, la comptabilité et la propriété intellectuelle. Les domaines transverses relient les deux : dispositifs médicaux, cloud, banques, SCADA. À chaque niveau je suis concerné : mes comptes et mes projets, puis mon équipe et ses clients, puis les services collectifs que tout citoyen utilise.
+- *Public :* défense, santé, état civil, justice, infrastructures critiques (énergie, transports).
+- *Privé :* SI interne, contrats, comptabilité, propriété intellectuelle.
+- *Transverses :* relient les deux (dispositifs médicaux, cloud, banques, SCADA).
+- *Échelles :* je suis concerné à chaque niveau.
+  - Moi : mes comptes et mes projets.
+  - Nous : mon équipe et ses clients.
+  - Tous : les services collectifs que tout citoyen utilise.
 
 #align(center)[
   #diagram(
@@ -63,6 +75,10 @@ Côté public, la sécurité couvre la défense, la santé, l'état civil et la 
 
 === Interprétation des résultats
 
-Aucun secteur ne fonctionne sans sécurité. Un hôpital, une banque et une chaîne logistique ont des objets différents à protéger, mais la compromission bloque leur activité de la même façon. Côté dev, je retiens que chaque ligne de code atterrit dans un de ces secteurs : une faille dans une app de vote ou de paiement ne reste jamais théorique. Pour le projet de semestre, cela fixe le périmètre : décrire qui utilise le service, ce qu'il protège, et ce qu'une compromission coûterait à chaque échelle.
-
-La cybersécurité à l'échelle nationale ou au sein d'alliances est aussi une condition de fonctionnement de la société : une compromission peut affecter des services essentiels et plusieurs pays à la fois.
+- *Aucun secteur ne fonctionne sans sécurité :* hôpital, banque et chaîne logistique protègent des objets différents, mais une compromission bloque leur activité de la même façon.
+- *Côté dev :* chaque ligne de code atterrit dans un de ces secteurs ; une faille dans une app de vote ou de paiement ne reste jamais théorique.
+- *Projet de semestre :* fixer le périmètre.
+  - Qui utilise le service ?
+  - Que protège-t-il ?
+  - Que coûterait une compromission à chaque échelle ?
+- *Échelle nationale et alliances :* la cybersécurité conditionne le fonctionnement de la société ; une compromission peut toucher des services essentiels dans plusieurs pays à la fois.

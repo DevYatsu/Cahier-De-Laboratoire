@@ -3,15 +3,22 @@
 
 == Activité 2 : Recommandations d'organismes de sécurité
 
-#encadre("Objectifs")[Résumer et référencer les recommandations de l'OFCS (Office fédéral de la cybersécurité, bacs.admin.ch) ou d'organismes similaires. Je couvre le phishing, le ransomware, le DDoS, les data leaks et les supply chains. J'ajoute les menaces de l'écosystème open source et de Microsoft Exchange.]
+#encadre("Objectifs")[
+  - Résumer et référencer les recommandations de l'OFCS (Office fédéral de la cybersécurité, bacs.admin.ch) ou d'organismes similaires.
+  - Couvrir le phishing, le ransomware, le DDoS, les data leaks et les supply chains.
+  - Ajouter les menaces de l'écosystème open source et de Microsoft Exchange.
+]
 
 === Métiers pertinents
 
-Le RSSI pilote ces mesures et arbitre les priorités. Le SOC et la blue team les appliquent au quotidien. Le dev sécurise le code et les dépendances. Le chef de projet planifie les backups et les playbooks.
+- *RSSI :* pilote les mesures, arbitre les priorités.
+- *SOC, blue team :* appliquent au quotidien.
+- *Développeur :* sécurise le code et les dépendances.
+- *Chef de projet :* planifie les backups et les playbooks.
 
 === Déroulement
 
-Le tableau ci-dessous résume les sept menaces et deux recommandations clés pour chacune.
+Sept menaces, deux recommandations clés pour chacune :
 
 #table(
   columns: (1fr, 1.6fr, 2fr),
@@ -27,47 +34,94 @@ Le tableau ci-dessous résume les sept menaces et deux recommandations clés pou
 
 ==== Phishing
 
-Le phishing reste une menace majeure en Suisse. Selon antiphishing.ch, le bilan 2024 fait état de 975 309 signalements (+79 % sur un an) et de 20 872 sites de phishing confirmés (+108 % sur un an). Ce chiffre décrit les signalements centralisés par le portail, pas toutes les tentatives de phishing. Les attaques en temps réel imitent M365 et SharePoint et contournent parfois la 2FA simple.
-
-Je ne saisis jamais un mot de passe via un lien. Je passe par un favori enregistré. J'active la 2FA ou FIDO2 partout. Je signale chaque tentative. Si mon compte est compromis, je change le mot de passe et je dépose plainte. Côté domaine, je configure SPF, DKIM et DMARC.
+- *Bilan 2024 (antiphishing.ch) :*
+  - 975 309 signalements (+79 % sur un an) ;
+  - 20 872 sites de phishing confirmés (+108 % sur un an) ;
+  - ces chiffres décrivent les signalements centralisés par le portail, pas toutes les tentatives.
+- *Tendance :* attaques en temps réel imitant M365 et SharePoint, contournant parfois la 2FA simple.
+- *Réflexes :*
+  - ne jamais saisir un mot de passe via un lien, passer par un favori ;
+  - activer la 2FA ou FIDO2 partout ;
+  - signaler chaque tentative.
+- *Si compromis :* changer le mot de passe, déposer plainte.
+- *Côté domaine :* configurer SPF, DKIM et DMARC.
 
 ==== Ransomware
 
-Le ransomware entre par trois portes : un patch manquant, un RDP ou VPN sans 2FA, ou une macro piégée. La règle est claire : je ne paie pas la rançon. Je maintiens un backup 3-2-1 offline et testé. Je bloque les macros par défaut.
-
-Si une machine est chiffrée, je l'isole du réseau. Je lance une analyse forensique avant toute réinstallation. Je vérifie les déchiffreurs gratuits du projet No More Ransom.
+- *Trois portes d'entrée :* patch manquant, RDP ou VPN sans 2FA, macro piégée.
+- *Règle :* ne pas payer la rançon.
+- *Prévention :* backup 3-2-1 offline et testé, macros bloquées par défaut.
+- *Si une machine est chiffrée :*
+  - l'isoler du réseau ;
+  - analyse forensique avant toute réinstallation ;
+  - vérifier les déchiffreurs gratuits de No More Ransom.
 
 ==== DDoS
 
-Le DDoS sature un service avec des botnets ou de l'amplification. L'objectif n'est pas le vol mais l'indisponibilité. La doctrine OFCS dit de tenir la charge avec le FAI et la mitigation. Je ne paie pas en cas d'extorsion associée.
-
-Je prépare les contacts du FAI et un CDN à l'avance. J'active les SYN-cookies, un WAF et du filtrage GeoIP. Je prévois un site de secours et un playbook écrit.
+- *Mécanisme :* saturation d'un service par botnets ou amplification.
+- *But :* l'indisponibilité, pas le vol.
+- *Doctrine OFCS :* tenir la charge avec le FAI et la mitigation ; ne pas payer en cas d'extorsion.
+- *Préparation :*
+  - contacts FAI et CDN prêts à l'avance ;
+  - SYN-cookies, WAF, filtrage GeoIP ;
+  - site de secours et playbook écrit.
 
 ==== Data leaks
 
-La fuite de données vient d'un backup exposé, d'une base exposée ou d'une exfiltration après intrusion. Je ne paie pas non plus dans ce cas. J'isole les systèmes concernés. J'inventorie les données touchées. Je notifie le PFPDT selon l'art. 24 nLPD via databreach.edoeb.admin.ch. Je notifie l'OFCS sous 24 h si je suis une infrastructure critique.
-
-En prévention, je n'expose aucune base sur Internet. J'applique le moindre privilège strict. Je chiffre les données sensibles.
+- *Origines :* backup exposé, base exposée, exfiltration après intrusion.
+- *Règle :* ne pas payer.
+- *Réaction :*
+  - isoler les systèmes concernés ;
+  - inventorier les données touchées ;
+  - notifier le PFPDT (art. 24 nLPD) via databreach.edoeb.admin.ch ;
+  - notifier l'OFCS sous 24 h si infrastructure critique.
+- *Prévention :* aucune base sur Internet, moindre privilège strict, chiffrement des données sensibles.
 
 ==== Supply chain
 
-L'OFCS ne propose pas de page doctrine dédiée à la supply chain. La doctrine vient de CISA et de l'ESF. J'exige un SBOM au format SPDX ou CycloneDX avec un VEX. Je vérifie le SDLC et le SSDF du fournisseur. Je cartographie mes fournisseurs selon NIST SP 800-161. Je limite chaque composant au moindre privilège.
+- *Doctrine :* pas de page OFCS dédiée ; elle vient de CISA et de l'ESF.
+- *Mesures :*
+  - exiger un SBOM (SPDX ou CycloneDX) avec un VEX ;
+  - vérifier le SDLC et le SSDF du fournisseur ;
+  - cartographier les fournisseurs selon NIST SP 800-161 ;
+  - limiter chaque composant au moindre privilège.
 
 ==== Menaces de l'écosystème open source
 
-L'open source ajoute le typosquatting (diango au lieu de django). Il ajoute la dependency confusion entre registre public et privé. Il ajoute les mainteneurs compromis. Les cas Log4Shell et xz-utils montrent l'impact.
-
-Je tiens un miroir interne avec une allowlist. Je verrouille les lockfiles et je ne mets pas à jour à l'aveugle. Je scanne avec un outil SCA comme Dependabot ou Trivy. J'évalue chaque projet avant adoption et je vérifie les signatures Sigstore. Je génère un SBOM à chaque build.
+- *Menaces propres :*
+  - typosquatting (diango au lieu de django) ;
+  - dependency confusion entre registre public et privé ;
+  - mainteneurs compromis.
+- *Cas marquants :* Log4Shell, xz-utils.
+- *Mesures :*
+  - miroir interne avec allowlist ;
+  - lockfiles verrouillés, pas de mise à jour à l'aveugle ;
+  - scan SCA (Dependabot, Trivy) ;
+  - évaluation avant adoption, signatures Sigstore vérifiées ;
+  - SBOM à chaque build.
 
 ==== Microsoft Exchange
 
-Exchange cumule trois familles de failles critiques. ProxyLogon couvre CVE-2021-26855, 26857, 26858 et 27065. Le groupe Hafnium l'exploite pour déposer un webshell SYSTEM. ProxyShell couvre CVE-2021-34473, 34523 et 31207. ProxyNotShell couvre CVE-2022-41040 et 41082. Le NCSC suisse a informé plus de 4 500 entités exposées à ces vulnérabilités ; cette alerte historique est reprise par l'OFCS.
-
-J'applique les mises à jour cumulatives et de sécurité sans délai. Je contrôle avec HealthChecker et Test-ProxyLogon.ps1. Je traite un serveur non patché comme un système à risque élevé et je l'isole pour investigation.
+- *Trois familles de failles critiques :*
+  - *ProxyLogon :* CVE-2021-26855, 26857, 26858, 27065 ; exploité par Hafnium pour déposer un webshell SYSTEM.
+  - *ProxyShell :* CVE-2021-34473, 34523, 31207.
+  - *ProxyNotShell :* CVE-2022-41040, 41082.
+- *Impact suisse :* le NCSC a informé plus de 4 500 entités exposées ; alerte historique reprise par l'OFCS.
+- *Mesures :*
+  - appliquer les mises à jour cumulatives (CU) et de sécurité (SU) sans délai ;
+  - contrôler avec HealthChecker et Test-ProxyLogon.ps1 ;
+  - traiter un serveur non patché comme à risque élevé, l'isoler pour investigation.
 
 === Résultats
 
-Les sept menaces se rangent en trois groupes. Le phishing, le ransomware, le DDoS et les leaks forment le socle OFCS avec des réflexes directs. La supply chain et l'open source déplacent la confiance vers les fournisseurs et les dépendances. Exchange montre ce qui arrive quand un patch critique dort. Chaque menace tient en deux recos : un réflexe humain et une mesure technique. Le point commun est la préparation : backups testés, contacts prêts, inventaires à jour.
+Trois groupes de menaces :
+- *Socle OFCS :* phishing, ransomware, DDoS, leaks, avec des réflexes directs.
+- *Confiance fournisseurs :* supply chain et open source déplacent la confiance vers les dépendances.
+- *Patch critique :* Exchange montre ce qui arrive quand un patch critique dort.
+
+Constats transverses :
+- *Chaque menace tient en deux recos :* un réflexe humain, une mesure technique.
+- *Point commun :* la préparation (backups testés, contacts prêts, inventaires à jour).
 
 #align(center)[
   #diagram(
@@ -86,7 +140,13 @@ Les sept menaces se rangent en trois groupes. Le phishing, le ransomware, le DDo
 
 === Interprétation des résultats
 
-Ces recommandations protègent la triade CIA : confidentialité contre les leaks, intégrité contre le ransomware et la supply chain, disponibilité contre le DDoS. Elles appliquent la défense en profondeur : aucune mesure seule ne suffit et chaque couche rattrape la précédente. Elles suivent un cycle PDCA d'amélioration continue : patcher, tester, auditer, corriger. Pour mon projet de semestre, j'en retiens trois habitudes : SBOM à chaque build, backups testés, et playbook écrit avant l'incident.
+- *Triade CIA :*
+  - confidentialité contre les leaks ;
+  - intégrité contre le ransomware et la supply chain ;
+  - disponibilité contre le DDoS.
+- *Défense en profondeur :* aucune mesure seule ne suffit, chaque couche rattrape la précédente.
+- *Cycle PDCA :* patcher, tester, auditer, corriger.
+- *Trois habitudes pour le projet de semestre :* SBOM à chaque build, backups testés, playbook écrit avant l'incident.
 
 === Références
 

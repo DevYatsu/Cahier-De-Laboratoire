@@ -2,7 +2,11 @@
 
 == Exercice 6 : Que sont les menaces ? D'où proviennent-elles ? Exemples ?
 
-#encadre("Objectifs")[Comprendre les notions de menace, vulnérabilité et risque ; identifier les principales sources de menaces et leurs conséquences ; analyser les relations entre événement, dommage, vulnérabilité et risque.]
+#encadre("Objectifs")[
+  - Comprendre les notions de menace, vulnérabilité et risque.
+  - Identifier les principales sources de menaces et leurs conséquences.
+  - Analyser les relations entre événement, dommage, vulnérabilité et risque.
+]
 
 === Evénement
 

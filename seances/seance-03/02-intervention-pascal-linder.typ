@@ -14,7 +14,20 @@
 
 === Métiers pertinents
 
-Membres du service info. À compléter.
+- *Service informatique (SI) :* administrateurs systèmes et réseau.
+  - Détectent l'intrusion, isolent le réseau, analysent les logs.
+  - Reconstruisent l'Active Directory, réinstallent les serveurs et les postes.
+- *Responsable de la sécurité informatique :* poste créé après l'attaque (un EPT dédié).
+  - Pilote les nouvelles mesures : MFA, EDR, gestion des accès à privilèges, filtre DNS.
+- *Direction :* membre de la cellule de crise.
+  - Arbitre les priorités de remise en état des services.
+- *Communication :* membre de la cellule de crise.
+  - Gère la communication interne vers plus de 3500 comptes et la gestion médiatique.
+- *Analystes de SWITCH CERT et du NCSC :* réponse à incident.
+  - Conseillent la cellule de crise, proposent de tout remettre à zéro.
+- *Analyste forensique :* analyse du disque, suivi des IP de connexion VPN.
+- *Enquêteurs de la police et de FedPol :* reçoivent la déclaration, mènent l'enquête pénale.
+- *Partenaires et prestataires externes :* renforcent l'équipe pendant la crise.
 
 === Déroulement
 
@@ -62,7 +75,6 @@ Membres du service info. À compléter.
 ==== Réflexions/Contraintes
 
 - SWITCH CERT propose de tout remettre à zéro
-- xx
 
 ==== Conséquences / Défis
 

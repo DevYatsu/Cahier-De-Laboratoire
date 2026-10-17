@@ -20,40 +20,27 @@ Activités étape par étape, de la conception à l'exploitation :
 
 ==== Concevoir
 
-- *Cadrer :* périmètre, valeurs métier, classification des actifs.
-  - Chaîne : actifs → menaces et vulnérabilités → risques → mesures.
-- *Analyser les risques :*
-  - EBIOS RM au niveau stratégique ;
-  - STRIDE-LM au niveau technique ;
-  - puis hiérarchiser et traiter (éviter, réduire, transférer, accepter).
-- *Choisir le référentiel :* ISO 27001/27002, NIST CSF, CIS Controls, ou la MCSR de l'OFCS.
-  - Ce choix détermine les contrôles, donc les preuves exigées en Valider.
-- *Formaliser :* stratégie alignée sur les objectifs métiers → PSSI → procédures (SOP : acteurs, décisions, escalade).
-  - Objectifs SMART.
-  - Organisation claire : qui décide, qui applique, qui contrôle.
+- *Cadrer :* périmètre, valeurs métier, classification des actifs, selon la chaîne actifs → menaces et vulnérabilités → risques → mesures.
+- *Analyser les risques :* EBIOS RM au niveau stratégique, STRIDE-LM au niveau technique, puis hiérarchiser et traiter (éviter, réduire, transférer, accepter).
+- *Choisir le référentiel :* ISO 27001/27002, NIST CSF, CIS Controls, ou la MCSR de l'OFCS. Ce choix détermine les contrôles, donc les preuves exigées en Valider.
+- *Formaliser :* stratégie alignée sur les objectifs métiers → PSSI → procédures (SOP : acteurs, décisions, escalade), avec des objectifs SMART et une organisation claire (qui décide, qui applique, qui contrôle).
 
 ==== Valider
 
 - *Tests d'intrusion par un externe :* l'équipe qui a conçu ne cherchera pas ce qui l'inquiète.
-- *Contrôle des preuves, pas des intentions :* exemple du cours, la revue des habilitations.
-  - Exigence → contrôle → indicateur → résultat → preuve.
-  - Puis analyse des 2 % restés non conformes.
+- *Contrôle des preuves, pas des intentions :* exemple du cours, la revue des habilitations suit la chaîne exigence → contrôle → indicateur → résultat → preuve, puis analyse les 2 % restés non conformes.
 - *Tests de continuité et de reprise :* un PCA se drill, il ne se rédige pas.
 - *Revue des KPI :* MTTD, MTTR, correctifs appliqués dans le délai ; revue de direction.
 
 ==== Opérer
 
-- *Supervision :* journalisation centralisée, SIEM, EDR.
-  - Un SIEM sans tri des alertes ne sert à rien.
-- *Vulnérabilités en continu :* priorisées par exploitabilité réelle, pas par le seul score CVSS.
-  - Exemple : le variant Akira a tenu en Suisse grâce à une SonicWall non patchée.
+- *Supervision :* journalisation centralisée, SIEM, EDR. Un SIEM sans tri des alertes ne sert à rien.
+- *Vulnérabilités en continu :* priorisées par exploitabilité réelle, pas par le seul score CVSS. Exemple : le variant Akira a tenu en Suisse grâce à une SonicWall non patchée.
 - *Identités :* MFA, moindre privilège, revue des habilitations, révocation aux départs.
-- *Réponse et environnement :* IRP (plan de réponse aux incidents), veille, sensibilisation continue.
-  - Relations externes : assistance DDoS, signalement à l'OFCS et au PFPDT.
+- *Réponse et environnement :* IRP (plan de réponse aux incidents), veille, sensibilisation continue, relations externes (assistance DDoS, signalement à l'OFCS et au PFPDT).
 
 === Interprétation des résultats
 
-- *Une boucle, pas une feuille de route :* Améliorer renvoie à Gouverner, Gouverner à Concevoir.
-- *Valider est l'étape que je garderais en priorité :* elle ne produit rien mais exige des preuves, donc elle engage la responsabilité de celui qui les exige.
-- *Rappel de l'activité 4 :* les biais font le plus de dégâts dans Gouverner, qui tranche avec des données incomplètes.
-  - Une organisation très bien opérée, mais dont la priorisation penche vers le spectaculaire, aura un bon niveau de maturité et une posture médiocre.
+Ces étapes forment une boucle, pas une feuille de route : Améliorer renvoie à Gouverner, Gouverner à Concevoir. Valider est l'étape que je garderais en priorité : elle ne produit rien mais exige des preuves, donc elle engage la responsabilité de celui qui les exige.
+
+L'activité 4 rappelle que les biais font le plus de dégâts dans Gouverner, qui tranche avec des données incomplètes. Une organisation très bien opérée, mais dont la priorisation penche vers le spectaculaire, aura un bon niveau de maturité et une posture médiocre.

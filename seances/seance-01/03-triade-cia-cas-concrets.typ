@@ -49,27 +49,14 @@ Tous les métiers sont concernés, avec un poids différent selon le cas :
 ]
 
 Justification des notes :
-- *E-commerce (3/3/3) :*
-  - I et A élevés : une commande modifiée ou une minute d'indisponibilité coûte directement de l'argent.
-  - C à 3 : données clients et paiement, sans atteindre le niveau d'une banque.
-- *Banque en ligne (4/4/4) :*
-  - C et I prioritaires : données financières et exactitude des opérations.
-  - A à 4 dans mon évaluation : l'accès continu est aussi attendu.
-  - Les contraintes légales influencent ces objectifs, sans imposer à elles seules la note maximale.
-- *AlertSwiss (1/4/4) :*
-  - C à 1 : messages publics.
-  - I à 4 : une fausse alerte peut provoquer une panique.
-  - A à 4 : le message doit passer en pleine crise.
-- *Streaming (2/2/4) :*
-  - C et I à 2 : catalogue public, image corrompue peu coûteuse.
-  - A à 4 : un service qui rame fait fuir les abonnés.
+- *E-commerce (3/3/3) :* I et A sont élevés, car une commande modifiée ou une minute d'indisponibilité coûte directement de l'argent. C est à 3 : données clients et paiement, sans atteindre le niveau d'une banque.
+- *Banque en ligne (4/4/4) :* C et I sont prioritaires (données financières, exactitude des opérations). A est aussi à 4 dans mon évaluation, car l'accès continu est attendu. Les contraintes légales influencent ces objectifs, sans imposer à elles seules la note maximale.
+- *AlertSwiss (1/4/4) :* C est à 1, les messages étant publics. I est à 4, car une fausse alerte peut provoquer une panique. A est à 4, car le message doit passer en pleine crise.
+- *Streaming (2/2/4) :* C et I sont à 2 (catalogue public, image corrompue peu coûteuse). A est à 4, car un service qui rame fait fuir les abonnés.
 
 === Résultats
 
-- *Banque :* profil maximal 4/4/4.
-- *E-commerce :* profil équilibré 3/3/3.
-- *AlertSwiss et streaming :* même contraste, C basse (1 et 2) face à A à 4.
-- *Différence entre les deux :* l'intégrité, maximale pour AlertSwiss, moyenne pour le streaming.
+La banque présente le profil maximal (4/4/4) et l'e-commerce un profil équilibré (3/3/3). AlertSwiss et le streaming partagent le même contraste : une confidentialité basse (1 et 2) face à une disponibilité à 4. Ce qui les sépare est l'intégrité, maximale pour AlertSwiss, moyenne pour le streaming.
 
 === Interprétation des résultats
 
@@ -77,4 +64,5 @@ Chaque profil impose une priorité de conception différente :
 - *Banque :* prioriser C et I, tout en maintenant A.
 - *AlertSwiss :* protéger l'authenticité du message et sa diffusion en pleine crise.
 - *Streaming :* dimensionner l'infrastructure pour absorber la charge du soir.
-- *Lien ISO 27001 :* la note dépend du contexte, comme dans l'analyse de risques ; la SoA (déclaration d'applicabilité) trace ensuite ce choix.
+
+Le lien avec ISO 27001 est direct : la note dépend du contexte, comme dans l'analyse de risques, et la SoA (déclaration d'applicabilité) trace ensuite ce choix.

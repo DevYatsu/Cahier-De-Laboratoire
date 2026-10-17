@@ -10,10 +10,7 @@
 
 === Contexte
 
-- *Cas réel simplifié :* réception unique de données propriétaires auprès d'un fournisseur de données.
-- *Usage :* l'étudiant les exploite sur son ordinateur portable, dans une base MySQL.
-- *Code :* aucune contrainte particulière.
-- *Structure des données :* aucune exigence de confidentialité.
+Il s'agit d'un cas réel simplifié : la réception unique de données propriétaires auprès d'un fournisseur de données. L'étudiant les exploite sur son ordinateur portable, dans une base MySQL. Le code n'a aucune contrainte particulière, et la structure des données aucune exigence de confidentialité.
 
 === Contraintes
 
@@ -21,7 +18,7 @@
 - La destruction des données est garantie après une date fixe.
 - Les procédures sont documentées et toute violation est signalée immédiatement.
 
-- *Sanction :* toute violation peut entraîner une pénalité allant jusqu'à 50 000 CHF.
+Toute violation peut entraîner une pénalité allant jusqu'à 50 000 CHF.
 
 #table(
   columns: (1.3fr, 1.65fr, 1.1fr, 0.95fr, 1.7fr),

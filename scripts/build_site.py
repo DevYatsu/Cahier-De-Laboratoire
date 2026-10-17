@@ -455,27 +455,33 @@ def is_skippable(line: str) -> bool:
     return False
 
 
-def render_list(items: list[tuple[int, str]]) -> str:
-    """Render (indent, text) bullet items with 2-space nesting."""
+def render_list(items: list[tuple[int, str, str]]) -> str:
+    """Render (indent, marker, text) list items with 2-space nesting.
+
+    Typst marks bullet items with `-` and numbered items with `+`; they map to
+    <ul> and <ol>. A marker change at the same level closes the current list
+    and opens the other kind, as Typst does.
+    """
     out: list[str] = []
-    depth = -1  # current open <ul> depth (0-based)
-    for indent, text in items:
+    tags: list[str] = []  # tag of each open list, outermost first
+    for indent, marker, text in items:
         level = indent // 2
-        if level > depth:
-            while depth < level:
-                out.append("<ul>")
-                depth += 1
-            out.append(f"<li>{inline_markup(text)}")
-        elif level == depth:
+        tag = "ol" if marker == "+" else "ul"
+        while len(tags) > level + 1:
+            out.append(f"</li>\n</{tags.pop()}>")
+        if len(tags) == level + 1 and tags[-1] != tag:
+            out.append(f"</li>\n</{tags.pop()}>")
+        if len(tags) == level + 1:
             out.append(f"</li>\n<li>{inline_markup(text)}")
-        else:
-            while depth > level:
-                out.append("</li>\n</ul>")
-                depth -= 1
-            out.append(f"</li>\n<li>{inline_markup(text)}")
-    while depth >= 0:
-        out.append("</li>\n</ul>")
-        depth -= 1
+            continue
+        # Deeper than any open list: open one per missing level, so a jump
+        # of several levels still nests like the old renderer did.
+        while len(tags) <= level:
+            out.append(f"<{tag}>")
+            tags.append(tag)
+        out.append(f"<li>{inline_markup(text)}")
+    while tags:
+        out.append(f"</li>\n</{tags.pop()}>")
     return "\n".join(out)
 
 
@@ -496,7 +502,7 @@ def render_blocks(raw_lines: list[str]) -> str:
     headings: list[tuple[int, str, str]] = []  # collected globally elsewhere
     i = 0
     para: list[str] = []
-    list_items: list[tuple[int, str]] = []
+    list_items: list[tuple[int, str, str]] = []
 
     def flush_para() -> None:
         if para:
@@ -641,18 +647,18 @@ def render_blocks(raw_lines: list[str]) -> str:
             i += 1
             continue
 
-        bullet = re.match(r"^(\s*)-\s+(.*)$", line)
+        bullet = re.match(r"^(\s*)([-+])\s+(.*)$", line)
         if bullet:
             flush_para()
             indent = len(bullet.group(1).replace("\t", "  "))
-            list_items.append((indent, bullet.group(2).strip()))
+            list_items.append((indent, bullet.group(2), bullet.group(3).strip()))
             i += 1
             continue
 
         if list_items and (line.startswith("  ") or line.startswith("\t")):
             # Indented continuation line inside a list (e.g. quoted answers).
-            indent, prev = list_items[-1]
-            list_items[-1] = (indent, prev + " " + stripped.strip('"').strip())
+            indent, marker, prev = list_items[-1]
+            list_items[-1] = (indent, marker, prev + " " + stripped.strip('"').strip())
             i += 1
             continue
 

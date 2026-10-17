@@ -40,13 +40,7 @@
 - Aucun scan actif, aucune cible réelle testée.
 
 === Temps 2 : Attaque générique puis ciblée
-- *Campagne générique :* recherche d'erreurs de configuration, de composants obsolètes et d'accès d'administration.
-  - Le WAF et les journaux signalent une activité répétée.
-  - Je vérifie les faux positifs avant de conclure.
-- *Attaque ciblée :* l'inventaire sert à choisir le serveur le plus exposé.
-  - MFA, moindre privilège et segmentation limitent l'accès et le mouvement vers la base.
-- *Réponse simulée :* analyse, isolation, restauration.
-- *Limites :* aucune commande, payload, credential ni exploitation réelle.
+La campagne générique recherche des erreurs de configuration, des composants obsolètes et des accès d'administration. Le WAF et les journaux signalent alors une activité répétée, et je vérifie les faux positifs avant de conclure. L'attaque ciblée utilise ensuite l'inventaire pour choisir le serveur le plus exposé ; MFA, moindre privilège et segmentation limitent l'accès et le mouvement vers la base. La réponse simulée enchaîne analyse, isolation et restauration. La simulation reste théorique : aucune commande, payload, credential ni exploitation réelle.
 
 === Résultats
 - Un inventaire vérifiable de ressources candidates.
@@ -54,10 +48,7 @@
 - Une simulation contenue, avec des écarts conservés et le besoin d'une réponse préparée.
 
 === Interprétation des résultats
-- La détection vient du croisement d'indices, pas d'une source isolée.
-- La protection améliore la détection, limite la portée d'un incident et réduit le temps de rétablissement.
-- Elle ne garantit pas l'absence de compromission.
-- *Contrôles essentiels retenus :* inventaire à jour, faux positifs vérifiés, restauration testée.
+La détection vient du croisement d'indices, pas d'une source isolée. La protection améliore la détection, limite la portée d'un incident et réduit le temps de rétablissement, mais elle ne garantit pas l'absence de compromission. Je retiens trois contrôles essentiels : un inventaire à jour, des faux positifs vérifiés, une restauration testée.
 
 === Références
 - #link("https://developer.wordpress.org/advanced-administration/security/hardening/")[WordPress : Hardening WordPress]

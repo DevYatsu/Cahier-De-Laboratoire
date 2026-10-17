@@ -10,17 +10,13 @@
 
 === Métiers pertinents
 
-- *DevSecOps.*
+DevSecOps.
 
 === Résultats
 
-- *Expérience :* exclusivement via des pipelines CI/CD GitLab, sans intervention manuelle sur les vérifications.
-- *À chaque intégration :* les outils d'analyse des langages vérifient compilation, style et typage.
-  - Ils remontent aussi une partie des vulnérabilités de sécurité.
-- *Revue régulière :* rapports GitHub consultés chaque semaine.
-- *Positionnement :* roadmap DevSecOps de roadmap.sh, captures ci-dessous.
-  - Nœuds barrés : acquis.
-  - Le reste : à explorer.
+Mon expérience passe exclusivement par des pipelines CI/CD GitLab, sans intervention manuelle sur les vérifications. À chaque intégration, les outils d'analyse des langages vérifient compilation, style et typage, et remontent aussi une partie des vulnérabilités de sécurité. Je consulte en complément les rapports GitHub chaque semaine.
+
+Je me suis positionné sur la roadmap DevSecOps de roadmap.sh (captures ci-dessous) : les nœuds barrés sont acquis, le reste est à explorer.
 
 #figure(
   image("assets/devsecops-knowledge-p1.jpg", width: 85%),
@@ -41,9 +37,9 @@
   - *Secure Architecture :* defense in depth, zoning réseau, IDS/IPS, anti-DDoS, SBOM, durcissement du pipeline, risque des dépendances.
     - Exceptions acquises : Zero Trust, Secure API Design, Supply Chain Security.
   - *Enterprise Operations :* automatisation SOAR, EDR, stratégie de réponse.
-- *Recoupe mon auto-évaluation :* culture générale solide, lacune sur le cloisonnement et l'opérationnel.
-- *Limite de mon expérience CI/CD :* elle automatise la détection, mais ne couvre ni la réponse à incident ni l'architecture à grande échelle.
-- *Feuille de route :* socle acquis, deux blocs à construire, exploitation à viser.
+
+Ce bilan recoupe mon auto-évaluation : une culture générale solide, une lacune sur le cloisonnement et l'opérationnel. Mon expérience CI/CD automatise la détection, mais ne couvre ni la réponse à incident ni l'architecture à grande échelle. La feuille de route en découle : socle acquis, deux blocs à construire, exploitation à viser.
+
 #align(center)[
   #diagram(
     spacing: (6mm, 8mm),
@@ -61,6 +57,4 @@
   )
 ]
 
-- *Prochaine étape :*
-  - prioriser Secure Architecture et Incident Response ;
-  - compléter par du DAST, de l'analyse de dépendances et une revue de conception en amont.
+Prochaine étape : prioriser Secure Architecture et Incident Response, puis compléter par du DAST, de l'analyse de dépendances et une revue de conception en amont.

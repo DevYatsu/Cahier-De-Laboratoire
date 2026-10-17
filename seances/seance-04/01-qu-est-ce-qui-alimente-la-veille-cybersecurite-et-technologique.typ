@@ -19,22 +19,13 @@
 
 === Déroulement
 
-- *Posture :* partir de ma pratique réelle (réseaux, blogs) puis confronter aux exigences d'une veille défendable.
-- *Deux temps imposés par la question :*
-  - d'abord les canaux : où je croise l'info ;
-  - ensuite les sources : ce qui permet de la valider et de l'exploiter.
+Je pars de ma pratique réelle (réseaux, blogs), puis je la confronte aux exigences d'une veille défendable. La question impose deux temps : d'abord les canaux, où je croise l'info ; ensuite les sources, qui permettent de la valider et de l'exploiter.
 
 ==== 1. Les canaux : comment l'info arrive
 
-- *Réseaux sociaux et blogs :* X/Twitter, YouTube, LinkedIn, Reddit, Hacker News, blogs techniques et newsletters.
-  - Atout : vitesse, signaux faibles (0-day, PoC, retour d'outil).
-  - Limite : bruit, rumeurs, manipulations ; aucune autorité seule.
-- *Forums cyber et zones de fuites :* forums spécialisés, leak sites et pages de rançongiciels (DLS), places de revente de bases.
-  - Atout : exposition réelle (victimes citées, bases en circulation, TTP du moment).
-  - Limite : accès borderline, faux et intoxications, cadre légal suisse à respecter.
-  - Règle : ne pas y aller seul ; passer par relais (OFCS, fournisseur CTI, SOC).
-- *Collectif et direct :* communautés, conférences, intervenants (ex. séance 03), échanges entre pairs, retours d'incidents internes.
-  - Atout : contexte et validation par l'expérience.
+- *Réseaux sociaux et blogs :* X/Twitter, YouTube, LinkedIn, Reddit, Hacker News, blogs techniques et newsletters. Leur atout est la vitesse et les signaux faibles (0-day, PoC, retour d'outil) ; leur limite, le bruit, les rumeurs et les manipulations, sans aucune autorité seule.
+- *Forums cyber et zones de fuites :* forums spécialisés, leak sites et pages de rançongiciels (DLS), places de revente de bases. Ils montrent l'exposition réelle (victimes citées, bases en circulation, TTP du moment), mais l'accès est borderline, les faux et intoxications fréquents, et le cadre légal suisse à respecter. Règle : ne pas y aller seul, passer par un relais (OFCS, fournisseur CTI, SOC).
+- *Collectif et direct :* communautés, conférences, intervenants (ex. séance 03), échanges entre pairs, retours d'incidents internes. Ils apportent le contexte et la validation par l'expérience.
 
 Sans filtre, ces canaux informent mais ne protègent pas : ils surchargent (biais d'alerte, activité 4).
 
@@ -58,18 +49,15 @@ Ordre imposé : capter vite, recouper, puis seulement verser au plan d'action.
 
 === Résultats
 
-- *Canaux identifiés :* sociaux et blogs pour la vitesse, forums et fuites pour l'exposition, collectif pour le contexte.
-- *Sources d'autorité :* institutionnel, CVE/éditeurs, CTI structuré, interne, normatif.
-- *Règle de passage :* aucun signal brut ne déclenche seul ; il faut recoupement puis rattachement à un actif C/I/A et à une fonction Identifier / Détecter.
-- *Trois cas tracés :* patch priorisé, détection ajoutée, fuite vérifiée et notifiée.
+Les canaux se répartissent les rôles : sociaux et blogs pour la vitesse, forums et fuites pour l'exposition, collectif pour le contexte. Les sources d'autorité sont institutionnelles, techniques (CVE, éditeurs), CTI structurée, internes et normatives. La règle de passage est stricte : aucun signal brut ne déclenche seul une action ; il faut un recoupement, puis un rattachement à un actif C/I/A et à une fonction Identifier / Détecter. Les trois cas tracés l'illustrent : patch priorisé, détection ajoutée, fuite vérifiée et notifiée.
 
 === Interprétation des résultats
 
-- *S'informer n'est pas faire de la veille :* la veille commence au tri (faux positifs écartés), à la validation (deux sources indépendantes) et à la traçabilité (SoA, playbook).
-- *Défense en profondeur (activité 2) :* chaque aliment couvre un angle mort des autres ; les canaux rapides rattrapent la lenteur institutionnelle, l'institutionnel rattrape le bruit des canaux.
-- *Facteur humain (activité 4) :* alertes hiérarchisées, procédures écrites et post-mortems rendent le flux tenable.
-- *Vers l'activité 11 :* cette chaîne capter → valider → décider est l'entrée du schéma conception et opération de la sécurité.
-- *Effet :* un flux subi devient une posture pilotée, défendable devant la direction et l'auditeur.
+S'informer n'est pas faire de la veille. La veille commence au tri (faux positifs écartés), à la validation (deux sources indépendantes) et à la traçabilité (SoA, playbook).
+
+Comme en défense en profondeur (activité 2), chaque aliment couvre un angle mort des autres : les canaux rapides rattrapent la lenteur institutionnelle, l'institutionnel rattrape le bruit des canaux. Le facteur humain (activité 4) reste décisif : alertes hiérarchisées, procédures écrites et post-mortems rendent le flux tenable.
+
+Cette chaîne capter → valider → décider est l'entrée du schéma conception et opération de la sécurité (activité 11). Un flux subi devient ainsi une posture pilotée, défendable devant la direction et l'auditeur.
 
 === Références
 

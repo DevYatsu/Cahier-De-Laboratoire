@@ -11,15 +11,13 @@
 
 === Métiers pertinents
 
-- *Tous concernés :* RSSI, auditeur, chef de projet, développeur.
-- *La sensibilisation n'est pas un bonus :* c'est une mesure de réduction du risque.
+Tous les métiers sont concernés : RSSI, auditeur, chef de projet, développeur. La sensibilisation n'est pas un bonus, c'est une mesure de réduction du risque.
 
 === Déroulement
 
 ==== Risques et biais cognitifs liés au cerveau
 
-- *Heuristiques :* raccourcis du cerveau, utiles au quotidien mais dangereux en sécurité.
-- *Six types :*
+Les heuristiques sont des raccourcis du cerveau, utiles au quotidien mais dangereux en sécurité. Elles produisent six types de biais :
 
 #table(
   columns: (1.6fr, 2fr, 2fr),
@@ -63,25 +61,15 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 
 ==== Activité 4 : Que faire pour limiter ces risques de prise de décision ?
 
-- *Écrire les hypothèses avant de décider :* noter ce qu'on suppose et pourquoi, puis relire à deux.
-  - L'ancrage devient visible.
-- *Faire relire par un profil différent :* un dev relit l'analyse d'un admin, ou l'inverse.
-  - Le red teaming joue le même rôle contre la confirmation.
+- *Écrire les hypothèses avant de décider :* noter ce qu'on suppose et pourquoi, puis relire à deux, ce qui rend l'ancrage visible.
+- *Faire relire par un profil différent :* un dev relit l'analyse d'un admin, ou l'inverse ; le red teaming joue le même rôle contre la confirmation.
 - *Appliquer une procédure écrite :* checklists et cadres type ISO 27001 pour les actions critiques, au lieu de compter sur la mémoire.
-- *Signaler sans être sanctionné :* post-mortem sans blâme, erreurs remontées vite.
-  - Le silence coûte plus cher que l'aveu.
-- *Surveiller la charge :* pauses, rotation des tâches de vigilance, alertes hiérarchisées.
-  - Un opérateur fatigué clique et ignore.
+- *Signaler sans être sanctionné :* post-mortem sans blâme, erreurs remontées vite, car le silence coûte plus cher que l'aveu.
+- *Surveiller la charge :* pauses, rotation des tâches de vigilance, alertes hiérarchisées, car un opérateur fatigué clique et ignore.
 
 === Résultats
 
-- *Six familles de biais :* du sensori-moteur à la personnalité, chacune avec une stratégie précise.
-- *Risques individuels :* fatigue, Dunning-Kruger, expertise partielle.
-- *Risques collectifs :* culture du blâme, hiérarchie qui verrouille la contradiction.
-- *Mitigations, même découpe :*
-  - individuel : mentorat, suivi de charge ;
-  - collectif : post-mortems sans blâme, leadership exemplaire.
-- *Cinq réflexes retenus :* hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
+J'ai identifié six familles de biais, du sensori-moteur à la personnalité, chacune avec une stratégie précise. Les risques individuels tiennent à la fatigue, au Dunning-Kruger et à l'expertise partielle ; les risques collectifs, à la culture du blâme et à une hiérarchie qui verrouille la contradiction. Les mitigations suivent la même découpe : mentorat et suivi de charge pour l'individu, post-mortems sans blâme et leadership exemplaire pour le collectif. J'en retiens cinq réflexes : hypothèses écrites, relecture croisée, procédures, signalement sans sanction, gestion de la charge.
 
 #align(center)[
   #diagram(
@@ -106,8 +94,4 @@ Références : #link("https://fr.wikipedia.org/wiki/Biais_de_groupe")[Biais de g
 
 === Interprétation des résultats
 
-- *Le facteur humain explique l'échec des mesures techniques :*
-  - un admin en surcharge ignore une alerte ;
-  - un utilisateur confiant clique sur un lien.
-- *Les risques varient selon la personne et la culture :* la sécurité est un système sociotechnique, pas juste des pare-feu.
-- *Prochaine étape :* intégrer ces observations au projet de semestre (charge cognitive, culture d'équipe, diversité des points de vue).
+Le facteur humain explique l'échec de mesures techniques pourtant correctes : un admin en surcharge ignore une alerte, un utilisateur confiant clique sur un lien. Comme ces risques varient selon la personne et la culture, la sécurité est un système sociotechnique, pas juste des pare-feu. La prochaine étape consiste à intégrer ces observations au projet de semestre : charge cognitive, culture d'équipe, diversité des points de vue.

@@ -38,16 +38,11 @@
 
 ==== Questions de synthèse
 
-- *Thème le plus à l'aise :* facteur humain (5/5).
-  - Je suis beaucoup d'histoires de hacking.
-  - Constat récurrent : phishing et ingénierie sociale restent la faille la plus simple, bien avant la technique pure.
-- *Thème à progresser en priorité :* confinement OS et réseaux (2/5).
-  - Je connais mal le sandboxing et la segmentation, alors que le sujet m'intéresse.
-  - C'est là que la marge de progrès est la plus grande.
-- *Entreprise vs développement logiciel :* la distinction est claire pour moi.
-  - L'entreprise intègre plus de variables humaines, donc plus de points d'attaque et de défense.
-  - Elle tient aussi compte des contraintes de gestion : ressources, budgets, activités, politique interne.
-  - Pour mon projet : analyser les menaces et appliquer la sécurité à chaque étape du cycle de vie, avec un confinement adapté aux risques et impacts.
+*Thème le plus à l'aise :* le facteur humain (5/5). Je suis beaucoup d'histoires de hacking, et le constat revient sans cesse : phishing et ingénierie sociale restent la faille la plus simple, bien avant la technique pure.
+
+*Thème à progresser en priorité :* le confinement OS et réseaux (2/5). Je connais mal le sandboxing et la segmentation, alors que le sujet m'intéresse ; c'est là que la marge de progrès est la plus grande.
+
+*Entreprise vs développement logiciel :* la distinction est claire pour moi. L'entreprise intègre plus de variables humaines, donc plus de points d'attaque et de défense. Elle tient aussi compte des contraintes de gestion : ressources, budgets, activités, politique interne. Pour mon projet, il s'agit d'analyser les menaces et d'appliquer la sécurité à chaque étape du cycle de vie, avec un confinement adapté aux risques et impacts.
 
 === Résultats
 
@@ -56,11 +51,9 @@ Profil déséquilibré entre culture et technique :
 - *4 :* enjeux généraux, cryptographie, conscience dev, veille, envie d'appliquer.
 - *3 :* théorie, pratique, réflexes de dev sécurisé, gestion des risques.
 - *2 :* confinement OS et réseaux, mon seul vrai trou.
-- *En bref :* je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
+
+En bref, je sais pourquoi on se fait attaquer, je sais moins comment cloisonner proprement.
 
 === Interprétation des résultats
 
-- *Point d'appui :* la sensibilisation, avec le réflexe de me méfier du maillon humain.
-- *Chantier :* le confinement (sandboxing, segmentation, moindre privilège).
-- *Projet de semestre :* viser la confidentialité et l'intégrité par la technique, pas seulement par la vigilance.
-- *Mesure du progrès :* refaire cette grille en fin de module.
+Mon point d'appui est la sensibilisation, avec le réflexe de me méfier du maillon humain. Mon chantier est le confinement : sandboxing, segmentation, moindre privilège. Pour le projet de semestre, je vise donc la confidentialité et l'intégrité par la technique, pas seulement par la vigilance. Je mesurerai le progrès en refaisant cette grille en fin de module.

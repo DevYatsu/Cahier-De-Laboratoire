@@ -19,8 +19,7 @@
 
 === Déroulement
 
-- *Source principale :* #link("https://hucency.com/glossaire-de-la-cybersecurite/")[Hucency - Glossaire de la cybersécurité (55 définitions, sourcées ANSSI, CNIL, Cybermalveillance, ENISA)].
-- *Méthode :* définitions reformulées dans les grandes lignes, pas recopiées.
+Ma source principale est le #link("https://hucency.com/glossaire-de-la-cybersecurite/")[Hucency - Glossaire de la cybersécurité (55 définitions, sourcées ANSSI, CNIL, Cybermalveillance, ENISA)]. J'ai reformulé les définitions dans les grandes lignes, sans les recopier.
 
 ==== Six concepts extraits du glossaire
 
@@ -35,9 +34,7 @@
   [Shadow IT], [Usages sans aval de la DSI : SaaS, cloud, applis ou appareils perso utilisés par les collaborateurs. Il crée des angles morts, complique la surveillance et augmente le risque de fuite.],
 )
 
-Précision que je ne connaissais pas avant lecture, Emotet et Log4Shell montrent deux échelles :
-- *Emotet :* menace persistante qui mute (botnet loué à d'autres attaquants).
-- *Log4Shell :* faille supply chain, une seule bibliothèque omniprésente compromet tout l'écosystème.
+Précision que je ne connaissais pas avant lecture : Emotet et Log4Shell montrent deux échelles. Emotet est une menace persistante qui mute (botnet loué à d'autres attaquants), tandis que Log4Shell est une faille supply chain où une seule bibliothèque omniprésente compromet tout l'écosystème.
 
 ==== Red team, blue team, purple team
 
@@ -49,10 +46,7 @@ Précision que je ne connaissais pas avant lecture, Emotet et Log4Shell montrent
   [Purple team], [Fonction de liaison, pas une troisième armée. Elle fait rejouer ensemble les scénarios de la red team à la blue team pour corriger les détections et valider les playbooks. Son but est l'apprentissage continu.],
 )
 
-Le cycle :
-- *Red team :* attaque.
-- *Blue team :* détecte et répond.
-- *Purple team :* compare l'attaque aux alertes, ajuste les règles SIEM/EDR, rejoue le scénario jusqu'à détection fiable.
+Le cycle est le suivant : la red team attaque, la blue team détecte et répond, puis la purple team compare l'attaque aux alertes, ajuste les règles SIEM/EDR et rejoue le scénario jusqu'à une détection fiable.
 
 #align(center)[
   #diagram(
@@ -81,11 +75,4 @@ Les six termes se rangent en trois groupes, plus les équipes :
 
 === Interprétation des résultats
 
-- *Défense en profondeur :* aucun acteur ne couvre seul la triade CIA.
-  - Le CERT coordonne.
-  - La blue team opère au quotidien.
-  - La red team vérifie.
-  - La purple team boucle l'amélioration.
-- *Deux réflexes pour le projet de semestre :*
-  - nommer chaque risque avec le bon terme (APT, drive-by, Shadow IT) ;
-  - associer chaque mesure à son équipe (qui détecte, qui teste, qui corrige).
+Aucun acteur ne couvre seul la triade CIA, ce qui relève de la défense en profondeur : le CERT coordonne, la blue team opère au quotidien, la red team vérifie et la purple team boucle l'amélioration. Pour le projet de semestre, j'en tire deux réflexes : nommer chaque risque avec le bon terme (APT, drive-by, Shadow IT) et associer chaque mesure à son équipe (qui détecte, qui teste, qui corrige).

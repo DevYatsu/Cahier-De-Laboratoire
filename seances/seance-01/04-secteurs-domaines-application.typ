@@ -44,13 +44,7 @@
 
 === Résultats
 
-- *Public :* défense, santé, état civil, justice, infrastructures critiques (énergie, transports).
-- *Privé :* SI interne, contrats, comptabilité, propriété intellectuelle.
-- *Transverses :* relient les deux (dispositifs médicaux, cloud, banques, SCADA).
-- *Échelles :* je suis concerné à chaque niveau.
-  - Moi : mes comptes et mes projets.
-  - Nous : mon équipe et ses clients.
-  - Tous : les services collectifs que tout citoyen utilise.
+Le secteur public couvre la défense, la santé, l'état civil, la justice et les infrastructures critiques (énergie, transports). Le secteur privé protège le SI interne, les contrats, la comptabilité et la propriété intellectuelle. Les domaines transverses relient les deux : dispositifs médicaux, cloud, banques, SCADA. Je suis concerné à chaque échelle : moi par mes comptes et mes projets, nous par mon équipe et ses clients, tous par les services collectifs que chaque citoyen utilise.
 
 #align(center)[
   #diagram(
@@ -75,10 +69,9 @@
 
 === Interprétation des résultats
 
-- *Aucun secteur ne fonctionne sans sécurité :* hôpital, banque et chaîne logistique protègent des objets différents, mais une compromission bloque leur activité de la même façon.
-- *Côté dev :* chaque ligne de code atterrit dans un de ces secteurs ; une faille dans une app de vote ou de paiement ne reste jamais théorique.
-- *Projet de semestre :* fixer le périmètre.
-  - Qui utilise le service ?
-  - Que protège-t-il ?
-  - Que coûterait une compromission à chaque échelle ?
-- *Échelle nationale et alliances :* la cybersécurité conditionne le fonctionnement de la société ; une compromission peut toucher des services essentiels dans plusieurs pays à la fois.
+Aucun secteur ne fonctionne sans sécurité. Hôpital, banque et chaîne logistique protègent des objets différents, mais une compromission bloque leur activité de la même façon. Côté dev, chaque ligne de code atterrit dans un de ces secteurs : une faille dans une app de vote ou de paiement ne reste jamais théorique. À l'échelle nationale et des alliances, la cybersécurité conditionne le fonctionnement de la société, car une compromission peut toucher des services essentiels dans plusieurs pays à la fois.
+
+Pour le projet de semestre, le périmètre se fixe en trois questions :
+- Qui utilise le service ?
+- Que protège-t-il ?
+- Que coûterait une compromission à chaque échelle ?

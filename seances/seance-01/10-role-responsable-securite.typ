@@ -20,19 +20,15 @@
 
 === Déroulement
 
-- *Affirmation testée :* les piliers CIA et Identifier / Protéger / Détecter-Répondre / Récupérer donnent un cadre assez concret pour décider.
-- *Posture :* la défendre devant ma direction.
-- *Trois temps :*
-  - fixer les priorités avec CIA ;
-  - organiser l'action avec les fonctions ;
-  - trancher trois décisions de RSSI.
+L'affirmation testée est que les piliers CIA et Identifier / Protéger / Détecter-Répondre / Récupérer donnent un cadre assez concret pour décider. Je la défends devant ma direction en trois temps : fixer les priorités avec CIA, organiser l'action avec les fonctions, puis trancher trois décisions de RSSI.
 
 ==== 1. La triade CIA fixe le quoi protéger
 
 - *Confidentialité :* limite qui voit.
 - *Intégrité :* personne ne modifie sans droit.
 - *Disponibilité :* accès quand il faut.
-- *Base :* les quatre cas de l'exercice 3, dont les notes imposent déjà des arbitrages.
+
+Je repars des quatre cas de l'exercice 3, dont les notes imposent déjà des arbitrages.
 
 #table(
   columns: (1.2fr, 0.8fr, 2fr),
@@ -43,16 +39,11 @@
   [Streaming (2/2/4)], [A], [CDN et autoscaling, catalogue public donc C faible.],
 )
 
-Premier apport du cadre, même disponibilité à 4 mais budgets différents :
-- *AlertSwiss :* investit dans l'authenticité.
-- *Streaming :* investit dans la capacité.
-- *Sans la grille CIA :* je répartis mal le budget.
+Premier apport du cadre : à disponibilité égale (4), les budgets diffèrent. AlertSwiss investit dans l'authenticité, le streaming dans la capacité. Sans la grille CIA, je répartirais mal le budget.
 
 ==== 2. Les fonctions organisent le comment agir
 
-- *Source :* NIST Cybersecurity Framework (CSF) : Identifier, Protéger, Détecter, Répondre, Récupérer.
-- *CSF 2.0 :* ajoute Gouverner (stratégie et supervision par la direction).
-- *Choix :* garder les cinq de l'énoncé, Gouverner servant de chapeau.
+Les fonctions viennent du NIST Cybersecurity Framework (CSF) : Identifier, Protéger, Détecter, Répondre, Récupérer. Le CSF 2.0 ajoute Gouverner (stratégie et supervision par la direction). Je garde les cinq de l'énoncé, Gouverner servant de chapeau.
 
 #table(
   columns: (1fr, 1.6fr, 1.8fr),
@@ -64,11 +55,7 @@ Premier apport du cadre, même disponibilité à 4 mais budgets différents :
   [Récupérer], [Restaurer et apprendre.], [Restauration testée, post-mortem sans blâme, clause 10 d'ISO 27001.],
 )
 
-Ordre imposé :
-- on ne protège bien que ce qu'on a identifié ;
-- on ne répond bien que si on détecte ;
-- on ne récupère que si on a préparé ;
-- la boucle de retour vers Identifier porte l'amélioration continue.
+L'ordre est imposé : on ne protège bien que ce qu'on a identifié, on ne répond bien que si on détecte, et on ne récupère que si on a préparé. La boucle de retour vers Identifier porte l'amélioration continue.
 
 #align(center)[
   #diagram(
@@ -91,47 +78,28 @@ Ordre imposé :
 
 ==== 3. Trois décisions de RSSI qui prouvent le cadre
 
-- *Décision 1 : arbitrage budgétaire.* Choisir entre un WAF et un coffre de backups offline.
-  - Banque : l'intégrité des soldes impose les deux.
-  - Streaming (C/I faibles) : la disponibilité fait passer la capacité avant le chiffrement avancé.
-  - Chaque franc justifié par le critère qu'il protège, comme la SoA d'ISO 27001 trace chaque mesure.
-- *Décision 2 : ransomware un vendredi soir.* Le SOC signale une machine chiffrée ; chaîne Détecter → Répondre → Récupérer.
-  - Isoler la machine.
-  - Interdire le paiement (doctrine OFCS et CISA).
-  - Forensique avant réinstallation.
-  - Restaurer depuis le backup testé.
-  - Notifier le PFPDT si des données clients fuient.
-  - Sans playbook écrit à l'avance, je négocie sous stress : le biais de jugement (activité 4) décide à ma place.
-- *Décision 3 : reporting à la direction.* Des risques sur CIA et l'avancement des cinq fonctions, pas des CVE.
-  - Exemple : confidentialité des dossiers patients couverte à 80 %, détection encore manuelle, test de restauration réussi en juin.
-  - Langage de la fonction Gouverner : la direction comprend, arbitre et signe, ce qui pèse pour viser ISO 27001.
+*Décision 1 : arbitrage budgétaire.* Je dois choisir entre un WAF et un coffre de backups offline. Pour la banque, l'intégrité des soldes impose les deux. Pour le streaming (C/I faibles), la disponibilité fait passer la capacité avant le chiffrement avancé. Chaque franc est justifié par le critère qu'il protège, comme la SoA d'ISO 27001 trace chaque mesure.
+
+*Décision 2 : ransomware un vendredi soir.* Le SOC signale une machine chiffrée, ce qui déclenche la chaîne Détecter → Répondre → Récupérer :
++ Isoler la machine.
++ Interdire le paiement (doctrine OFCS et CISA).
++ Mener la forensique avant réinstallation.
++ Restaurer depuis le backup testé.
++ Notifier le PFPDT si des données clients fuient.
+
+Sans playbook écrit à l'avance, je négocie sous stress, et le biais de jugement (activité 4) décide à ma place.
+
+*Décision 3 : reporting à la direction.* Je rapporte des risques sur CIA et l'avancement des cinq fonctions, pas des CVE. Par exemple : confidentialité des dossiers patients couverte à 80 %, détection encore manuelle, test de restauration réussi en juin. C'est le langage de la fonction Gouverner : la direction comprend, arbitre et signe, ce qui pèse pour viser ISO 27001.
 
 === Résultats
 
-- *Deux piliers complémentaires, sans recouvrement :*
-  - *CIA, le quoi :* priorités (banque 4/4/4, AlertSwiss 1/4/4, streaming tiré par la disponibilité).
-  - *Fonctions, le comment :* identifier avant de protéger, détecter avant de répondre, préparer avant de récupérer.
-- *Trois décisions, le cadre en action :*
-  - arbitrage budgétaire tracé dans la SoA ;
-  - réponse ransomware jouée au playbook ;
-  - reporting traduit en risques pour la direction.
-- *Chaque pilier seul laisse un angle mort :*
-  - CIA sans fonctions reste théorique ;
-  - fonctions sans CIA répartissent l'effort à l'aveugle.
+Les deux piliers sont complémentaires, sans recouvrement. CIA donne le quoi, c'est-à-dire les priorités (banque 4/4/4, AlertSwiss 1/4/4, streaming tiré par la disponibilité). Les fonctions donnent le comment : identifier avant de protéger, détecter avant de répondre, préparer avant de récupérer. Les trois décisions montrent le cadre en action : un arbitrage budgétaire tracé dans la SoA, une réponse ransomware jouée au playbook, un reporting traduit en risques pour la direction. Chaque pilier seul laisse un angle mort : CIA sans fonctions reste théorique, et des fonctions sans CIA répartissent l'effort à l'aveugle.
 
 === Interprétation des résultats
 
-- *Je n'ai pas à choisir, j'empile :*
-  - CIA porte l'analyse de risques ;
-  - les fonctions portent le plan d'action ;
-  - ISO 27001 porte la preuve (PDCA, SoA).
-- *Défense en profondeur (activité 2) :* chaque fonction rattrape la précédente.
-- *Facteur humain (activité 4) :* procédures écrites, alertes hiérarchisées, post-mortems sans blâme rendent les fonctions tenables par des humains fatigués.
-- *Méthode pour le projet de semestre :*
-  - noter chaque actif en C/I/A ;
-  - rattacher chaque mesure à une fonction ;
-  - tracer l'écart dans une mini-SoA.
-- *Effet :* une liste d'outils devient une posture défendable devant un auditeur ou une direction.
+Je n'ai pas à choisir entre les cadres, je les empile : CIA porte l'analyse de risques, les fonctions portent le plan d'action et ISO 27001 porte la preuve (PDCA, SoA). Comme pour la défense en profondeur (activité 2), chaque fonction rattrape la précédente. Le facteur humain (activité 4) reste la condition de tenue : procédures écrites, alertes hiérarchisées et post-mortems sans blâme rendent les fonctions tenables par des humains fatigués.
+
+Pour le projet de semestre, la méthode tient en trois gestes : noter chaque actif en C/I/A, rattacher chaque mesure à une fonction, tracer l'écart dans une mini-SoA. Une liste d'outils devient ainsi une posture défendable devant un auditeur ou une direction.
 
 === Références
 

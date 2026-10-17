@@ -312,5 +312,28 @@ class FigureJobsTest(unittest.TestCase):
                 export_figures.figure_jobs()
 
 
+class RenderListTest(unittest.TestCase):
+    def render(self, source: str) -> str:
+        return build_site.render_blocks(source.splitlines())
+
+    def test_plus_items_render_as_ordered_list(self) -> None:
+        html = self.render("+ Un.\n+ Deux.")
+
+        self.assertEqual(html, "<ol>\n<li>Un.\n</li>\n<li>Deux.\n</li>\n</ol>")
+
+    def test_marker_change_at_same_level_starts_new_list(self) -> None:
+        html = self.render("- A\n+ B")
+
+        self.assertEqual(html, "<ul>\n<li>A\n</li>\n</ul>\n<ol>\n<li>B\n</li>\n</ol>")
+
+    def test_numbered_list_nests_inside_bullet(self) -> None:
+        html = self.render("- A\n  + B\n  + C\n- D")
+
+        self.assertEqual(
+            re.sub(r"\s+", "", html),
+            "<ul><li>A<ol><li>B</li><li>C</li></ol></li><li>D</li></ul>",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

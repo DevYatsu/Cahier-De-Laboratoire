@@ -18,8 +18,7 @@
 
 === Résultats
 
-- *Source :* catalogue de l'OFCS.
-- *1er semestre 2026 :* l'escroquerie domine largement.
+D'après le catalogue de l'OFCS, l'escroquerie domine largement au 1er semestre 2026.
 
 #table(
   columns: (1fr, 1.9fr, 1.4fr),
@@ -41,13 +40,9 @@
 
 ==== Pourquoi les distinguer
 
-- *Trois rapports coût/bénéfice côté attaquant,* pas une échelle de gravité.
-  - L'aveugle ne coûte presque rien.
-  - Le ciblé exige de l'OSINT et de la compétence.
-- *Côté défense, les parades diffèrent :*
-  - contre l'aveugle : être un peu au-dessus de la moyenne suffit (Reine rouge) ;
-  - contre le ciblé : le point d'entrée n'est pas forcément le sous-système le plus surveillé.
-- *La frontière bouge :* selon le rapport 2026, l'IA rend les messages personnalisés et crédibles.
+Ces formes traduisent des rapports coût/bénéfice différents côté attaquant, pas une échelle de gravité. L'attaque aveugle ne coûte presque rien, alors que l'attaque ciblée exige de l'OSINT et de la compétence.
+
+Côté défense, les parades diffèrent donc. Contre l'aveugle, être un peu au-dessus de la moyenne suffit (Reine rouge). Contre le ciblé, le point d'entrée n'est pas forcément le sous-système le plus surveillé. La frontière bouge d'ailleurs : selon le rapport 2026, l'IA rend les messages personnalisés et crédibles.
 
 ==== Ce que fait l'OFCS
 
@@ -58,6 +53,4 @@
 
 === Interprétation des résultats
 
-- *L'OFCS ne réduit pas la cybercriminalité :* il réduit l'asymétrie d'information.
-- *Son levier le plus efficace a été réglementaire :* rendre les appelants identifiables.
-  - Effet : signalements d'appels au nom de fausses autorités en baisse de plus de 75 % en juillet 2026.
+L'OFCS ne réduit pas la cybercriminalité : il réduit l'asymétrie d'information. Son levier le plus efficace a été réglementaire, en rendant les appelants identifiables. Effet : les signalements d'appels au nom de fausses autorités ont baissé de plus de 75 % en juillet 2026.

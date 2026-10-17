@@ -14,17 +14,11 @@
 
 === Métiers pertinents
 
-- *Service informatique (SI) :* administrateurs systèmes et réseau.
-  - Détectent l'intrusion, isolent le réseau, analysent les logs.
-  - Reconstruisent l'Active Directory, réinstallent les serveurs et les postes.
-- *Responsable de la sécurité informatique :* poste créé après l'attaque (un EPT dédié).
-  - Pilote les nouvelles mesures : MFA, EDR, gestion des accès à privilèges, filtre DNS.
-- *Direction :* membre de la cellule de crise.
-  - Arbitre les priorités de remise en état des services.
-- *Communication :* membre de la cellule de crise.
-  - Gère la communication interne vers plus de 3500 comptes et la gestion médiatique.
-- *Analystes de SWITCH CERT et du NCSC :* réponse à incident.
-  - Conseillent la cellule de crise, proposent de tout remettre à zéro.
+- *Service informatique (SI) :* administrateurs systèmes et réseau ; ils détectent l'intrusion, isolent le réseau, analysent les logs, puis reconstruisent l'Active Directory et réinstallent serveurs et postes.
+- *Responsable de la sécurité informatique :* poste créé après l'attaque (un EPT dédié) ; il pilote les nouvelles mesures : MFA, EDR, gestion des accès à privilèges, filtre DNS.
+- *Direction :* membre de la cellule de crise ; elle arbitre les priorités de remise en état des services.
+- *Communication :* membre de la cellule de crise ; elle gère la communication interne vers plus de 3500 comptes et la gestion médiatique.
+- *Analystes de SWITCH CERT et du NCSC :* réponse à incident ; ils conseillent la cellule de crise et proposent de tout remettre à zéro.
 - *Analyste forensique :* analyse du disque, suivi des IP de connexion VPN.
 - *Enquêteurs de la police et de FedPol :* reçoivent la déclaration, mènent l'enquête pénale.
 - *Partenaires et prestataires externes :* renforcent l'équipe pendant la crise.
@@ -74,20 +68,12 @@
 
 ==== Réflexions/Contraintes
 
-- *Délai imposé :* tout remettre en service avant la rentrée académique 2022-2023, soit environ un mois et demi.
-  - La direction doit trancher fin juillet ; repartir d'un domaine neuf en un mois est jugé irréaliste.
-- *Choix de reconstruction :* SWITCH CERT propose de tout repartir de zéro, l'école ne retient pas cette option.
-  - Elle restaure la sauvegarde antérieure à l'intrusion (date de début connue), puis réinstalle l'OS de chaque poste.
-  - Comptes et objets machines désactivés ; mots de passe des comptes de services et des 3500 utilisateurs changés.
-- *Joindre les utilisateurs sans messagerie :* vacances, six sites, une partie du personnel pas encore au courant.
-  - Les utilisateurs doivent contacter l'école eux-mêmes.
-- *Ingénierie sociale :* l'annuaire volé sert à de faux appels pour se faire passer pour des utilisateurs.
-  - Réinitialisation des comptes en personne uniquement, sur présentation d'une carte d'identité.
-- *Priorités de remise en service :* l'infrastructure de base passe avant les besoins métiers.
-  - La direction ne comprend pas toujours cet ordre, ce qui crée des tensions.
-- *Facteur humain :* personnel épuisé en pleine période de vacances, enseignants stressés pour préparer la rentrée.
-  - La direction accepte un rythme soutenable pour garder le personnel efficace.
-  - Le service informatique n'a aucune expérience de la MFA pour accompagner les utilisateurs : documentation interne et FAQ à créer.
+- *Délai imposé :* tout remettre en service avant la rentrée académique 2022-2023, soit environ un mois et demi. La direction doit trancher fin juillet ; repartir d'un domaine neuf en un mois est jugé irréaliste.
+- *Choix de reconstruction :* SWITCH CERT propose de tout repartir de zéro, mais l'école ne retient pas cette option. Elle restaure la sauvegarde antérieure à l'intrusion (date de début connue), puis réinstalle l'OS de chaque poste. Comptes et objets machines sont désactivés, et les mots de passe des comptes de services et des 3500 utilisateurs changés.
+- *Joindre les utilisateurs sans messagerie :* vacances, six sites, une partie du personnel pas encore au courant ; les utilisateurs doivent contacter l'école eux-mêmes.
+- *Ingénierie sociale :* l'annuaire volé sert à de faux appels pour se faire passer pour des utilisateurs, d'où une réinitialisation des comptes en personne uniquement, sur présentation d'une carte d'identité.
+- *Priorités de remise en service :* l'infrastructure de base passe avant les besoins métiers. La direction ne comprend pas toujours cet ordre, ce qui crée des tensions.
+- *Facteur humain :* personnel épuisé en pleine période de vacances, enseignants stressés pour préparer la rentrée. La direction accepte un rythme soutenable pour garder le personnel efficace. Le service informatique n'a aucune expérience de la MFA pour accompagner les utilisateurs : documentation interne et FAQ à créer.
 
 ==== Conséquences / Défis
 
@@ -162,35 +148,23 @@
 
 === Résultats
 
-- *L'intrusion vient d'un utilisateur, pas d'une faille technique.*
-  - 9 juin : un poste télécharge un malware en voulant installer un logiciel.
-  - 10 juin : l'hébergeur alerte sur des connexions suspectes.
-  - Aucun exploit, aucune campagne ciblée : une opportunité saisie.
-- *La persistance passe par le VPN, puis par les comptes à privilèges.*
-  - 13 au 23 juin : VPN, scan de ports, tentative de mouvement latéral.
-  - 29-30 juin, point de bascule : accès à un compte à privilèges.
-  - C'est ce passage qui élargit réellement la portée de l'incident, pas l'intrusion initiale.
-- *La réponse est tenue, mais elle se paie cher.*
-  - Procédure suivie : cellule de crise, isolement du réseau, alerte du NCSC et de SWITCH CERT, saisines police et FedPol.
-  - Prix : des semaines d'interruption, plus de 1000 postes réinstallés, 3500 comptes repris un par un.
-- *L'attaquant n'a pas utilisé son levier.*
-  - Ni chiffrement, ni publication.
-  - Données exportées toujours non identifiées.
-  - L'absence de chiffrement ne rassure pas : le compte à privilèges lui ouvrait la voie.
+*L'intrusion vient d'un utilisateur, pas d'une faille technique.* Le 9 juin, un poste télécharge un malware en voulant installer un logiciel ; le 10 juin, l'hébergeur alerte sur des connexions suspectes. Aucun exploit, aucune campagne ciblée : une opportunité saisie.
+
+*La persistance passe par le VPN, puis par les comptes à privilèges.* Du 13 au 23 juin, l'attaquant utilise le VPN, scanne les ports et tente un mouvement latéral. Le point de bascule survient les 29-30 juin avec l'accès à un compte à privilèges. C'est ce passage qui élargit réellement la portée de l'incident, pas l'intrusion initiale.
+
+*La réponse est tenue, mais elle se paie cher.* La procédure est suivie : cellule de crise, isolement du réseau, alerte du NCSC et de SWITCH CERT, saisines police et FedPol. Le prix : des semaines d'interruption, plus de 1000 postes réinstallés, 3500 comptes repris un par un.
+
+*L'attaquant n'a pas utilisé son levier.* Il n'y a eu ni chiffrement ni publication, et les données exportées restent non identifiées. Cette absence de chiffrement ne rassure pas : le compte à privilèges lui en ouvrait la voie.
 
 === Interprétation des résultats
 
 *Que faut-il absolument réussir pour progresser en cybersécurité ?* Ni un outil, ni une certification, mais trois choses, dans cet ordre :
-- *Savoir ce que l'on protège et où :* sans inventaire fiable, reconstruire le domaine et réinstaller plus de 1000 postes ne peut être ni planifié ni chiffré.
-- *Détecter tôt et rétablir vite :* ces deux durées sont les seules qui comptent vraiment.
-  - Du 9 juin au 1er juillet : compromission invisible en interne pendant trois semaines.
-  - Puis des semaines de rétablissement.
-- *Savoir dire ce que l'on ne sait pas :* l'export est confirmé mais non caractérisé ; c'est le risque que je retiens comme le plus sérieux.
++ *Savoir ce que l'on protège et où :* sans inventaire fiable, reconstruire le domaine et réinstaller plus de 1000 postes ne peut être ni planifié ni chiffré.
++ *Détecter tôt et rétablir vite :* ces deux durées sont les seules qui comptent vraiment. Ici, la compromission est restée invisible en interne pendant trois semaines (du 9 juin au 1er juillet), puis le rétablissement a pris des semaines.
++ *Savoir dire ce que l'on ne sait pas :* l'export est confirmé mais non caractérisé ; c'est le risque que je retiens comme le plus sérieux.
 
 *Ce que je critique :*
-- *Le changement de mot de passe du 10 juin n'a rien arrêté :* l'attaquant entre par le VPN le 13.
-  - Changer un mot de passe sans révoquer les sessions actives ne referme rien si les identifiants sont déjà exfiltrés.
-  - C'est la MFA qui traite ce cas, pas le changement de secret.
+- *Le changement de mot de passe du 10 juin n'a rien arrêté :* l'attaquant entre par le VPN le 13. Changer un mot de passe sans révoquer les sessions actives ne referme rien si les identifiants sont déjà exfiltrés ; c'est la MFA qui traite ce cas, pas le changement de secret.
 - *Limitation géographique du VPN retirée, trop limitante :* la mesure théoriquement excellente et la mesure effectivement déployable ne sont pas la même chose.
 - *Sauvegardes :* l'absence de chiffrement a tenu les données hors de portée de l'attaquant, mais la copie des sauvegardes sur support externe au début de la crise n'a, elle, jamais été cartonnée.
 
@@ -199,7 +173,4 @@
 - *Le périmètre de la reconstruction :* tout réinitialiser (proposition de SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères de coût et de risque que je ne sais pas encore évaluer.
 - *Le volet forensique :* identifier les données exportées suppose des méthodes que je n'ai jamais pratiquées.
 
-*Ce que cela change pour moi :*
-- Cet incident relie mon futur travail de dev et d'admin à celui du RSSI : mes correctifs et mon inventaire déterminent si la reconstitution est possible.
-- Le temps de rétablissement se mesure sur ce que j'ai produit.
-- *Deux réflexes :* tenir l'inventaire à jour ; traiter la MFA et la restauration testée comme des prérequis, pas comme des améliorations.
+*Ce que cela change pour moi :* cet incident relie mon futur travail de dev et d'admin à celui du RSSI. Mes correctifs et mon inventaire déterminent si la reconstitution est possible, et le temps de rétablissement se mesure sur ce que j'ai produit. J'en tire deux réflexes : tenir l'inventaire à jour, et traiter la MFA et la restauration testée comme des prérequis, pas comme des améliorations.

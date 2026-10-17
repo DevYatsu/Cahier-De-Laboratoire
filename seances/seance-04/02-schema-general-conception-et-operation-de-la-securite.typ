@@ -23,6 +23,4 @@ Boucle d'amélioration continue : *Revoir* → *Planifier*.
 
 === Interprétation des résultats
 
-- *La sécurité se pilote comme un programme d'entreprise, pas comme un chantier technique :* chaque bloc engage la direction avant les outils.
-- *Planifier sans piloter reste une intention ; piloter sans revoir fige le système :* la boucle Revoir → Gouverner porte l'amélioration continue.
-- *L'implémentation (SIEM, patch, IRP) n'est qu'un moyen au service du plan :* elle se décide en Déployer, se mesure en Piloter.
+La sécurité se pilote comme un programme d'entreprise, pas comme un chantier technique : chaque bloc engage la direction avant les outils. Planifier sans piloter reste une intention, et piloter sans revoir fige le système ; la boucle de retour porte donc l'amélioration continue. L'implémentation (SIEM, patch, IRP) n'est qu'un moyen au service du plan : elle se décide en Déployer et se mesure en Piloter.

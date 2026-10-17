@@ -119,9 +119,7 @@ Trois groupes de menaces :
 - *Confiance fournisseurs :* supply chain et open source déplacent la confiance vers les dépendances.
 - *Patch critique :* Exchange montre ce qui arrive quand un patch critique dort.
 
-Constats transverses :
-- *Chaque menace tient en deux recos :* un réflexe humain, une mesure technique.
-- *Point commun :* la préparation (backups testés, contacts prêts, inventaires à jour).
+Chaque menace tient en deux recommandations : un réflexe humain et une mesure technique. Leur point commun est la préparation : backups testés, contacts prêts, inventaires à jour.
 
 #align(center)[
   #diagram(
@@ -140,13 +138,7 @@ Constats transverses :
 
 === Interprétation des résultats
 
-- *Triade CIA :*
-  - confidentialité contre les leaks ;
-  - intégrité contre le ransomware et la supply chain ;
-  - disponibilité contre le DDoS.
-- *Défense en profondeur :* aucune mesure seule ne suffit, chaque couche rattrape la précédente.
-- *Cycle PDCA :* patcher, tester, auditer, corriger.
-- *Trois habitudes pour le projet de semestre :* SBOM à chaque build, backups testés, playbook écrit avant l'incident.
+Ces menaces se rangent sur la triade CIA : la confidentialité contre les leaks, l'intégrité contre le ransomware et la supply chain, la disponibilité contre le DDoS. Aucune mesure seule ne suffit : c'est la défense en profondeur, où chaque couche rattrape la précédente. Le tout s'entretient en cycle PDCA : patcher, tester, auditer, corriger. J'en tire trois habitudes pour le projet de semestre : un SBOM à chaque build, des backups testés et un playbook écrit avant l'incident.
 
 === Références
 

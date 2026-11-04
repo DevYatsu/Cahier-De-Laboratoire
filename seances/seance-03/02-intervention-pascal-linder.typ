@@ -137,7 +137,7 @@
 - *EDR* : Endpoint Detection and Response.
 - *SWITCH CERT* : CERT national suisse, l'organisme à alerter.
 - *SRP* : Secure Remote Password.
-- *EPT* : équivalent plein temps (un poste à 100 %).
+- *EPT* : équivalent plein temps (1 EPT: un poste à 100 % ou 2 postes à 50%).
 - *VPN* : Virtual Private Network.
 - *MFA* : Multi-Factor Authentication.
 - *DNS* : Domain Name System.
@@ -169,8 +169,8 @@
 - *Sauvegardes :* l'absence de chiffrement a tenu les données hors de portée de l'attaquant, mais la copie des sauvegardes sur support externe au début de la crise n'a, elle, jamais été cartonnée.
 
 *Ce que je voudrais approfondir :*
-- *L'obligation de déclaration :* ce qui déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai ; mes notes donnent la chronologie, pas la règle.
-- *Le périmètre de la reconstruction :* tout réinitialiser (proposition de SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères de coût et de risque que je ne sais pas encore évaluer.
+- *L'obligation de déclaration :* ce qui déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai ; mes notes donnent la chronologie, pas la règle (la règle était-elle déjà valable pour une HES en 2022?)
+- *Le périmètre de la reconstruction :* tout réinitialiser (proposition de SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères de coût et de risque que je ne sais pas encore évaluer (effectivement, c'est complexe).
 - *Le volet forensique :* identifier les données exportées suppose des méthodes que je n'ai jamais pratiquées.
 
-*Ce que cela change pour moi :* cet incident relie mon futur travail de dev et d'admin à celui du RSSI. Mes correctifs et mon inventaire déterminent si la reconstitution est possible, et le temps de rétablissement se mesure sur ce que j'ai produit. J'en tire deux réflexes : tenir l'inventaire à jour, et traiter la MFA et la restauration testée comme des prérequis, pas comme des améliorations.
+*Ce que cela change pour moi :* cet incident relie mon futur travail de dev et d'admin à celui du RSSI. Mes correctifs et mon inventaire déterminent si la reconstitution est possible, et le temps de rétablissement se mesure sur ce que j'ai produit. J'en tire deux réflexes : tenir l'inventaire à jour, et traiter la MFA et la restauration testée comme des prérequis, pas comme des améliorations (oui, cela fait partie des bonnes pratiques, voir aussi l'annexe C de la MCSR qu'on a vu après).

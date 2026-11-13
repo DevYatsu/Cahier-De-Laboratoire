@@ -118,9 +118,4 @@ valider avant d'exploiter. L'étape « expliquer sans l'IA » est la plus exigea
 
 === Références
 
-- #link(
-    "https://hearc365-my.sharepoint.com/:w:/g/personal/"
-      + "adam-ahmed_belaziz_he-arc_ch/"
-      + "IQBSya_WS1sASJz2BSVkygytAXtAetNzZEVTfu5i0RO4CVY?e=TO8b0d",
-  )[Activité : conception d'une architecture adaptée au déploiement de
-    Juice Shop]
+- #link("https://hearc365-my.sharepoint.com/:w:/g/personal/adam-ahmed_belaziz_he-arc_ch/IQBSya_WS1sASJz2BSVkygytAXtAetNzZEVTfu5i0RO4CVY?e=TO8b0d")[Activité : conception d'une architecture adaptée au déploiement de Juice Shop]

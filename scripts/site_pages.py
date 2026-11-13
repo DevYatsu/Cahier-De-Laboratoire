@@ -9,6 +9,7 @@ page"). Pages produced:
     seance-NN.html      one page per séance, one <article> per entry
     suivi.html          grille de suivi: rubric status of every entry
     rapport.html        rapport d'activité (data loaded from rapport-data.json)
+    vocabulaire.html    vocabulaire centralisé des interventions
     usage-ia.html       déclaration d'usage de l'IA
     404.html            GitHub Pages fallback
     search-index.json   full-text index for the search dialog
@@ -181,6 +182,8 @@ def sidebar(doc: Document, current: str, seance_courante: Seance | None = None) 
                 icon("M4 4h16v16H4zM4 10h16M4 15h16M10 4v16")),
            lien("rapport.html", "Rapport d'activité", "rapport",
                 icon("M5 21V9M12 21V3M19 21v-7")),
+           lien("vocabulaire.html", "Vocabulaire", "vocabulaire",
+                icon("M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3zM4 17a3 3 0 0 1 3-3h11")),
            lien("usage-ia.html", "Usage de l’IA", "usage-ia",
                 icon("M12 3v3M12 18v3M3 12h3M18 12h3M8 8h8v8H8z")),
            '<li><a href="cahier.pdf" target="_blank" rel="noopener">'
@@ -582,6 +585,27 @@ def page_usage_ia(doc: Document, meta: Meta) -> str:
     )
 
 
+def page_vocabulaire(doc: Document, meta: Meta) -> str:
+    body = strip_h1(doc.vocabulaire_html)
+    # One rail entry per thematic table (the h2 sections of vocabulaire.typ).
+    sections = [(h.id, h.title) for h, _ in split_on_level(body, 2)[1]]
+    main = (
+        fil(("index.html", "Accueil"), (None, "Vocabulaire"))
+        + '<header class="page-tete"><p class="surtitre"><span class="tampon">Glossaire</span></p>'
+        '<h1>Vocabulaire</h1></header>'
+        f'<div class="prose">{body}</div>'
+    )
+    return render_layout(
+        meta,
+        title="Vocabulaire · Cahier de laboratoire",
+        description="Vocabulaire centralisé des interventions spéciales : acronymes, définitions et relations.",
+        page_class="page-vocabulaire",
+        sidebar_html=sidebar(doc, "vocabulaire"),
+        main=main,
+        rail=rail_simple(sections),
+    )
+
+
 def page_404(doc: Document, meta: Meta) -> str:
     main = ('<div class="vide vide-404"><p class="surtitre"><span class="tampon">Erreur 404</span></p>'
             '<h1>Page introuvable</h1><p>Cette page n’existe pas ou a été déplacée. '
@@ -604,6 +628,11 @@ def search_index(doc: Document) -> list[dict[str, str]]:
                         "x": plain_text(fragment)[:2000]})
 
     add("index.html#contexte", "Contexte", "Accueil", doc.contexte_html)
+    _, sections = split_on_level(doc.vocabulaire_html, 2)
+    for heading, body in sections:
+        match = HEADING_RE.match(body)
+        add(f"vocabulaire.html#{heading.id}", heading.title, "Vocabulaire",
+            body[match.end():] if match else body)
     for seance in doc.seances:
         ctx = f"{seance.label} · {date_courte(seance.date_iso)}"
         add(seance.slug, seance.theme or seance.heading.title, ctx, seance.intro_html)

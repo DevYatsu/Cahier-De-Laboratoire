@@ -183,6 +183,7 @@ class Seance:
 class Document:
     contexte_html: str
     seances: list[Seance]
+    vocabulaire_html: str = ""
 
     @property
     def entrees(self) -> list[Entree]:
@@ -259,10 +260,14 @@ def git_modified(paths: list[Path]) -> str | None:
 
 def build_document(with_git: bool = True) -> Document:
     contexte: list[str] = []
+    vocabulaire: list[str] = []
     seances: dict[str, Seance] = {}
     for path, key, fragment in build_site.render_sources():
         if key == "contexte":
             contexte.append(fragment)
+            continue
+        if key == "vocabulaire":
+            vocabulaire.append(fragment)
             continue
         preamble, h1s = split_on_level(fragment, 1)
         if h1s:
@@ -290,5 +295,6 @@ def build_document(with_git: bool = True) -> Document:
             seance.modified = git_modified([SEANCES_DIR / seance.key])
             for entree in seance.entrees:
                 entree.modified = git_modified([entree.source])
-    return Document("\n".join(contexte), list(seances.values()))
+    return Document("\n".join(contexte), list(seances.values()),
+                    "\n".join(vocabulaire))
 

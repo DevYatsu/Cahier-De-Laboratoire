@@ -25,8 +25,13 @@ SEANCES_DIR = ROOT / "seances"
 SEANCE_KEY_RE = re.compile(r"seance-\d{2}\Z")
 
 
+VOCABULAIRE = ROOT / "vocabulaire.typ"
+
+
 def source_seance_key(path: Path) -> str:
-    """Return the stable seance-NN directory key, or context for non-session sources."""
+    """Return the seance-NN key, "vocabulaire", or "contexte" for other sources."""
+    if path.resolve() == VOCABULAIRE.resolve():
+        return "vocabulaire"
     try:
         first = path.resolve().relative_to(SEANCES_DIR.resolve()).parts[0]
     except (ValueError, IndexError):

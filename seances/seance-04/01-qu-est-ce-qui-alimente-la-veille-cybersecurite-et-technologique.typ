@@ -31,7 +31,7 @@ Sans filtre, ces canaux informent mais ne protègent pas : ils surchargent (biai
 
 ==== 2. Les sources : ce qui valide et rend exploitable
 
-- *Institutionnel :* OFCS/BACS, CISA, ANSSI, Cybermalveillance.gouv.fr — doctrine, réflexes, ne pas payer, notification.
+- *Institutionnel :* OFCS/BACS, CISA, ANSSI, Cybermalveillance.gouv.fr : doctrine, réflexes, ne pas payer, notification.
 - *Technique et vulnérabilités :* CVE/NVD, bulletins éditeurs, correctifs et durcissements.
 - *Renseignement structuré :* IoC, TTP, rapports CTI et CERT, filtres SOC.
 - *Interne :* journaux, alertes hiérarchisées, post-mortems sans blâme, résultats de pentests et d'audits.

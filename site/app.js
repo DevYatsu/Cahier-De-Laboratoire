@@ -1,4 +1,4 @@
-// Cahier de laboratoire — comportements du site statique.
+// Cahier de laboratoire : comportements du site statique.
 // Chaque page est complète sans JavaScript ; ce script ajoute la recherche
 // plein texte, le suivi de lecture, le thème, le tiroir mobile et la
 // redirection des anciennes adresses (site mono-page).

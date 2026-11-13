@@ -41,7 +41,11 @@ def read_summary(xls_path: Path) -> dict:
     def cell(r: int, c: int):
         if r < 0 or r >= sheet.nrows or c < 0 or c >= sheet.ncols:
             return ""
-        return sheet.cell_value(r, c)
+        value = sheet.cell_value(r, c)
+        # The source .xls uses em dashes; the site's house style forbids them.
+        if isinstance(value, str):
+            value = value.replace(" \u2014 ", " : ").replace("\u2014", "-")
+        return value
 
     def num(value) -> float | None:
         try:

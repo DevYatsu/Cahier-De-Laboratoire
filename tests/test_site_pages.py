@@ -121,6 +121,14 @@ class RealDocumentTest(unittest.TestCase):
                     self.assertIn(f"{seance.slug}#{sub.id}", urls)
         self.assertTrue(all(set(r) == {"u", "t", "c", "x"} for r in records))
 
+    def test_vocabulary_gets_its_own_page_not_the_context(self) -> None:
+        self.assertNotIn("Pyramid of Pain", self.doc.contexte_html)
+        page = site_pages.page_vocabulaire(self.doc, self.meta)
+        self.assertIn("Pyramid of Pain", page)
+        self.assertIn('href="vocabulaire.html" aria-current="page"', page)
+        urls = {r["u"] for r in site_pages.search_index(self.doc)}
+        self.assertTrue(any(u.startswith("vocabulaire.html#") for u in urls))
+
     def test_layout_rejects_unknown_placeholders_but_not_content(self) -> None:
         page = site_pages.render_layout(
             self.meta, title="t", description="d", page_class="p",

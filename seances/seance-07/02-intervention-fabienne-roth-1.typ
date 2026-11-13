@@ -25,8 +25,8 @@ l'activité.
 
 - *Humains et IA :* spécialistes techniques qui créent les alertes, détectent et
   prennent les mesures.
-- *Processus :* règles opérationnelles, playbooks d'intervention (dont
-  l'escalade vers le niveau supérieur), exigences de conformité légale.
+- *Processus :* règles opérationnelles, playbooks d'intervention avec
+  l'escalade vers le niveau supérieur, exigences de conformité légale.
 - *Technologie :* SIEM, EDR/XDR, SOAR, flux de Threat Intelligence ; télémétrie
   à grande échelle, corrélation des événements, automatisation des tâches
   répétitives pour réduire le temps de détection et de réponse.
@@ -45,15 +45,15 @@ le réseau.
   sans être vu.
 - *Limiter le blast radius :* isoler la menace avant qu'elle n'atteigne les
   actifs critiques.
-- *Orchestrer l'intervention lourde (CIRT) :* investigation numérique
+- *Orchestrer l'intervention lourde du CIRT :* investigation numérique
   approfondie et rétablissement sécurisé des systèmes critiques.
 - *Valider les contrôles en continu :* vérifier qu'une alerte se déclenche bien
   quand une barrière préventive est franchie.
 - *Être proactif :* anticiper les tactiques et les attaques futures.
 
 Les jours de vacances sont en général les plus critiques : moins de personnel,
-réaction plus lente. L'intrusion de la HE-Arc (juin-juillet 2022) en est un
-exemple.
+réaction plus lente. L'intrusion de la HE-Arc, en juin-juillet 2022, en est
+un exemple.
 
 ==== Typologie des menaces
 
@@ -61,31 +61,31 @@ exemple.
   columns: (1fr, 2fr),
   [*Origine*], [*Acteurs*],
   [Externe : franchir le périmètre],
-  [Opportunistes et bots ; attaques par rebond (supply chain) ; script kiddies
-    et hacktivistes ; cybercriminalité organisée (Ransomware-as-a-Service) ;
-    groupes étatiques (APT).],
+  [Opportunistes et bots ; attaques par rebond via la supply chain ; script
+    kiddies et hacktivistes ; cybercriminalité organisée en
+    Ransomware-as-a-Service ; groupes étatiques, les APT.],
   [Interne : malveillance ou négligence],
-  [Négligence et erreur humaine ; compromission de comptes (vol d'identité) ;
-    noyautage (introduire une personne pour désorganiser).],
+  [Négligence et erreur humaine ; compromission de comptes par vol
+    d'identité ; noyautage, qui introduit une personne pour désorganiser.],
 )
 
-Une APT est *avancée* (zero-day, malware sur mesure, furtivité), *persistante*
-(espionnage sur le long terme) et une *menace* financée et coordonnée par un
-gouvernement. Contre la menace interne, une personne récemment recrutée ou visée
-par une enquête reçoit des accès restreints.
+Une APT est *avancée* : zero-day, malware sur mesure, furtivité. Elle est
+*persistante* : espionnage sur le long terme. C'est une *menace* financée et
+coordonnée par un gouvernement. Contre la menace interne, une personne
+récemment recrutée ou visée par une enquête reçoit des accès restreints.
 
 ==== Comprendre l'attaquant
 
-- *TTP :* le mode opératoire. La tactique dit *pourquoi* (accès initial,
-  élévation de privilèges, mouvement latéral, exfiltration). La technique dit
-  *comment* (phishing, Pass-the-Hash). La procédure décrit l'implémentation
+- *TTP :* le mode opératoire. La tactique dit *pourquoi* : accès initial,
+  élévation de privilèges, mouvement latéral, exfiltration. La technique dit
+  *comment* : phishing, Pass-the-Hash. La procédure décrit l'implémentation
   spécifique.
 - *MITRE ATT&CK :* base de connaissances, mise à jour en continu, qui
   cartographie les tactiques et techniques.
 - *Cyber Threat Intelligence :* collecter, analyser et contextualiser
   l'information sur les menaces pour orienter les décisions.
-- *Pyramid of Pain :* plus l'indicateur détecté est haut (des hash jusqu'aux
-  TTP), plus l'attaquant doit fournir d'effort pour s'adapter.
+- *Pyramid of Pain :* plus l'indicateur détecté est haut, des hash jusqu'aux
+  TTP, plus l'attaquant doit fournir d'effort pour s'adapter.
 - *Threat Hunting :* recherche proactive de signes de compromission par des
   analystes, sans attendre une alerte.
 - *Bluff ou réalité :* une revendication n'est pas une preuve. Une fuite
@@ -94,10 +94,11 @@ par une enquête reçoit des accès restreints.
 ==== Étude de cas : Conti
 
 Groupe cybercriminel russophone, à motivation financière, spécialisé dans le
-ransomware. Il fonctionne comme une entreprise : salariés (administrateurs
-réseau, pentesters, experts en criminologie), âge moyen de 25 à 30 ans. Mode
-opératoire : entrer (phishing, identifiants volés, vulnérabilités), puis
-progresser (vol d'identifiants, élévation de privilèges, mouvements latéraux).
+ransomware. Il fonctionne comme une entreprise, avec des salariés :
+administrateurs réseau, pentesters, experts en criminologie, d'un âge moyen de
+25 à 30 ans. Pour entrer, il utilise le phishing, des identifiants volés et des
+vulnérabilités. Pour progresser, il vole des identifiants, élève ses privilèges
+et se déplace latéralement.
 
 #table(
   columns: (1fr, 3fr),
@@ -118,10 +119,10 @@ Le SOC établit les faits, mais la plupart des décisions qui en découlent sont
 juridiques. Je vois cinq raisons.
 
 + *Les délais d'annonce démarrent avec la détection du SOC.* En Suisse, la nLPD
-  (art. 24) impose d'annoncer au PFPDT une violation de données à risque élevé
+  impose d'annoncer au PFPDT une violation de données à risque élevé
   dans les meilleurs délais. Depuis avril 2025, les exploitants
   d'infrastructures critiques doivent signaler une cyberattaque à l'OFCS dans
-  les 24 heures. Pour des données de résidents de l'UE, le RGPD (art. 33) fixe
+  les 24 heures. Pour des données de résidents de l'UE, le RGPD fixe
   72 heures. Le juridique décide si l'incident déclenche ces obligations, mais
   il ne peut le faire qu'avec les faits du SOC, et vite.
 + *Les preuves doivent tenir devant un juge.* Une plainte pénale ou une action
@@ -130,7 +131,7 @@ juridiques. Je vois cinq raisons.
   le SOC ne touche aux systèmes, sinon l'investigation détruit la preuve.
 + *Surveiller, c'est traiter des données personnelles.* Les journaux contiennent
   des données d'employés. Le droit suisse interdit les systèmes destinés à
-  surveiller le comportement des travailleurs (OLT 3, art. 26). Le juridique
+  surveiller le comportement des travailleurs. Le juridique
   définit ce que le SOC peut collecter, combien de temps il le garde, et comment
   il enquête sur une menace interne sans violer le droit du travail.
 + *La réponse à une extorsion est une décision juridique.* Payer une rançon peut

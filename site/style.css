@@ -289,7 +289,7 @@ code, pre, kbd { hyphens: none; }
 .recherche-bouton span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .recherche-bouton:hover {
   border-color: var(--bord-fort);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
   background: var(--papier);
 }
 .recherche-bouton:focus-visible { background: var(--papier); }
@@ -744,7 +744,7 @@ main:focus { outline: none; }
   padding: .85rem 1rem;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
   transition: box-shadow var(--dur-base) var(--ease-standard),
               transform var(--dur-base) var(--ease-standard);
   contain: layout style;
@@ -762,7 +762,7 @@ main:focus { outline: none; }
   border-radius: var(--radius-lg);
   background: var(--papier);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
   contain: layout style;
 }
 .fiche div { padding: .75rem 1rem; border-right: 1px solid var(--bord); min-width: 0; }
@@ -857,7 +857,7 @@ main:focus { outline: none; }
   background: var(--papier);
   border: 1.5px solid var(--encre);
   line-height: 1;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
 }
 .journal-date b { font: 600 1.45rem / 1 var(--titre); }
 .journal-date span {
@@ -913,7 +913,7 @@ main:focus { outline: none; }
   border: 1px solid var(--bord);
   border-radius: var(--radius-lg);
   padding: 1.1rem 1.3rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
 }
 .guide-bloc h3 {
   margin: 0 0 .6rem;
@@ -942,7 +942,7 @@ main:focus { outline: none; }
   border-radius: var(--radius-lg);
   padding: 1rem 1.2rem;
   margin: 1.6rem 0 2.2rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
   contain: layout style;
 }
 .programme-tete {
@@ -1161,7 +1161,7 @@ figcaption { margin-top: .5rem; font-size: .83rem; color: var(--crayon); }
   background: var(--papier);
   text-decoration: none;
   color: var(--encre);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ombre-sm);
   transition: border-color var(--dur-base) var(--ease-standard),
               box-shadow var(--dur-base) var(--ease-standard),
               transform var(--dur-base) var(--ease-standard);

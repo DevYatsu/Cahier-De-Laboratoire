@@ -1,14 +1,18 @@
-// Intervention Pascal Linder - squelette de travail, à compléter.
+// Intervention Pascal Linder - intrusion subie par la HE-Arc (juin - juillet 2022).
 #import "/template.typ": *
 
 == Intervention Pascal Linder
 
 #encadre("Objectifs")[
-  - Noter en vrac le déroulé de l'intervention de Pascal Linder sur l'intrusion subie par la HE-Arc.
+  - Retracer la chronologie de l'intrusion subie par la HE-Arc, de l'infection
+    initiale à la reprise.
+  - Comprendre la réponse : cellule de crise, isolement du réseau, remise en
+    état des services.
   - Consolider le vocabulaire : acronymes, définitions, relations.
-  - Résumer ce que j'en retiens en trois à cinq thématiques.
-  - Indiquer les aspects à approfondir.
-  - Répondre à la question : que faut-il absolument réussir dans une entreprise pour progresser en cybersécurité ?
+  - Retenir ce que j'en tire en trois à cinq thématiques, et les aspects à
+    approfondir.
+  - Répondre à la question : que faut-il absolument réussir dans une entreprise
+    pour progresser en cybersécurité ?
   - Ajouter du recul et de la critique.
 ]
 
@@ -27,46 +31,39 @@
 
 ==== Chronologie de l'attaque
 
-- 9 juin: Intrusion -> utilisateur téléchargeant un malware en voulant installer
-  un
-- 10 juin: Notification de son hébergeur lui informant qu'il y a des connexions
-  suspectes sur son compte, il change de mdp
-- 13 juin: 1ère connexion de l'attaquant à travers le VPN
-- 17 juin: l'attaquant scanne les ports à travers la connexion VPN
-- 23 juin: Mouvements latéraux, l'attaquant essaie de se connecter sur d'autres
-  serveurs internes à travers la connexion VPN.
-- 27 juin: Connexion au serveur SQL, le service des automates tombe
-- 28 juin: Connexion au serveur Exchange
-- 29-30 juin: Scan de ports et le service tombe à nouveau, l'attaquant accède à
-  un compte à privilèges, alertes EDR et Dump de data
-- 1er juillet: Intrusion confirmée par le service info, VPN désactivé et alertes
-  EDR
-- 4 juillet: Informer NCSC SWITCH CERT Audit qu'une attaque est bien confirmée +
-  reçu d'un mail de rançon
-- 5 juillet: Séance de crise et collecte de logs
+#table(
+  columns: (1fr, 3fr),
+  [*Date*], [*Événement*],
+  [9 juin], [Intrusion : un utilisateur télécharge un malware en voulant installer un logiciel.],
+  [10 juin], [L'hébergeur signale des connexions suspectes sur le compte ; l'utilisateur change son mot de passe.],
+  [13 juin], [Première connexion de l'attaquant à travers le VPN.],
+  [17 juin], [L'attaquant scanne les ports à travers la connexion VPN.],
+  [23 juin], [Mouvements latéraux : tentatives de connexion sur d'autres serveurs internes via le VPN.],
+  [27 juin], [Connexion au serveur SQL ; le service des automates tombe.],
+  [28 juin], [Connexion au serveur Exchange.],
+  [29-30 juin], [Nouveau scan de ports, nouvelle chute de service ; accès à un compte à privilèges, alertes EDR, dump de données.],
+  [1er juillet], [Intrusion confirmée par le service informatique ; VPN désactivé, alertes EDR.],
+  [4 juillet], [Information du NCSC et de SWITCH CERT : attaque confirmée ; réception d'un mail de rançon.],
+  [5 juillet], [Séance de crise et collecte des logs.],
+)
 
 ==== Réactions
 
-- Isolation du réseau: couper les services publiés et stopper la connexion
-  internet
-- Création cellule de crise (service info, direction, communication, SWITCH,
-  police)
-- Contacter nos partenaires pour nous aider dans cette crise
-- Déterminer les moyens de communications (interne)
-- Déterminer la gestion médiatique
+- *Isolement du réseau :* couper les services publiés et stopper la connexion internet.
+- *Création de la cellule de crise :* service informatique, direction, communication, SWITCH, police.
+- *Partenaires :* contactés pour renforcer l'équipe pendant la crise.
+- *Communication interne :* déterminer les moyens de communication.
+- *Communication externe :* déterminer la gestion médiatique.
 
-==== 1ers réflexes en parallèle à la recherche et analyse de logs
+==== Réflexes en parallèle de l'analyse des logs
 
-- copie de sécurité des sauvegardes sur un support externe
-- (Re)discussion et modification des priorités de remise en état des services
-- Déplacement des boîtes de messagerie dans le cloud (moyen de comm entre le SI
-  et la direction)
-- Étude de la reconstruction d'un domaine informatique (adressage réseau,
-  domaine, réinstallation des serveurs)
-- Mise en place d'outils de sécurité supplémentaires pour le suivi de l'attaque
-  (EDR, filtre DNS)
+- Copie de sécurité des sauvegardes sur un support externe.
+- (Re)discussion et modification des priorités de remise en état des services.
+- Déplacement des boîtes de messagerie dans le cloud (moyen de communication entre le SI et la direction).
+- Étude de la reconstruction d'un domaine informatique (adressage réseau, domaine, réinstallation des serveurs).
+- Mise en place d'outils de sécurité supplémentaires pour le suivi de l'attaque (EDR, filtre DNS).
 
-==== Réflexions/Contraintes
+==== Réflexions et contraintes
 
 - *Délai imposé :* tout remettre en service avant la rentrée académique 2022-2023, soit environ un mois et demi. La direction doit trancher fin juillet ; repartir d'un domaine neuf en un mois est jugé irréaliste.
 - *Choix de reconstruction :* SWITCH CERT propose de tout repartir de zéro, mais l'école ne retient pas cette option. Elle restaure la sauvegarde antérieure à l'intrusion (date de début connue), puis réinstalle l'OS de chaque poste. Comptes et objets machines sont désactivés, et les mots de passe des comptes de services et des 3500 utilisateurs changés.
@@ -75,76 +72,63 @@
 - *Priorités de remise en service :* l'infrastructure de base passe avant les besoins métiers. La direction ne comprend pas toujours cet ordre, ce qui crée des tensions.
 - *Facteur humain :* personnel épuisé en pleine période de vacances, enseignants stressés pour préparer la rentrée. La direction accepte un rythme soutenable pour garder le personnel efficace. Le service informatique n'a aucune expérience de la MFA pour accompagner les utilisateurs : documentation interne et FAQ à créer.
 
-==== Conséquences / Défis
+==== Conséquences et défis
 
-- Réinstallation d'un annuaire (Active Directory), importation d'une sauvegarde
-- Tous les comptes et objets machines ont été désactivés
-- Réactivation des comptes utilisateurs et de services après l'identification de
-  l'utilisateur et d'un changement de mdp
-- Réactivation des serveurs et services. Modif. des mdp.
-- Réinstallation de tous les postes de travail (>1000 ordinateurs + ordinateurs
-  étudiants)
-- Interruption des services durant plusieurs semaines -> perte de productivité
-- Accumulation de retard sur le traitement des dossiers
-- Augmentation des heures travaillées -> épuisement du personnel (vacances)
-- Comm avec les utilisateurs >3500 comptes
-- Informations et gestion médiatique
-- Difficultés liées aux nouvelles mesures mises en place, à l'incompréhension de
-  la situation
-- Manque de communication et documentation utilisateur
+- Réinstallation d'un annuaire (Active Directory), importation d'une sauvegarde.
+- Tous les comptes et objets machines désactivés ; réactivation après identification de l'utilisateur et changement de mot de passe.
+- Réactivation des serveurs et services, modification des mots de passe.
+- Réinstallation de tous les postes de travail (>1000 ordinateurs + ordinateurs étudiants).
+- Interruption des services durant plusieurs semaines : perte de productivité, retard accumulé sur le traitement des dossiers.
+- Augmentation des heures travaillées : épuisement du personnel (vacances).
+- Communication avec plus de 3500 comptes, gestion médiatique.
+- Difficultés liées aux nouvelles mesures et à l'incompréhension de la situation ; manque de communication et de documentation utilisateur.
 
 ==== Finalité
 
-- Exports de données mais on ne sait pas lesquelles
-- Suivi des IP: connexions VPN
-- Déclaration police + FedPol
-- Analyse du disque
-- Pas d'encryption
-- Pas de publication
-- Classe d'attaque: attaque non ciblée, par opportunité (moins de moyens des
-  attaquants)
+- Export de données, mais on ne sait pas lesquels.
+- Suivi des IP : connexions VPN.
+- Déclaration à la police + FedPol, analyse du disque.
+- Pas de chiffrement, pas de publication.
+- Classe d'attaque : attaque non ciblée, par opportunité (moins de moyens des attaquants).
 
 ==== Nouvelles mesures - technique
 
-- Déplacement de certains services dans le cloud (messagerie, MFA)
-- On-premise / cloud, limiter la synchro des comptes, séparer les comptes à
-  privilèges
-- Mise en place de gestion des accès à privilèges
-- Déploiement d'un EDR aussi sur les serveurs
-- Limiter l'accès à internet (par zone)
-- Engagement d'un EPT dédié à la sécurité informatique
+- Déplacement de certains services dans le cloud (messagerie, MFA).
+- On-premise / cloud : limiter la synchro des comptes, séparer les comptes à privilèges.
+- Mise en place d'une gestion des accès à privilèges.
+- Déploiement d'un EDR aussi sur les serveurs.
+- Limitation de l'accès à internet (par zone).
+- Engagement d'un EPT dédié à la sécurité informatique.
 
 ==== Nouvelles mesures - utilisateur
 
-- Limiter les accès VPN (zones géographiques) -> aujourd'hui retiré, car trop
-  limitant en pratique
-- Implémentation d'un filtre DNS (Cisco Umbrella)
-- Limiter les postes de travail dans notre domaine (Active Directory),
-  privilégier Intune
-- Séparer la zone dédiée aux étudiants (services)
-- Mise en place du SRP avec MFA
-- Enlever les droits administrateurs locaux sur les postes de travail
-- Bandeau d'avertissement des mails externes
+- Limitation des accès VPN (zones géographiques) : aujourd'hui retirée, car trop limitante en pratique.
+- Implémentation d'un filtre DNS (Cisco Umbrella).
+- Limitation des postes de travail dans le domaine (Active Directory), privilégier Intune.
+- Séparation de la zone dédiée aux étudiants (services).
+- Mise en place du SRP avec MFA.
+- Suppression des droits administrateurs locaux sur les postes de travail.
+- Bandeau d'avertissement sur les mails externes.
 
 ==== Conclusion
 
-- Erreur humaine impossible à éliminer
-- Utilisation du MFA partout où possible
+- L'erreur humaine est impossible à éliminer.
+- Utiliser le MFA partout où c'est possible.
 - Former les utilisateurs !
 
 ==== Vocabulaire
 
-- *EDR* : Endpoint Detection and Response.
-- *SWITCH CERT* : CERT national suisse, l'organisme à alerter.
-- *SRP* : Secure Remote Password.
-- *EPT* : équivalent plein temps (un poste à 100 %).
-- *VPN* : Virtual Private Network.
-- *MFA* : Multi-Factor Authentication.
-- *DNS* : Domain Name System.
-- *NCSC* : centre national de cyber-sécurité suisse.
-- *SI* : Systèmes d'information.
-- *SQL* : Structured Query Language.
-- *IP* : Internet Protocol.
+- *EDR :* Endpoint Detection and Response.
+- *SWITCH CERT :* CERT national suisse, l'organisme à alerter.
+- *SRP :* Secure Remote Password.
+- *EPT :* équivalent plein temps (un poste à 100 %).
+- *VPN :* Virtual Private Network.
+- *MFA :* Multi-Factor Authentication.
+- *DNS :* Domain Name System.
+- *NCSC :* centre national de cyber-sécurité suisse.
+- *SI :* systèmes d'information.
+- *SQL :* Structured Query Language.
+- *IP :* Internet Protocol.
 
 === Résultats
 

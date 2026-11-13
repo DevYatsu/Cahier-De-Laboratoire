@@ -4,8 +4,8 @@
 == Intervention spéciale : Pascal Linder 2
 
 Pascal Linder, chargé de sécurité de la HE-Arc, revient sur l'intrusion de 2022
-(voir Pascal Linder 1, séance 03). Cette fois, il montre ce que l'école a changé
-depuis, et comment elle a choisi son SOC.
+présentée en séance 03. Cette fois, il montre ce que l'école a changé depuis, et
+comment elle a choisi son SOC.
 
 === Éléments essentiels
 
@@ -14,14 +14,14 @@ depuis, et comment elle a choisi son SOC.
 - Deux réseaux : administratif et pédagogique.
 - Serveur de messagerie interne, un pare-feu unique vers l'extérieur.
 - Peu de cloisonnement à l'intérieur : une fois entré par le VPN, l'attaquant
-  circulait librement (mouvements latéraux, intervention 1).
+  circulait librement d'un serveur à l'autre.
 
 ==== Le message de rançon
 
 - Envoyé depuis une adresse ProtonMail, à plusieurs adresses de l'école pour
   être sûr qu'il soit lu.
-- Menace : publier les données sur le blog du groupe, hébergé en `.onion` (dark
-  web), en cas de non-paiement. C'est la double extorsion.
+- Menace : publier les données sur le blog du groupe, hébergé sur le dark
+  web, en cas de non-paiement. C'est la double extorsion.
 
 ==== Le contexte de menace
 
@@ -31,9 +31,9 @@ entre la publication d'une vulnérabilité et son exploitation.
 
 ==== Les sources de journaux
 
-Chaque mesure opérationnelle produit des journaux exploitables : VPN, Entra ID
-(ex-Azure AD), MFA, EDR, PIM, Cisco Umbrella (filtre DNS). Le SIEM les
-centralise. Sans cette collecte, aucune détection n'est possible.
+Chaque mesure opérationnelle produit des journaux exploitables : VPN, Entra ID,
+MFA, EDR, PIM et le filtre DNS Cisco Umbrella. Le SIEM les centralise. Sans
+cette collecte, aucune détection n'est possible.
 
 ==== Le réseau après 2022
 
@@ -55,24 +55,24 @@ L'école suit une démarche d'achat public, pas un choix d'outil :
 + Inventaire de l'existant.
 + Liste des besoins.
 + Étude des solutions et constat des coûts.
-+ Appel d'offres de marché public (besoins et contraintes).
++ Appel d'offres de marché public, avec besoins et contraintes.
 + Analyse des soumissionnaires.
 + Choix de Sophos, retenu pour ses nombreuses intégrations avec les services
   déjà en place.
 
 ==== L'amélioration continue
 
-Depuis 2022, l'école applique la roue de Deming (PDCA : Plan, Do, Check, Act)
-comme une boucle sans fin. Exemples actuels :
+Depuis 2022, l'école applique la roue de Deming, Plan-Do-Check-Act, comme une
+boucle sans fin. Exemples actuels :
 
 - Tests d'intrusion, suivis des corrections.
 - Audits.
 - Exercices cyber, qui produisent des fiches réflexes.
 - Débriefing après chaque cas.
-- Analyse et correction de l'Active Directory (outil Saporo).
+- Analyse et correction de l'Active Directory avec l'outil Saporo.
 - Conformité au NIST CSF.
 
-=== Que faut-il absolument réussir dans une entreprise pour progresser en cybersécurité ? (suite)
+=== Suite : que faut-il absolument réussir dans une entreprise pour progresser en cybersécurité ?
 
 Après Pascal Linder 1, j'avais retenu trois conditions : savoir ce que l'on
 protège, détecter tôt et rétablir vite, savoir dire ce que l'on ne sait pas. La
@@ -85,7 +85,7 @@ trois conditions.
   trois premières durables.
 + *Rendre la détection exploitable :* collecter des journaux ne suffit pas. Il
   faut quelqu'un pour les lire 24/7 et décider. Une école n'a pas cette équipe :
-  elle l'achète (SOC externe). Savoir externaliser ce qu'on ne peut pas tenir en
+  elle achète un SOC externe. Savoir externaliser ce qu'on ne peut pas tenir en
   interne fait partie de la maturité.
 + *Partir des besoins, pas des outils :* le SOC a été choisi après inventaire,
   liste des besoins et appel d'offres. Le critère final, les intégrations avec

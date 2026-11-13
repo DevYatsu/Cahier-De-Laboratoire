@@ -30,3 +30,4 @@
 #include "seances/seance-03/index.typ"
 #include "seances/seance-04/index.typ"
 #include "seances/seance-05/index.typ"
+#include "seances/seance-07/index.typ"

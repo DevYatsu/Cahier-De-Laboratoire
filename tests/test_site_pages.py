@@ -63,6 +63,15 @@ class RubricStatusTest(unittest.TestCase):
             self.assertEqual((entree.kind, entree.ref, entree.name), (kind, ref, name), title)
 
 
+    def test_unstructured_intervention_is_out_of_format(self) -> None:
+        libre = self._entry("<p>Résumé.</p>", "Intervention spéciale : X")
+        self.assertTrue(libre.hors_format)
+        self.assertIn(site_pages.HORS_FORMAT, site_pages.rubriques_chips(libre))
+        self.assertNotIn("Absent", site_pages.rubriques_chips(libre))
+        activite = self._entry("<p>Résumé.</p>", "Activité 3 : Y")
+        self.assertFalse(activite.hors_format)
+
+
 class SeanceTitleTest(unittest.TestCase):
     def _seance(self, title: str) -> site_model.Seance:
         h = site_model.headings_in(heading(1, "s", "9.", title))[0][1]

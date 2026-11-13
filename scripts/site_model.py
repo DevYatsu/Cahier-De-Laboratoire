@@ -115,6 +115,13 @@ class Entree:
         return plain_text(m.group(1)) if m else ""
 
     @property
+    def hors_format(self) -> bool:
+        """An intervention summary written without the activity rubrics."""
+        return self.kind == "Intervention" and all(
+            status == "absent" for status in self.rubriques.values()
+        )
+
+    @property
     def complete(self) -> bool:
         return all(
             self.rubriques.get(key) == "ok"

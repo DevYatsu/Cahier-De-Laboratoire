@@ -137,7 +137,13 @@ def statut_global(entree: Entree) -> str:
     return ""
 
 
+HORS_FORMAT = "Format activité non attendu"
+
+
 def rubriques_chips(entree: Entree, seance: Seance | None = None) -> str:
+    if entree.hors_format:
+        return (f'<ul class="rubriques" aria-label="Rubriques">'
+                f'<li class="rubrique rubrique-hors-format">{HORS_FORMAT}</li></ul>')
     items = []
     for key, label, required in RUBRIQUES:
         status = entree.rubriques.get(key, "absent")
@@ -506,7 +512,10 @@ def page_suivi(doc: Document, meta: Meta) -> str:
                         'Aucune entrée pour le moment.</td></tr>')
         for entree in seance.entrees:
             cells = []
-            for key, label, _ in RUBRIQUES:
+            if entree.hors_format:
+                cells.append(f'<td colspan="{len(RUBRIQUES)}" class="cellule-hors-format">'
+                             f'{HORS_FORMAT}</td>')
+            for key, label, _ in ([] if entree.hors_format else RUBRIQUES):
                 status = entree.rubriques.get(key, "absent")
                 symbol = (f'<span aria-hidden="true">{STATUT_SYMBOLE[status]}</span>'
                           f'<span class="sr">{STATUT_LIBELLE[status]}</span>')

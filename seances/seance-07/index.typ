@@ -4,4 +4,6 @@
 
 #pagebreak()
 = Séance du 13 novembre 2026
-#include "01-reponse-incident-drp.typ"
+#include "01-intervention-pascal-linder-2.typ"
+#include "02-intervention-fabienne-roth-1.typ"
+#include "03-reponse-incident-drp.typ"

@@ -1,7 +1,7 @@
 // Intervention Vincent David - sécurité cloud, IA et observabilité.
 #import "/template.typ": *
 
-== Intervention Vincent David
+== Intervention spéciale : Vincent David
 
 #encadre("Objectifs")[
   - Situer le périmètre de l'intervenant : de la gouvernance au déploiement d'un
@@ -75,14 +75,8 @@ structure en trois questions :
 
 ==== Vocabulaire
 
-- *CI/CD :* Continuous Integration / Continuous Delivery, chaîne automatisée de
-  livraison du code.
-- *API :* Application Programming Interface.
-- *Endpoint :* point d'accès exposé d'une API ou d'un service.
-- *I/O :* entrées/sorties (Input/Output).
-- *Runtime :* environnement d'exécution d'un programme.
-- *SOC :* Security Operations Center.
-- *OFCS :* Office fédéral de la cybersécurité (ex-NCSC).
+Les termes de cette intervention sont regroupés dans la section Vocabulaire, en
+fin de cahier.
 
 === Résultats
 
@@ -118,4 +112,5 @@ valider avant d'exploiter. L'étape « expliquer sans l'IA » est la plus exigea
 
 === Références
 
-- #link("https://hearc365-my.sharepoint.com/:w:/g/personal/adam-ahmed_belaziz_he-arc_ch/IQBSya_WS1sASJz2BSVkygytAXtAetNzZEVTfu5i0RO4CVY?e=TO8b0d")[Activité : conception d'une architecture adaptée au déploiement de Juice Shop]
+- #link("https://hearc365-my.sharepoint.com/:w:/g/personal/adam-ahmed_belaziz_he-arc_ch/IQBSya_WS1sASJz2BSVkygytAXtAetNzZEVTfu5i0RO4CVY?e=TO8b0d")[Activité
+  : conception d'une architecture adaptée au déploiement de Juice Shop]

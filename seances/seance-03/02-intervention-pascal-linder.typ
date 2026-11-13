@@ -1,7 +1,8 @@
-// Intervention Pascal Linder - intrusion subie par la HE-Arc (juin - juillet 2022).
+// Intervention Pascal Linder - intrusion subie par la HE-Arc (juin - juillet
+// 2022).
 #import "/template.typ": *
 
-== Intervention Pascal Linder
+== Intervention spéciale : Pascal Linder 1
 
 #encadre("Objectifs")[
   - Retracer la chronologie de l'intrusion subie par la HE-Arc, de l'infection
@@ -18,13 +19,21 @@
 
 === Métiers pertinents
 
-- *Service informatique (SI) :* administrateurs systèmes et réseau ; ils détectent l'intrusion, isolent le réseau, analysent les logs, puis reconstruisent l'Active Directory et réinstallent serveurs et postes.
-- *Responsable de la sécurité informatique :* poste créé après l'attaque (un EPT dédié) ; il pilote les nouvelles mesures : MFA, EDR, gestion des accès à privilèges, filtre DNS.
-- *Direction :* membre de la cellule de crise ; elle arbitre les priorités de remise en état des services.
-- *Communication :* membre de la cellule de crise ; elle gère la communication interne vers plus de 3500 comptes et la gestion médiatique.
-- *Analystes de SWITCH CERT et du NCSC :* réponse à incident ; ils conseillent la cellule de crise et proposent de tout remettre à zéro.
+- *Service informatique (SI) :* administrateurs systèmes et réseau ; ils
+  détectent l'intrusion, isolent le réseau, analysent les logs, puis
+  reconstruisent l'Active Directory et réinstallent serveurs et postes.
+- *Responsable de la sécurité informatique :* poste créé après l'attaque (un EPT
+  dédié) ; il pilote les nouvelles mesures : MFA, EDR, gestion des accès à
+  privilèges, filtre DNS.
+- *Direction :* membre de la cellule de crise ; elle arbitre les priorités de
+  remise en état des services.
+- *Communication :* membre de la cellule de crise ; elle gère la communication
+  interne vers plus de 3500 comptes et la gestion médiatique.
+- *Analystes de SWITCH CERT et du NCSC :* réponse à incident ; ils conseillent
+  la cellule de crise et proposent de tout remettre à zéro.
 - *Analyste forensique :* analyse du disque, suivi des IP de connexion VPN.
-- *Enquêteurs de la police et de FedPol :* reçoivent la déclaration, mènent l'enquête pénale.
+- *Enquêteurs de la police et de FedPol :* reçoivent la déclaration, mènent
+  l'enquête pénale.
 - *Partenaires et prestataires externes :* renforcent l'équipe pendant la crise.
 
 === Déroulement
@@ -34,23 +43,37 @@
 #table(
   columns: (1fr, 3fr),
   [*Date*], [*Événement*],
-  [9 juin], [Intrusion : un utilisateur télécharge un malware en voulant installer un logiciel.],
-  [10 juin], [L'hébergeur signale des connexions suspectes sur le compte ; l'utilisateur change son mot de passe.],
+  [9 juin],
+  [Intrusion : un utilisateur télécharge un malware en voulant installer un
+    logiciel.],
+  [10 juin],
+  [L'hébergeur signale des connexions suspectes sur le compte ; l'utilisateur
+    change son mot de passe.],
   [13 juin], [Première connexion de l'attaquant à travers le VPN.],
   [17 juin], [L'attaquant scanne les ports à travers la connexion VPN.],
-  [23 juin], [Mouvements latéraux : tentatives de connexion sur d'autres serveurs internes via le VPN.],
+  [23 juin],
+  [Mouvements latéraux : tentatives de connexion sur d'autres serveurs internes
+    via le VPN.],
   [27 juin], [Connexion au serveur SQL ; le service des automates tombe.],
   [28 juin], [Connexion au serveur Exchange.],
-  [29-30 juin], [Nouveau scan de ports, nouvelle chute de service ; accès à un compte à privilèges, alertes EDR, dump de données.],
-  [1er juillet], [Intrusion confirmée par le service informatique ; VPN désactivé, alertes EDR.],
-  [4 juillet], [Information du NCSC et de SWITCH CERT : attaque confirmée ; réception d'un mail de rançon.],
+  [29-30 juin],
+  [Nouveau scan de ports, nouvelle chute de service ; accès à un compte à
+    privilèges, alertes EDR, dump de données.],
+  [1er juillet],
+  [Intrusion confirmée par le service informatique ; VPN désactivé, alertes
+    EDR.],
+  [4 juillet],
+  [Information du NCSC et de SWITCH CERT : attaque confirmée ; réception d'un
+    mail de rançon.],
   [5 juillet], [Séance de crise et collecte des logs.],
 )
 
 ==== Réactions
 
-- *Isolement du réseau :* couper les services publiés et stopper la connexion internet.
-- *Création de la cellule de crise :* service informatique, direction, communication, SWITCH, police.
+- *Isolement du réseau :* couper les services publiés et stopper la connexion
+  internet.
+- *Création de la cellule de crise :* service informatique, direction,
+  communication, SWITCH, police.
 - *Partenaires :* contactés pour renforcer l'équipe pendant la crise.
 - *Communication interne :* déterminer les moyens de communication.
 - *Communication externe :* déterminer la gestion médiatique.
@@ -59,29 +82,52 @@
 
 - Copie de sécurité des sauvegardes sur un support externe.
 - (Re)discussion et modification des priorités de remise en état des services.
-- Déplacement des boîtes de messagerie dans le cloud (moyen de communication entre le SI et la direction).
-- Étude de la reconstruction d'un domaine informatique (adressage réseau, domaine, réinstallation des serveurs).
-- Mise en place d'outils de sécurité supplémentaires pour le suivi de l'attaque (EDR, filtre DNS).
+- Déplacement des boîtes de messagerie dans le cloud (moyen de communication
+  entre le SI et la direction).
+- Étude de la reconstruction d'un domaine informatique (adressage réseau,
+  domaine, réinstallation des serveurs).
+- Mise en place d'outils de sécurité supplémentaires pour le suivi de l'attaque
+  (EDR, filtre DNS).
 
 ==== Réflexions et contraintes
 
-- *Délai imposé :* tout remettre en service avant la rentrée académique 2022-2023, soit environ un mois et demi. La direction doit trancher fin juillet ; repartir d'un domaine neuf en un mois est jugé irréaliste.
-- *Choix de reconstruction :* SWITCH CERT propose de tout repartir de zéro, mais l'école ne retient pas cette option. Elle restaure la sauvegarde antérieure à l'intrusion (date de début connue), puis réinstalle l'OS de chaque poste. Comptes et objets machines sont désactivés, et les mots de passe des comptes de services et des 3500 utilisateurs changés.
-- *Joindre les utilisateurs sans messagerie :* vacances, six sites, une partie du personnel pas encore au courant ; les utilisateurs doivent contacter l'école eux-mêmes.
-- *Ingénierie sociale :* l'annuaire volé sert à de faux appels pour se faire passer pour des utilisateurs, d'où une réinitialisation des comptes en personne uniquement, sur présentation d'une carte d'identité.
-- *Priorités de remise en service :* l'infrastructure de base passe avant les besoins métiers. La direction ne comprend pas toujours cet ordre, ce qui crée des tensions.
-- *Facteur humain :* personnel épuisé en pleine période de vacances, enseignants stressés pour préparer la rentrée. La direction accepte un rythme soutenable pour garder le personnel efficace. Le service informatique n'a aucune expérience de la MFA pour accompagner les utilisateurs : documentation interne et FAQ à créer.
+- *Délai imposé :* tout remettre en service avant la rentrée académique
+  2022-2023, soit environ un mois et demi. La direction doit trancher fin
+  juillet ; repartir d'un domaine neuf en un mois est jugé irréaliste.
+- *Choix de reconstruction :* SWITCH CERT propose de tout repartir de zéro, mais
+  l'école ne retient pas cette option. Elle restaure la sauvegarde antérieure à
+  l'intrusion (date de début connue), puis réinstalle l'OS de chaque poste.
+  Comptes et objets machines sont désactivés, et les mots de passe des comptes
+  de services et des 3500 utilisateurs changés.
+- *Joindre les utilisateurs sans messagerie :* vacances, six sites, une partie
+  du personnel pas encore au courant ; les utilisateurs doivent contacter
+  l'école eux-mêmes.
+- *Ingénierie sociale :* l'annuaire volé sert à de faux appels pour se faire
+  passer pour des utilisateurs, d'où une réinitialisation des comptes en
+  personne uniquement, sur présentation d'une carte d'identité.
+- *Priorités de remise en service :* l'infrastructure de base passe avant les
+  besoins métiers. La direction ne comprend pas toujours cet ordre, ce qui crée
+  des tensions.
+- *Facteur humain :* personnel épuisé en pleine période de vacances, enseignants
+  stressés pour préparer la rentrée. La direction accepte un rythme soutenable
+  pour garder le personnel efficace. Le service informatique n'a aucune
+  expérience de la MFA pour accompagner les utilisateurs : documentation interne
+  et FAQ à créer.
 
 ==== Conséquences et défis
 
 - Réinstallation d'un annuaire (Active Directory), importation d'une sauvegarde.
-- Tous les comptes et objets machines désactivés ; réactivation après identification de l'utilisateur et changement de mot de passe.
+- Tous les comptes et objets machines désactivés ; réactivation après
+  identification de l'utilisateur et changement de mot de passe.
 - Réactivation des serveurs et services, modification des mots de passe.
-- Réinstallation de tous les postes de travail (>1000 ordinateurs + ordinateurs étudiants).
-- Interruption des services durant plusieurs semaines : perte de productivité, retard accumulé sur le traitement des dossiers.
+- Réinstallation de tous les postes de travail (>1000 ordinateurs + ordinateurs
+  étudiants).
+- Interruption des services durant plusieurs semaines : perte de productivité,
+  retard accumulé sur le traitement des dossiers.
 - Augmentation des heures travaillées : épuisement du personnel (vacances).
 - Communication avec plus de 3500 comptes, gestion médiatique.
-- Difficultés liées aux nouvelles mesures et à l'incompréhension de la situation ; manque de communication et de documentation utilisateur.
+- Difficultés liées aux nouvelles mesures et à l'incompréhension de la situation
+  ; manque de communication et de documentation utilisateur.
 
 ==== Finalité
 
@@ -89,12 +135,14 @@
 - Suivi des IP : connexions VPN.
 - Déclaration à la police + FedPol, analyse du disque.
 - Pas de chiffrement, pas de publication.
-- Classe d'attaque : attaque non ciblée, par opportunité (moins de moyens des attaquants).
+- Classe d'attaque : attaque non ciblée, par opportunité (moins de moyens des
+  attaquants).
 
 ==== Nouvelles mesures - technique
 
 - Déplacement de certains services dans le cloud (messagerie, MFA).
-- On-premise / cloud : limiter la synchro des comptes, séparer les comptes à privilèges.
+- On-premise / cloud : limiter la synchro des comptes, séparer les comptes à
+  privilèges.
 - Mise en place d'une gestion des accès à privilèges.
 - Déploiement d'un EDR aussi sur les serveurs.
 - Limitation de l'accès à internet (par zone).
@@ -102,9 +150,11 @@
 
 ==== Nouvelles mesures - utilisateur
 
-- Limitation des accès VPN (zones géographiques) : aujourd'hui retirée, car trop limitante en pratique.
+- Limitation des accès VPN (zones géographiques) : aujourd'hui retirée, car trop
+  limitante en pratique.
 - Implémentation d'un filtre DNS (Cisco Umbrella).
-- Limitation des postes de travail dans le domaine (Active Directory), privilégier Intune.
+- Limitation des postes de travail dans le domaine (Active Directory),
+  privilégier Intune.
 - Séparation de la zone dédiée aux étudiants (services).
 - Mise en place du SRP avec MFA.
 - Suppression des droits administrateurs locaux sur les postes de travail.
@@ -118,43 +168,69 @@
 
 ==== Vocabulaire
 
-- *EDR :* Endpoint Detection and Response.
-- *SWITCH CERT :* CERT national suisse, l'organisme à alerter.
-- *SRP :* Secure Remote Password.
-- *EPT :* équivalent plein temps (un poste à 100 %).
-- *VPN :* Virtual Private Network.
-- *MFA :* Multi-Factor Authentication.
-- *DNS :* Domain Name System.
-- *NCSC :* centre national de cyber-sécurité suisse.
-- *SI :* systèmes d'information.
-- *SQL :* Structured Query Language.
-- *IP :* Internet Protocol.
+Les termes de cette intervention sont regroupés dans la section Vocabulaire, en
+fin de cahier.
 
 === Résultats
 
-*L'intrusion vient d'un utilisateur, pas d'une faille technique.* Le 9 juin, un poste télécharge un malware en voulant installer un logiciel ; le 10 juin, l'hébergeur alerte sur des connexions suspectes. Aucun exploit, aucune campagne ciblée : une opportunité saisie.
+*L'intrusion vient d'un utilisateur, pas d'une faille technique.* Le 9 juin, un
+poste télécharge un malware en voulant installer un logiciel ; le 10 juin,
+l'hébergeur alerte sur des connexions suspectes. Aucun exploit, aucune campagne
+ciblée : une opportunité saisie.
 
-*La persistance passe par le VPN, puis par les comptes à privilèges.* Du 13 au 23 juin, l'attaquant utilise le VPN, scanne les ports et tente un mouvement latéral. Le point de bascule survient les 29-30 juin avec l'accès à un compte à privilèges. C'est ce passage qui élargit réellement la portée de l'incident, pas l'intrusion initiale.
+*La persistance passe par le VPN, puis par les comptes à privilèges.* Du 13 au
+23 juin, l'attaquant utilise le VPN, scanne les ports et tente un mouvement
+latéral. Le point de bascule survient les 29-30 juin avec l'accès à un compte à
+privilèges. C'est ce passage qui élargit réellement la portée de l'incident, pas
+l'intrusion initiale.
 
-*La réponse est tenue, mais elle se paie cher.* La procédure est suivie : cellule de crise, isolement du réseau, alerte du NCSC et de SWITCH CERT, saisines police et FedPol. Le prix : des semaines d'interruption, plus de 1000 postes réinstallés, 3500 comptes repris un par un.
+*La réponse est tenue, mais elle se paie cher.* La procédure est suivie :
+cellule de crise, isolement du réseau, alerte du NCSC et de SWITCH CERT,
+saisines police et FedPol. Le prix : des semaines d'interruption, plus de 1000
+postes réinstallés, 3500 comptes repris un par un.
 
-*L'attaquant n'a pas utilisé son levier.* Il n'y a eu ni chiffrement ni publication, et les données exportées restent non identifiées. Cette absence de chiffrement ne rassure pas : le compte à privilèges lui en ouvrait la voie.
+*L'attaquant n'a pas utilisé son levier.* Il n'y a eu ni chiffrement ni
+publication, et les données exportées restent non identifiées. Cette absence de
+chiffrement ne rassure pas : le compte à privilèges lui en ouvrait la voie.
 
 === Interprétation des résultats
 
-*Que faut-il absolument réussir pour progresser en cybersécurité ?* Ni un outil, ni une certification, mais trois choses, dans cet ordre :
-+ *Savoir ce que l'on protège et où :* sans inventaire fiable, reconstruire le domaine et réinstaller plus de 1000 postes ne peut être ni planifié ni chiffré.
-+ *Détecter tôt et rétablir vite :* ces deux durées sont les seules qui comptent vraiment. Ici, la compromission est restée invisible en interne pendant trois semaines (du 9 juin au 1er juillet), puis le rétablissement a pris des semaines.
-+ *Savoir dire ce que l'on ne sait pas :* l'export est confirmé mais non caractérisé ; c'est le risque que je retiens comme le plus sérieux.
+*Que faut-il absolument réussir pour progresser en cybersécurité ?* Ni un outil,
+ni une certification, mais trois choses, dans cet ordre :
++ *Savoir ce que l'on protège et où :* sans inventaire fiable, reconstruire le
+  domaine et réinstaller plus de 1000 postes ne peut être ni planifié ni
+  chiffré.
++ *Détecter tôt et rétablir vite :* ces deux durées sont les seules qui comptent
+  vraiment. Ici, la compromission est restée invisible en interne pendant trois
+  semaines (du 9 juin au 1er juillet), puis le rétablissement a pris des
+  semaines.
++ *Savoir dire ce que l'on ne sait pas :* l'export est confirmé mais non
+  caractérisé ; c'est le risque que je retiens comme le plus sérieux.
 
 *Ce que je critique :*
-- *Le changement de mot de passe du 10 juin n'a rien arrêté :* l'attaquant entre par le VPN le 13. Changer un mot de passe sans révoquer les sessions actives ne referme rien si les identifiants sont déjà exfiltrés ; c'est la MFA qui traite ce cas, pas le changement de secret.
-- *Limitation géographique du VPN retirée, trop limitante :* la mesure théoriquement excellente et la mesure effectivement déployable ne sont pas la même chose.
-- *Sauvegardes :* l'absence de chiffrement a tenu les données hors de portée de l'attaquant, mais la copie des sauvegardes sur support externe au début de la crise n'a, elle, jamais été cartonnée.
+- *Le changement de mot de passe du 10 juin n'a rien arrêté :* l'attaquant entre
+  par le VPN le 13. Changer un mot de passe sans révoquer les sessions actives
+  ne referme rien si les identifiants sont déjà exfiltrés ; c'est la MFA qui
+  traite ce cas, pas le changement de secret.
+- *Limitation géographique du VPN retirée, trop limitante :* la mesure
+  théoriquement excellente et la mesure effectivement déployable ne sont pas la
+  même chose.
+- *Sauvegardes :* l'absence de chiffrement a tenu les données hors de portée de
+  l'attaquant, mais la copie des sauvegardes sur support externe au début de la
+  crise n'a, elle, jamais été cartonnée.
 
 *Ce que je voudrais approfondir :*
-- *L'obligation de déclaration :* ce qui déclenche l'alerte du NCSC et la saisine de FedPol, et dans quel délai ; mes notes donnent la chronologie, pas la règle.
-- *Le périmètre de la reconstruction :* tout réinitialiser (proposition de SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères de coût et de risque que je ne sais pas encore évaluer.
-- *Le volet forensique :* identifier les données exportées suppose des méthodes que je n'ai jamais pratiquées.
+- *L'obligation de déclaration :* ce qui déclenche l'alerte du NCSC et la
+  saisine de FedPol, et dans quel délai ; mes notes donnent la chronologie, pas
+  la règle.
+- *Le périmètre de la reconstruction :* tout réinitialiser (proposition de
+  SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères
+  de coût et de risque que je ne sais pas encore évaluer.
+- *Le volet forensique :* identifier les données exportées suppose des méthodes
+  que je n'ai jamais pratiquées.
 
-*Ce que cela change pour moi :* cet incident relie mon futur travail de dev et d'admin à celui du RSSI. Mes correctifs et mon inventaire déterminent si la reconstitution est possible, et le temps de rétablissement se mesure sur ce que j'ai produit. J'en tire deux réflexes : tenir l'inventaire à jour, et traiter la MFA et la restauration testée comme des prérequis, pas comme des améliorations.
+*Ce que cela change pour moi :* cet incident relie mon futur travail de dev et
+d'admin à celui du RSSI. Mes correctifs et mon inventaire déterminent si la
+reconstitution est possible, et le temps de rétablissement se mesure sur ce que
+j'ai produit. J'en tire deux réflexes : tenir l'inventaire à jour, et traiter la
+MFA et la restauration testée comme des prérequis, pas comme des améliorations.

@@ -15,7 +15,10 @@
 // Le sommaire retient les séances et les travaux (niveaux 1 et 2).
 // La profondeur 2 exclut toutes les sous-rubriques d'activité, quel que soit
 // leur intitulé, sans les retirer du corps du document.
-#show outline.entry: it => _outrageous.show-entry(it, .._outrageous.presets.typst)
+#show outline.entry: it => _outrageous.show-entry(
+  it,
+  .._outrageous.presets.typst,
+)
 #outline(title: none, indent: auto, depth: 2)
 #v(1em)
 
@@ -32,3 +35,4 @@
 #include "seances/seance-05/index.typ"
 #include "seances/seance-06/index.typ"
 #include "seances/seance-07/index.typ"
+#include "vocabulaire.typ"

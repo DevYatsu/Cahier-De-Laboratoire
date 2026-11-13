@@ -40,7 +40,8 @@
     edge-stroke: 0.8pt + rouge,
     node((0, 0), align(center)[*Vulnérabilité*], fill: fond-rouge),
     edge("->"),
-    node((1, 0), align(center)[*Faiblesse exploitable par une menace*], fill: white),
+    node((1, 0), align(center)[*Faiblesse exploitable par une menace*], fill:
+    white),
   )
 ]
 
@@ -55,7 +56,8 @@
     edge-stroke: 0.8pt + rouge,
     node((0, 2), align(center)[*Risque*], fill: fond-rouge),
     edge((0, 2), (0, 1), "->"),
-    node((0, 1), align(center)[#text(size: 9pt)[*Probabilité de survenue* \ (ou vraisemblance) d'une menace]], fill: white),
+    node((0, 1), align(center)[#text(size: 9pt)[*Probabilité de survenue* \ (ou
+    vraisemblance) d'une menace]], fill: white),
     edge((0, 1), (0, 0), "->"),
     node((0, 0), align(center)[*Dommage (impact)*], fill: fond-rouge),
   )

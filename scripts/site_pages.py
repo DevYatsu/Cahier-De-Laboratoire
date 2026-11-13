@@ -41,7 +41,7 @@ REPO_URL = "https://github.com/DevYatsu/Cahier-De-Laboratoire"
 PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
 
 STATUT_LIBELLE = {"ok": "Rédigé", "todo": "À compléter", "absent": "Absent"}
-STATUT_SYMBOLE = {"ok": "✓", "todo": "…", "absent": "—"}
+STATUT_SYMBOLE = {"ok": "✓", "todo": "…", "absent": "-"}
 MOIS_COURTS = ("janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.",
                "août", "sept.", "oct.", "nov.", "déc.")
 
@@ -347,7 +347,7 @@ def page_seance(doc: Document, meta: Meta, index: int) -> str:
 
     return render_layout(
         meta,
-        title=f"{seance.label} — {titre} · Cahier de laboratoire",
+        title=f"{seance.label} · {titre} · Cahier de laboratoire",
         description=f"{seance.label} du {seance.date_label or ''} : {seance.objectifs or titre}"[:300],
         page_class="page-seance",
         sidebar_html=sidebar(doc, seance.key, seance),
@@ -380,7 +380,7 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
            f'<div><dt>Auteur</dt><dd>{esc(meta.author)}</dd></div>',
            f'<div><dt>Modules</dt><dd>{esc(meta.module)}</dd></div>',
            f'<div><dt>Semestre</dt><dd>{esc(meta.semestre)}</dd></div>',
-           f'<div><dt>Mise à jour</dt><dd>{esc(date_courte(dernier) or "—")}</dd></div>',
+           f'<div><dt>Mise à jour</dt><dd>{esc(date_courte(dernier) or "-")}</dd></div>',
            '</dl>',
            f'<p class="couverture-objet"><b>Objet :</b> {esc(meta.objet)}</p>',
            '<div class="couverture-actions">']
@@ -442,7 +442,7 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         f'<div class="guide-bloc"><h3>Structure d’une entrée</h3><ol class="guide-rubriques">{guide}</ol></div>'
         '<div class="guide-bloc"><h3>Repères</h3><ul class="legende">'
         '<li><span class="rubrique rubrique-ok"><span class="puce">✓</span>Résultats</span> '
-        'rubrique rédigée — cliquer pour y accéder.</li>'
+        'rubrique rédigée, cliquer pour y accéder.</li>'
         '<li><kbd>Ctrl</kbd> <kbd>K</kbd> ou <kbd>/</kbd> recherche plein texte dans tout le cahier.</li>'
         '</ul></div></div></section>'
     )
@@ -453,15 +453,15 @@ def page_index(doc: Document, meta: Meta, total_heures: float | None,
         f'<div class="prose">{contexte}'
         '<p>Le module fonctionne en classe inversée : les sujets sont étudiés en autonomie à partir '
         'des ressources proposées, puis discutés, exercés et expérimentés en séance. Ce cahier en '
-        'consigne la trace — problématiques rencontrées, travaux effectués et résultats, recherches '
-        'complémentaires — et sert d’outil d’auto-évaluation.</p>'
+        'consigne la trace (problématiques rencontrées, travaux effectués et résultats, recherches '
+        'complémentaires) et sert d’outil d’auto-évaluation.</p>'
         f'<p class="mention">Sources : <a href="{REPO_URL}">dépôt GitHub</a> · chaque modification '
         'publiée reconstruit automatiquement ce site et le PDF.</p></div></section>'
     )
 
     return render_layout(
         meta,
-        title=f"{meta.title} — {meta.author}",
+        title=f"{meta.title} · {meta.author}",
         description=f"{meta.title} de {meta.author} ({meta.module}, semestre {meta.semestre.lower()}) : {meta.objet}"[:300],
         page_class="page-accueil",
         sidebar_html=sidebar(doc, "index"),
@@ -496,7 +496,7 @@ def page_suivi(doc: Document, meta: Meta) -> str:
             f'<tbody data-seance="{esc(seance.key)}"><tr class="ligne-seance">'
             f'<th colspan="{3 + len(RUBRIQUES)}" scope="rowgroup">'
             f'<a href="{seance.slug}">{esc(seance.label)}</a> · {esc(seance.date_label or "")}'
-            f'{(" — " + esc(seance.theme)) if seance.theme else ""}</th></tr>'
+            f'{(" · " + esc(seance.theme)) if seance.theme else ""}</th></tr>'
         )
         if not seance.entrees:
             rows.append(f'<tr><td colspan="{3 + len(RUBRIQUES)}" class="vide-ligne">'
@@ -532,7 +532,7 @@ def page_suivi(doc: Document, meta: Meta) -> str:
         f'<li><b>{len(entrees)}</b><span>entrées</span></li></ul>',
         '<ul class="legende legende-ligne"><li><span class="cellule-ok legende-pastille">✓</span> rédigée</li>'
         '<li><span class="cellule-todo legende-pastille">…</span> à compléter</li>'
-        '<li><span class="cellule-absent legende-pastille">—</span> absente</li></ul>',
+        '<li><span class="cellule-absent legende-pastille">-</span> absente</li></ul>',
         '<div class="table-scroll grille-scroll" tabindex="0" role="region" aria-label="Grille de suivi">'
         '<table class="grille"><thead><tr><th scope="col">N°</th><th scope="col">Entrée</th>'
         f'{head}<th scope="col">Modifiée</th></tr></thead>'
@@ -554,7 +554,7 @@ def page_rapport(doc: Document, meta: Meta) -> str:
     return render_layout(
         meta,
         title="Rapport d’activité · Cahier de laboratoire",
-        description=f"Rapport d’activité d’apprentissage — {meta.author}, module 3275.",
+        description=f"Rapport d’activité d’apprentissage · {meta.author}, module 3275.",
         page_class="page-rapport",
         sidebar_html=sidebar(doc, "rapport"),
         main=main,

@@ -1,4 +1,5 @@
-// Exercice 4 - principaux secteurs, domaines et objets d'application (partie matin).
+// Exercice 4 - principaux secteurs, domaines et objets d'application (partie
+// matin).
 #import "/template.typ": *
 
 == Exercice 4 : Principaux secteurs, domaines et objets d'application
@@ -15,36 +16,52 @@
 - *Développeur :* cloud, logiciels.
 - *RSSI :* entreprise.
 - *DPO :* dossiers patients, fiscalité.
-- *Ma position :* côté dev, je construis une partie des services que les autres protègent.
+- *Ma position :* côté dev, je construis une partie des services que les autres
+  protègent.
 
 === Déroulement
 
 *Secteur public :*
-- Défense et sécurité nationale : armée, renseignement, police, protection civile.
+- Défense et sécurité nationale : armée, renseignement, police, protection
+  civile.
 - Santé publique : hôpitaux, services d'urgence, dossiers patients.
-- Administrations et collectivités : état civil, fiscalité, vote, services en ligne.
+- Administrations et collectivités : état civil, fiscalité, vote, services en
+  ligne.
 - Éducation et recherche : universités, laboratoires, données scientifiques.
 - Infrastructures critiques : énergie, eau, transports, télécommunications.
 - Justice : tribunaux, casiers, preuves numériques.
 
 *Secteur privé :*
-- Entreprises : PME et grands groupes, secrets industriels, SI interne, postes de travail.
-- Objets protégés : contrats, comptabilité, propriété intellectuelle, continuité d'activité.
+- Entreprises : PME et grands groupes, secrets industriels, SI interne, postes
+  de travail.
+- Objets protégés : contrats, comptabilité, propriété intellectuelle, continuité
+  d'activité.
 
 *Domaines transverses, au global :*
-- Santé et pharmaceutique : dispositifs médicaux, essais cliniques, brevets, chaînes de production.
-- Informatique et technologique : cloud, logiciels, matériel, opérateurs télécoms, prestataires.
+- Santé et pharmaceutique : dispositifs médicaux, essais cliniques, brevets,
+  chaînes de production.
+- Informatique et technologique : cloud, logiciels, matériel, opérateurs
+  télécoms, prestataires.
 - Finance et assurance : banques, paiements, données clients.
-- Industrie et énergie : OT (technologies opérationnelles), SCADA, chaînes logistiques.
+- Industrie et énergie : OT (technologies opérationnelles), SCADA, chaînes
+  logistiques.
 
 *Qui est concerné ?*
 - Moi : mes comptes, mes appareils, mes projets de développement.
-- Nous : l'entreprise ou l'équipe où je travaille, ses clients et ses fournisseurs.
-- Tout le monde : chaque citoyen utilise des services dont la compromission a un impact collectif.
+- Nous : l'entreprise ou l'équipe où je travaille, ses clients et ses
+  fournisseurs.
+- Tout le monde : chaque citoyen utilise des services dont la compromission a un
+  impact collectif.
 
 === Résultats
 
-Le secteur public couvre la défense, la santé, l'état civil, la justice et les infrastructures critiques (énergie, transports). Le secteur privé protège le SI interne, les contrats, la comptabilité et la propriété intellectuelle. Les domaines transverses relient les deux : dispositifs médicaux, cloud, banques, SCADA. Je suis concerné à chaque échelle : moi par mes comptes et mes projets, nous par mon équipe et ses clients, tous par les services collectifs que chaque citoyen utilise.
+Le secteur public couvre la défense, la santé, l'état civil, la justice et les
+infrastructures critiques (énergie, transports). Le secteur privé protège le SI
+interne, les contrats, la comptabilité et la propriété intellectuelle. Les
+domaines transverses relient les deux : dispositifs médicaux, cloud, banques,
+SCADA. Je suis concerné à chaque échelle : moi par mes comptes et mes projets,
+nous par mon équipe et ses clients, tous par les services collectifs que chaque
+citoyen utilise.
 
 #align(center)[
   #diagram(
@@ -69,7 +86,13 @@ Le secteur public couvre la défense, la santé, l'état civil, la justice et le
 
 === Interprétation des résultats
 
-Aucun secteur ne fonctionne sans sécurité. Hôpital, banque et chaîne logistique protègent des objets différents, mais une compromission bloque leur activité de la même façon. Côté dev, chaque ligne de code atterrit dans un de ces secteurs : une faille dans une app de vote ou de paiement ne reste jamais théorique. À l'échelle nationale et des alliances, la cybersécurité conditionne le fonctionnement de la société, car une compromission peut toucher des services essentiels dans plusieurs pays à la fois.
+Aucun secteur ne fonctionne sans sécurité. Hôpital, banque et chaîne logistique
+protègent des objets différents, mais une compromission bloque leur activité de
+la même façon. Côté dev, chaque ligne de code atterrit dans un de ces secteurs :
+une faille dans une app de vote ou de paiement ne reste jamais théorique. À
+l'échelle nationale et des alliances, la cybersécurité conditionne le
+fonctionnement de la société, car une compromission peut toucher des services
+essentiels dans plusieurs pays à la fois.
 
 Pour le projet de semestre, le périmètre se fixe en trois questions :
 - Qui utilise le service ?

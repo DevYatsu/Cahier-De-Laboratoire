@@ -49,6 +49,8 @@
     sous-titre: "Suivi individuel - Conception et opération de la sécurité",
     semestre: "Automne",
     module: "3275.1 · 3275.2",
-    objet: "progression et maîtrise des compétences - problématiques rencontrées, travaux effectués et résultats, recherches documentaires complémentaires.",
+    objet: "progression et maîtrise des compétences - problématiques
+    rencontrées, travaux effectués et résultats, recherches documentaires
+    complémentaires.",
   ),
 )

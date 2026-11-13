@@ -54,7 +54,11 @@
     #text(weight: "bold", size: 17pt, fill: black, it.body)
   ]
   show heading.where(level: 2): it => block(spacing: 0.9em)[
-    #text(weight: "bold", size: config.titres.niveau2-size, fill: black)[#counter(heading).display() #it.body]
+    #text(
+      weight: "bold",
+      size: config.titres.niveau2-size,
+      fill: black,
+    )[#counter(heading).display() #it.body]
     #v(-0.3em)
     #line(length: 100%, stroke: 0.8pt + rouge)
   ]
@@ -67,7 +71,8 @@
   set table(
     stroke: config.tableau.stroke + _c.gris-bordure,
     inset: config.tableau.inset,
-    fill: (_, y) => if y == 0 { encre } else if calc.rem(y, 2) == 0 { fond-gris } else { white },
+    fill: (_, y) => if y == 0 { encre } else if calc.rem(y, 2) == 0 { fond-gris
+    } else { white },
   )
   show table.cell.where(y: 0): set text(fill: white, weight: "bold")
   show: codly-init.with()
@@ -75,7 +80,8 @@
   set page(
     header: context [
       #grid(columns: (1fr, auto), align: (left, right))[
-        #text(size: 8.5pt, weight: "bold", fill: rouge)[HE–ARC] #text(size: 8.5pt, fill: gray)[· Cahier de laboratoire]
+        #text(size: 8.5pt, weight: "bold", fill: rouge)[HE–ARC]
+        #text(size: 8.5pt, fill: gray)[· Cahier de laboratoire]
       ][
         #text(size: 9pt, fill: gray, hydra(1))
       ]
@@ -103,7 +109,8 @@
   let t = lower(titre)
   if t.contains("objectif") { _encadre-styles.objectifs }
   else if t.contains("interpr") { _encadre-styles.interpretation }
-  else if t.contains("résultat") or t.contains("resultat") { _encadre-styles.resultats }
+  else if t.contains("résultat") or t.contains("resultat") {
+  _encadre-styles.resultats }
   else { (bordure: _c.rouge, fond: _c.fond-rouge) }
 }
 
@@ -113,12 +120,22 @@
   showybox(
     title: titre,
     title-style: (color: white, weight: "bold"),
-    frame: (border-color: style.bordure, title-color: style.bordure, body-color: style.fond),
+    frame: (border-color: style.bordure, title-color: style.bordure, body-color:
+    style.fond),
     body,
   )
 }
 
 // ---- Page de couverture ----------------------------------------------------
+// Étiquette rouge en capitales des métadonnées de la couverture.
+#let etiquette-couverture(body) = text(
+  fill: rouge,
+  weight: "bold",
+  size: 9pt,
+  tracking: 0.12em,
+  body,
+)
+
 #let couverture() = {
   let meta = config.couverture
   block(spacing: 0em)[
@@ -126,7 +143,12 @@
     #v(2.2em)
   ]
   align(left)[
-    #text(size: 10pt, weight: "bold", fill: rouge, tracking: 0.18em)[#meta.marque]
+    #text(
+      size: 10pt,
+      weight: "bold",
+      fill: rouge,
+      tracking: 0.18em,
+    )[#meta.marque]
     #v(0.5em)
     #text(size: 30pt, weight: "bold", fill: encre)[#meta.titre]
     #v(0.4em)
@@ -135,15 +157,19 @@
     #grid(
       columns: (1fr, 1fr),
       gutter: 1em,
-      align(left)[#text(fill: rouge, weight: "bold", size: 9pt, tracking: 0.12em)[AUTEUR] \ #text(weight: "bold")[#config.document.author]],
-      align(left)[#text(fill: rouge, weight: "bold", size: 9pt, tracking: 0.12em)[SEMESTRE] \ #meta.semestre],
+      align(left)[#etiquette-couverture[AUTEUR]
+      \ #text(weight: "bold")[#config.document.author]],
+      align(left)[#etiquette-couverture[SEMESTRE]
+      \ #meta.semestre],
     )
     #v(0.8em)
     #grid(
       columns: (1fr, 1fr),
       gutter: 1em,
-      align(left)[#text(fill: rouge, weight: "bold", size: 9pt, tracking: 0.12em)[MODULE] \ #meta.module],
-      align(left)[#text(fill: rouge, weight: "bold", size: 9pt, tracking: 0.12em)[MISE À JOUR] \ #datetime.today().display()],
+      align(left)[#etiquette-couverture[MODULE]
+      \ #meta.module],
+      align(left)[#etiquette-couverture[MISE À JOUR]
+      \ #datetime.today().display()],
     )
     #v(1.6em)
     #box(

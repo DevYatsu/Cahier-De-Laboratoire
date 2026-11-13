@@ -722,6 +722,7 @@ main:focus { outline: none; }
 .rubrique-todo .puce { background: var(--todo); color: var(--papier); }
 .rubrique-absent { color: var(--absent); background: transparent; border-style: dashed; }
 .rubrique-absent .puce { border: 1px solid currentColor; }
+.rubrique-hors-format { color: var(--crayon); background: transparent; font-style: italic; }
 .rubrique a:hover { color: var(--encre); }
 
 .chiffres {
@@ -1261,7 +1262,8 @@ figcaption { margin-top: .5rem; font-size: .83rem; color: var(--crayon); }
 .cellule-todo, .grille tbody tr td.cellule-todo { color: var(--todo); background: var(--todo-doux); }
 .cellule-absent { color: var(--absent); }
 .date-cellule { font: 500 .78rem / 1 var(--mono); color: var(--crayon); font-variant-numeric: tabular-nums; }
-.vide-ligne { color: var(--crayon); font-style: italic; }
+.vide-ligne, .cellule-hors-format { color: var(--crayon); font-style: italic; }
+.cellule-hors-format { text-align: center; }
 .grille tr[hidden] { display: none; }
 .grille tr { transition: background-color var(--dur-rapide) var(--ease-standard); }
 

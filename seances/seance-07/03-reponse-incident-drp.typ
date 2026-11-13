@@ -28,14 +28,10 @@
 
 === Déroulement
 
-- Point de départ : les consignes du cours (NIST SP 800-61r3, CSF 2.0 `RS` et
-  `RC`, exercice 2 « Sinistre et restauration »)
-  et notre schéma d'architecture (Traefik, Authelia, Loki derrière une
-  passerelle mTLS, copie WORM, heartbeat).
-- Constat : notre schéma n'existait que sur papier ; le stack en marche était
-  `stack-04` (nginx). Décision : construire le stack
-  du schéma sur le modèle de `stack-04`, puis tester le DRP dessus (dossier
-  `pratique/DRP/stack/`).
+- Point de départ : les consignes du cours
+  et notre schéma d'architecture.
+- Décision : construire le stack
+  du schéma sur le modèle de `stack-04`, puis tester le DRP dessus.
 - MinIO, prévu pour la copie WORM, n'est plus téléchargeable (images retirées).
   Remplacé par RustFS après un test :
   en mode compliance, la suppression est refusée même au compte racine.

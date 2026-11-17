@@ -16,6 +16,7 @@
 - *Admin / développeur :* applique le correctif issu de la veille.
 - *DPO :* suit les fuites et la notification en cas de données exposées.
 - *Auditeur :* vérifie que la veille est tracée et rejouable.
+- on pourrait ajouter DevSecOps (et même les développeurs qui sont concernés aussi)
 
 === Déroulement
 
@@ -29,6 +30,12 @@ Je pars de ma pratique réelle (réseaux, blogs), puis je la confronte aux exige
 
 Sans filtre, ces canaux informent mais ne protègent pas : ils surchargent (biais d'alerte, activité 4).
 
+Vous auriez pu
+   - décrire l'OSINT
+   - insister plus sur les aspects de veille technologique (niveau projet/software/opérations): inventaire
+     et nouvelles techno utilisées, dépendances/SBOM, infrastructures, obsolescence
+
+
 ==== 2. Les sources : ce qui valide et rend exploitable
 
 - *Institutionnel :* OFCS/BACS, CISA, ANSSI, Cybermalveillance.gouv.fr — doctrine, réflexes, ne pas payer, notification.
@@ -36,6 +43,7 @@ Sans filtre, ces canaux informent mais ne protègent pas : ils surchargent (biai
 - *Renseignement structuré :* IoC, TTP, rapports CTI et CERT, filtres SOC.
 - *Interne :* journaux, alertes hiérarchisées, post-mortems sans blâme, résultats de pentests et d'audits.
 - *Normatif et techno :* ISO 27001, NIST CSF 2.0, évolutions DevSecOps, chiffrement, IA.
+   - évolution de l'écosystème de l'entreprise (aussi légal)
 
 #table(
   columns: (1fr, 1.6fr, 1.4fr),

@@ -29,5 +29,9 @@ if [ "$(info '{{.Host.RemoteSocket.Exists}}')" != true ]; then
 fi
 STOCKAGE=$(info '{{.Store.GraphRoot}}' | sed 's#/storage$##')
 
-printf 'PODMAN_SOCKET=%s\nPODMAN_STORAGE=%s\n' "$SOCKET" "$STOCKAGE" > .env
-echo ".env : socket $SOCKET, stockage $STOCKAGE"
+# oom_score_adj du terminal (Linux ; 0 sous macOS, où les conteneurs tournent en root dans la VM).
+# Un processus non privilégié ne peut pas baisser cette valeur : avec celle du terminal, `podman exec` n'a jamais à le faire.
+OOM=$(cat /proc/self/oom_score_adj 2>/dev/null || echo 0)
+
+printf 'PODMAN_SOCKET=%s\nPODMAN_STORAGE=%s\nOOM_SCORE_ADJ=%s\n' "$SOCKET" "$STOCKAGE" "$OOM" > .env
+echo ".env : socket $SOCKET, stockage $STOCKAGE, oom_score_adj $OOM"

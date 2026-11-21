@@ -8,14 +8,18 @@
 # Fichiers du stack montés avec :z : sous SELinux (Podman machine), un conteneur ne lit un fichier du poste qu'avec ce label.
 name: drp
 
-x-restart: &restart
+x-commun: &commun
   restart: unless-stopped
+  # Linux rootless : les conteneurs créés par le service API de Podman héritent de son oom_score_adj, plus bas
+  # que celui du terminal ; `podman exec` (et donc le healthcheck) échoue alors avec
+  # « crun: write to /proc/self/oom_score_adj: Permission denied ». Valeur du terminal, écrite par preparer-env.sh.
+  oom_score_adj: ${OOM_SCORE_ADJ:-0}
 
 services:
   # ---------------------------------------------------------------- réseau edge
   # Traefik : point d'entrée unique. TLS, forward-auth, rate limit, access log JSON, /metrics.
   traefik:
-    <<: *restart
+    <<: *commun
     image: docker.io/library/traefik:v3.6.25@sha256:31267173a15b4944e797a76ffd9c419707c8d8b32fe5b610f80cd0cfa05f372d
     container_name: drp-traefik
     command:
@@ -41,7 +45,7 @@ services:
 
   # Authelia : fournisseur d'identité (SSO). Traefik l'interroge en forward-auth.
   authelia:
-    <<: *restart
+    <<: *commun
     image: docker.io/authelia/authelia:4.39.28@sha256:bd97cff4fcbf715b5ff1f9ae286afbe6033afce385302520b0368122d43a6f54
     container_name: drp-authelia
     environment:
@@ -59,7 +63,7 @@ services:
 
   # ------------------------------------------------- un réseau privé par backend
   juice-shop:
-    <<: *restart
+    <<: *commun
     image: docker.io/bkimminich/juice-shop:v20.3.0@sha256:cea5a4af4aacee498c491491af0408934ec81d004035c0a02ef3e54395e3bf27
     container_name: drp-juice-shop
     labels:
@@ -74,7 +78,7 @@ services:
       - net-juice
 
   grafana:
-    <<: *restart
+    <<: *commun
     image: docker.io/grafana/grafana:13.3.0@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205
     container_name: drp-grafana
     environment:
@@ -112,7 +116,7 @@ services:
       - logs
 
   cadvisor:
-    <<: *restart
+    <<: *commun
     image: gcr.io/cadvisor/cadvisor:v0.55.1@sha256:3de2bd5203120b866d74a9b283b2ffb8ec382fbf9dc321814700c6ea6f44ec57
     container_name: drp-cadvisor
     privileged: true
@@ -142,7 +146,7 @@ services:
   # Alloy : collecte les logs du stack, masque les données personnelles, pousse en mTLS (CA « ingest »),
   # et copie en fan-out vers le stockage WORM externe.
   alloy:
-    <<: *restart
+    <<: *commun
     image: docker.io/grafana/alloy:v1.21.2@sha256:89a5a320168387336b9ac3c850609c3ba7757eadd4ae5f1d819deb35e9854b18
     container_name: drp-alloy
     command:
@@ -181,7 +185,7 @@ services:
   #   loki-push  : POST /loki/api/v1/push, certificat client signé par la CA « ingest » (Alloy) ;
   #   loki-query : lecture, certificat client signé par la CA « reader » (Grafana).
   loki-gate:
-    <<: *restart
+    <<: *commun
     image: docker.io/library/traefik:v3.6.25@sha256:31267173a15b4944e797a76ffd9c419707c8d8b32fe5b610f80cd0cfa05f372d
     container_name: drp-loki-gate
     command:
@@ -198,7 +202,7 @@ services:
 
   # ---------------------------------------------------- réseau loki (Traefik seul)
   loki:
-    <<: *restart
+    <<: *commun
     image: docker.io/grafana/loki:3.7.9@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28
     container_name: drp-loki
     command: -config.file=/etc/loki/loki-config.yml
@@ -211,7 +215,7 @@ services:
 
   # ---------------------------------------------------------- réseau monitoring
   prometheus:
-    <<: *restart
+    <<: *commun
     image: docker.io/prom/prometheus:v3.15.1@sha256:fa3302279710be2f21a8301ec17a8b4f2301fd829bd113839b3b6b02b6f191a2
     container_name: drp-prometheus
     command:
@@ -236,7 +240,7 @@ services:
       - monitoring
 
   alertmanager:
-    <<: *restart
+    <<: *commun
     image: docker.io/prom/alertmanager:v0.29.0@sha256:88743b63b3e09ea6e31e140ced5bf45f4a8e82c617c2a963f78841f4995ad1d7
     container_name: drp-alertmanager
     command:
@@ -264,7 +268,7 @@ services:
   # socket-proxy : seul service à monter le socket Podman. GET uniquement, routes de lecture seulement.
   # Sécurité : « :ro » sur un socket ne limite pas l'API, seul ce filtre le fait.
   socket-proxy:
-    <<: *restart
+    <<: *commun
     image: docker.io/nginx:1.31.8@sha256:c4d1df1ca40ef8cf932f19853f00eb0f81ffe5becda1256365bbf0a057060ffb
     container_name: drp-socket-proxy
     security_opt:

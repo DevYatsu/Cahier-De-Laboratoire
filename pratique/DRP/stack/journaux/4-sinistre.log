@@ -1,0 +1,10 @@
+14:57:58  SINISTRE : podman compose down -v + rm -rf secrets .env sauvegardes
+ Volume drp_loki-data Removed 
+ Volume drp_authelia-data Removed 
+ Volume drp_prometheus-data Removed 
+ Volume drp_alloy-data Removed 
+ Volume drp_alertmanager-data Removed 
+ Volume drp_grafana-data Removed 
+volumes drp restants : 0
+secrets présents : 0
+Grafana : 000

@@ -1,0 +1,307 @@
+# Stack de l'activité « Rapport d'architecture » (architecture.mmd), construit sur le modèle de stack-04.
+# Différences avec stack-04 :
+#   - Traefik remplace nginx en entrée (seul port publié : 443), avec Authelia en forward-auth (SSO) ;
+#   - un réseau privé par backend : un conteneur compromis ne voit que Traefik ;
+#   - Prometheus et Alertmanager sur un réseau de supervision à part ;
+#   - une seconde instance Traefik (loki-gate) garde Loki : écriture et lecture en mTLS, deux CA distinctes ;
+#   - la copie WORM, le heartbeat et la boîte de l'astreinte sont « hors du stack » (externe/compose.yaml).
+# Fichiers du stack montés avec :z : sous SELinux (Podman machine), un conteneur ne lit un fichier du poste qu'avec ce label.
+name: drp
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  # ---------------------------------------------------------------- réseau edge
+  # Traefik : point d'entrée unique. TLS, forward-auth, rate limit, access log JSON, /metrics.
+  traefik:
+    <<: *restart
+    image: docker.io/library/traefik:v3.6.25@sha256:31267173a15b4944e797a76ffd9c419707c8d8b32fe5b610f80cd0cfa05f372d
+    container_name: drp-traefik
+    command:
+      - --configFile=/etc/traefik/traefik.yml
+    ports:
+      # Sécurité : seul port publié, sur la boucle locale (macOS interdit 443 sur 127.0.0.1 hors root).
+      - "127.0.0.1:${HTTPS_PORT:-8443}:443"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro,z
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro,z
+      - ./secrets/edge:/etc/traefik/certs:ro,z
+    depends_on:
+      socket-proxy:
+        condition: service_healthy
+    networks:
+      edge:
+      net-juice:
+      net-grafana:
+      net-cadvisor:
+      net-alloy:
+      monitoring:
+      docker-api:
+
+  # Authelia : fournisseur d'identité (SSO). Traefik l'interroge en forward-auth.
+  authelia:
+    <<: *restart
+    image: docker.io/authelia/authelia:4.39.28@sha256:bd97cff4fcbf715b5ff1f9ae286afbe6033afce385302520b0368122d43a6f54
+    container_name: drp-authelia
+    environment:
+      - AUTHELIA_SESSION_SECRET_FILE=/run/secrets/authelia/session
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/run/secrets/authelia/storage
+      - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=/run/secrets/authelia/jwt
+      - X_AUTHELIA_CONFIG_FILTERS=template
+    volumes:
+      - ./authelia/configuration.yml:/config/configuration.yml:ro,z
+      - ./secrets/authelia:/run/secrets/authelia:ro,z
+      # Données : base SQLite (comptes TOTP, bannissements, journal d'authentification), chiffrée par la clé « storage ».
+      - authelia-data:/data
+    networks:
+      - edge
+
+  # ------------------------------------------------- un réseau privé par backend
+  juice-shop:
+    <<: *restart
+    image: docker.io/bkimminich/juice-shop:v20.3.0@sha256:cea5a4af4aacee498c491491af0408934ec81d004035c0a02ef3e54395e3bf27
+    container_name: drp-juice-shop
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.juice.rule=Host(`juiceshop.drp.localhost`)
+      - traefik.http.routers.juice.entrypoints=websecure
+      - traefik.http.routers.juice.tls=true
+      # Application publique : son propre login, pas de SSO ; limitation de débit seulement.
+      - traefik.http.routers.juice.middlewares=rate-limit@file,security-headers@file
+      - traefik.http.services.juice.loadbalancer.server.port=3000
+    networks:
+      - net-juice
+
+  grafana:
+    <<: *restart
+    image: docker.io/grafana/grafana:13.3.0@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205
+    container_name: drp-grafana
+    environment:
+      # SSO : Grafana fait confiance à l'en-tête Remote-User posé par Traefik après Authelia.
+      - GF_AUTH_PROXY_ENABLED=true
+      - GF_AUTH_PROXY_HEADER_NAME=Remote-User
+      - GF_AUTH_PROXY_HEADER_PROPERTY=username
+      - GF_AUTH_PROXY_AUTO_SIGN_UP=true
+      - GF_AUTH_PROXY_HEADERS=Email:Remote-Email Name:Remote-Name
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_SECURITY_ADMIN_USER__FILE=/run/secrets/grafana/admin-user
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana/admin-password
+      - GF_SERVER_ROOT_URL=https://grafana.drp.localhost:8443
+      # Confidentialité : télémétrie désactivée.
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=false
+      - GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro,z
+      - ./grafana/dashboards:/etc/grafana/dashboards:ro,z
+      - ./secrets/grafana:/run/secrets/grafana:ro,z
+      - ./secrets/reader:/etc/grafana/certs:ro,z
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=drp_net-grafana
+      - traefik.http.routers.grafana.rule=Host(`grafana.drp.localhost`)
+      - traefik.http.routers.grafana.entrypoints=websecure
+      - traefik.http.routers.grafana.tls=true
+      - traefik.http.routers.grafana.middlewares=authelia@file,rate-limit@file,security-headers@file
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+    networks:
+      - net-grafana
+      - monitoring
+      - logs
+
+  cadvisor:
+    <<: *restart
+    image: gcr.io/cadvisor/cadvisor:v0.55.1@sha256:3de2bd5203120b866d74a9b283b2ffb8ec382fbf9dc321814700c6ea6f44ec57
+    container_name: drp-cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg
+    cgroup: host
+    pid: host
+    command:
+      - --docker=tcp://socket-proxy:2375
+      - --docker_only=false
+    volumes:
+      - /sys:/sys:ro
+      - ${PODMAN_STORAGE:-/var/lib/containers}:${PODMAN_STORAGE:-/var/lib/containers}:ro
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=drp_net-cadvisor
+      - traefik.http.routers.cadvisor.rule=Host(`cadvisor.drp.localhost`)
+      - traefik.http.routers.cadvisor.entrypoints=websecure
+      - traefik.http.routers.cadvisor.tls=true
+      - traefik.http.routers.cadvisor.middlewares=authelia@file,rate-limit@file,security-headers@file
+      - traefik.http.services.cadvisor.loadbalancer.server.port=8080
+    networks:
+      - net-cadvisor
+      - docker-api
+
+  # ---------------------------------------------------------------- réseau logs
+  # Alloy : collecte les logs du stack, masque les données personnelles, pousse en mTLS (CA « ingest »),
+  # et copie en fan-out vers le stockage WORM externe.
+  alloy:
+    <<: *restart
+    image: docker.io/grafana/alloy:v1.21.2@sha256:89a5a320168387336b9ac3c850609c3ba7757eadd4ae5f1d819deb35e9854b18
+    container_name: drp-alloy
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - --stability.level=experimental
+      # Confidentialité : pas de rapport d'usage à Grafana Labs.
+      - --disable-reporting
+      - /etc/alloy/config.alloy
+    environment:
+      - AWS_SHARED_CREDENTIALS_FILE=/run/secrets/worm/credentials
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro,z
+      - ./secrets/ingest:/etc/alloy/certs:ro,z
+      - ./secrets/worm-alloy:/run/secrets/worm:ro,z
+      - alloy-data:/var/lib/alloy/data
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=drp_net-alloy
+      - traefik.http.routers.alloy.rule=Host(`alloy.drp.localhost`)
+      - traefik.http.routers.alloy.entrypoints=websecure
+      - traefik.http.routers.alloy.tls=true
+      - traefik.http.routers.alloy.middlewares=authelia@file,rate-limit@file,security-headers@file
+      - traefik.http.services.alloy.loadbalancer.server.port=12345
+    depends_on:
+      socket-proxy:
+        condition: service_healthy
+    networks:
+      - net-alloy
+      - logs
+      - docker-api
+      - externe
+
+  # loki-gate : seconde instance Traefik, seul accès à Loki.
+  #   loki-push  : POST /loki/api/v1/push, certificat client signé par la CA « ingest » (Alloy) ;
+  #   loki-query : lecture, certificat client signé par la CA « reader » (Grafana).
+  loki-gate:
+    <<: *restart
+    image: docker.io/library/traefik:v3.6.25@sha256:31267173a15b4944e797a76ffd9c419707c8d8b32fe5b610f80cd0cfa05f372d
+    container_name: drp-loki-gate
+    command:
+      - --configFile=/etc/traefik/traefik.yml
+    volumes:
+      - ./loki-gate/traefik.yml:/etc/traefik/traefik.yml:ro,z
+      - ./loki-gate/dynamic.yml:/etc/traefik/dynamic.yml:ro,z
+      - ./secrets/gate:/etc/traefik/certs:ro,z
+    networks:
+      logs:
+        aliases: [loki-push, loki-query]
+      loki-net:
+      monitoring:
+
+  # ---------------------------------------------------- réseau loki (Traefik seul)
+  loki:
+    <<: *restart
+    image: docker.io/grafana/loki:3.7.9@sha256:0db216b630ae1f348a1584c67f3cead8b4c1fc839169a39501db664744158e28
+    container_name: drp-loki
+    command: -config.file=/etc/loki/loki-config.yml
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/loki-config.yml:ro,z
+      - ./loki/rules:/etc/loki/rules:ro,z
+      - loki-data:/loki
+    networks:
+      - loki-net
+
+  # ---------------------------------------------------------- réseau monitoring
+  prometheus:
+    <<: *restart
+    image: docker.io/prom/prometheus:v3.15.1@sha256:fa3302279710be2f21a8301ec17a8b4f2301fd829bd113839b3b6b02b6f191a2
+    container_name: drp-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=15d
+      - --storage.tsdb.retention.size=5GB
+      - --web.external-url=https://prometheus.drp.localhost
+      - --web.route-prefix=/
+    volumes:
+      - ./prometheus:/etc/prometheus:ro,z
+      - prometheus-data:/prometheus
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=drp_monitoring
+      - traefik.http.routers.prometheus.rule=Host(`prometheus.drp.localhost`)
+      - traefik.http.routers.prometheus.entrypoints=websecure
+      - traefik.http.routers.prometheus.tls=true
+      - traefik.http.routers.prometheus.middlewares=authelia@file,rate-limit@file,security-headers@file
+      - traefik.http.services.prometheus.loadbalancer.server.port=9090
+    networks:
+      - monitoring
+
+  alertmanager:
+    <<: *restart
+    image: docker.io/prom/alertmanager:v0.29.0@sha256:88743b63b3e09ea6e31e140ced5bf45f4a8e82c617c2a963f78841f4995ad1d7
+    container_name: drp-alertmanager
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+      - --web.external-url=https://alertmanager.drp.localhost
+      - --web.route-prefix=/
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro,z
+      # Données : silences et état des notifications (déduplication).
+      - alertmanager-data:/alertmanager
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=drp_monitoring
+      - traefik.http.routers.alertmanager.rule=Host(`alertmanager.drp.localhost`)
+      - traefik.http.routers.alertmanager.entrypoints=websecure
+      - traefik.http.routers.alertmanager.tls=true
+      - traefik.http.routers.alertmanager.middlewares=authelia@file,rate-limit@file,security-headers@file
+      - traefik.http.services.alertmanager.loadbalancer.server.port=9093
+    networks:
+      - monitoring
+      - externe
+
+  # ------------------------------------------------------------ réseau docker-api
+  # socket-proxy : seul service à monter le socket Podman. GET uniquement, routes de lecture seulement.
+  # Sécurité : « :ro » sur un socket ne limite pas l'API, seul ce filtre le fait.
+  socket-proxy:
+    <<: *restart
+    image: docker.io/nginx:1.31.8@sha256:c4d1df1ca40ef8cf932f19853f00eb0f81ffe5becda1256365bbf0a057060ffb
+    container_name: drp-socket-proxy
+    security_opt:
+      - label=disable
+    volumes:
+      - ./socket-proxy/nginx.conf:/etc/nginx/nginx.conf:ro,z
+      - ${PODMAN_SOCKET:-/run/podman/podman.sock}:/var/run/podman/podman.sock:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:2375/_ping"]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+    networks:
+      - docker-api
+
+networks:
+  edge:
+  net-juice:
+  net-grafana:
+  net-cadvisor:
+  net-alloy:
+  monitoring:
+  logs:
+  # Sécurité : seuls Loki et loki-gate y sont, aucun client n'atteint Loki directement.
+  loki-net:
+    internal: true
+  # Sécurité : réseau sans sortie, le socket filtré n'est joignable que par ses trois clients.
+  docker-api:
+    internal: true
+  # « Hors du stack » : réseau créé par externe/compose.yaml (copie WORM, heartbeat, astreinte).
+  externe:
+    external: true
+
+volumes:
+  grafana-data:
+  loki-data:
+  prometheus-data:
+  alertmanager-data:
+  authelia-data:
+  alloy-data:

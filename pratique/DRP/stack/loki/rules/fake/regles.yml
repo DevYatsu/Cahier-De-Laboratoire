@@ -1,0 +1,25 @@
+# Règles d'alerte LogQL, évaluées par le ruler de Loki (tenant « fake » : auth_enabled: false).
+groups:
+  - name: securite
+    interval: 30s
+    rules:
+      # Playbook : PB-01 (devoir). Plus de 10 échecs de login Juice Shop en 1 minute.
+      - alert: BruteForceLogin
+        expr: |
+          sum by (ClientHost) (
+            count_over_time({container="traefik"} | json | RequestPath="/rest/user/login" | DownstreamStatus="401" [1m])
+          ) > 10
+        labels:
+          severity: warning
+          playbook: PB-01
+        annotations:
+          summary: "Brute-force sur le login Juice Shop depuis {{ $labels.ClientHost }}"
+      # Échecs d'authentification sur le SSO (Authelia).
+      - alert: BruteForceSSO
+        expr: |
+          sum(count_over_time({container="authelia"} |= "Unsuccessful 1FA authentication attempt" [5m])) > 5
+        labels:
+          severity: warning
+          playbook: PB-01
+        annotations:
+          summary: "Échecs répétés de connexion au SSO Authelia"

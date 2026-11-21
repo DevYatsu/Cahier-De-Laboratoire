@@ -1,0 +1,30 @@
+14:58:08  +   0s  === RESTAURATION : début du chronomètre (RTO) ===
+14:58:09  +   1s  OK    sauvegarde choisie : 20261113T145710Z
+14:58:10  +   2s  OK    téléchargée : 9 fichiers, 171M
+14:58:10  +   2s  OK    empreintes SHA-256 conformes
+14:58:10  +   2s  OK    déchiffrement age vérifié
+14:58:10  +   2s  OK    secrets et .env restaurés depuis l'archive chiffrée
+14:58:22  +  14s  OK    volumes recréés par un premier démarrage, stack arrêté
+14:58:26  +  18s  OK    grafana-data importé
+14:58:26  +  18s  OK    loki-data importé
+14:58:26  +  18s  OK    prometheus-data importé
+14:58:27  +  19s  OK    alertmanager-data importé
+14:58:27  +  19s  OK    authelia-data importé
+14:58:27  +  19s  OK    alloy-data importé
+14:58:29  +  21s  OK    stack redémarré
+14:58:29  +   0s  OK    11/11 conteneurs en marche
+14:58:30  +   1s  OK    SSO : connexion Authelia
+14:58:32  +   3s  OK    Grafana répond derrière Traefik + Authelia
+14:58:32  +   3s  OK    grafana-data : dashboard « Témoin DRP temoin-20261113T145652Z »
+14:58:32  +   3s  OK    grafana-data : compte administrateur
+14:58:38  +   9s  OK    loki-data : log témoin temoin-20261113T145652Z retrouvé
+14:58:39  +  10s  OK    Loki : règle BruteForceLogin chargée
+14:58:41  +  12s  OK    collecte : nouveau log reçu par Loki
+14:58:41  +  12s  OK    prometheus-data : up{job=juice-shop} = 1 à l'instant témoin
+14:58:47  +  18s  OK    Prometheus : 9/9 cibles up
+14:58:48  +  19s  OK    alertmanager-data : silence temoin-20261113T145652Z
+14:58:48  +  19s  OK    authelia-data : clé de chiffrement valide
+14:58:48  +  19s  OK    authelia-data : TOTP identiques (f1333dec7cbd87a8)
+14:59:18  +  49s  OK    alerte : Watchdog reçu par le heartbeat externe
+14:59:18  +  49s  vérifications terminées : 0 échec(s)
+14:59:18  +  70s  === SERVICE RÉTABLI ET VÉRIFIÉ : RTO mesuré = 70 s (dont restauration 21 s) ===

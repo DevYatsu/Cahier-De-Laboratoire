@@ -1,0 +1,63 @@
+http:
+  routers:
+    # Écriture : Alloy seulement (certificat signé par la CA « ingest »), POST sur /push.
+    loki-push:
+      entryPoints: [loki]
+      rule: "Host(`loki-push`) && Path(`/loki/api/v1/push`) && Method(`POST`)"
+      service: loki
+      tls:
+        options: ingest
+    # Lecture : Grafana seulement (certificat signé par la CA « reader »), GET hors /push.
+    loki-query:
+      entryPoints: [loki]
+      rule: "Host(`loki-query`) && PathPrefix(`/loki/api/v1/`) && !Path(`/loki/api/v1/push`) && Method(`GET`)"
+      service: loki
+      tls:
+        options: reader
+    ruler-alerts:
+      entryPoints: [alerts]
+      rule: "PathPrefix(`/api/v2/alerts`) && Method(`POST`)"
+      service: alertmanager
+    scrape-loki:
+      entryPoints: [scrape]
+      rule: "Path(`/loki/metrics`)"
+      service: loki
+      middlewares: [scrape-strip]
+
+  middlewares:
+    scrape-strip:
+      stripPrefix:
+        prefixes: ["/loki"]
+
+  services:
+    loki:
+      loadBalancer:
+        servers: [{url: "http://loki:3100"}]
+    alertmanager:
+      loadBalancer:
+        servers: [{url: "http://alertmanager:9093"}]
+
+tls:
+  certificates:
+    - certFile: /etc/traefik/certs/gate-cert.pem
+      keyFile: /etc/traefik/certs/gate-key.pem
+  options:
+    # Nom inconnu : refusé (sniStrict) ; on exige quand même un certificat client.
+    default:
+      minVersion: VersionTLS12
+      sniStrict: true
+      clientAuth:
+        caFiles: [/etc/traefik/certs/ingest-ca.pem]
+        clientAuthType: RequireAndVerifyClientCert
+    ingest:
+      minVersion: VersionTLS12
+      sniStrict: true
+      clientAuth:
+        caFiles: [/etc/traefik/certs/ingest-ca.pem]
+        clientAuthType: RequireAndVerifyClientCert
+    reader:
+      minVersion: VersionTLS12
+      sniStrict: true
+      clientAuth:
+        caFiles: [/etc/traefik/certs/reader-ca.pem]
+        clientAuthType: RequireAndVerifyClientCert

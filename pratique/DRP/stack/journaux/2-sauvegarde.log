@@ -1,0 +1,14 @@
+14:57:10  +   0s  sauvegarde 20261113T145710Z -> sauvegardes/20261113T145710Z
+14:57:21  +  11s  OK    stack arrêté (début de l'interruption de service)
+14:57:34  +  24s  OK    grafana-data : 176M
+14:57:34  +  24s  OK    loki-data : 124K
+14:57:34  +  24s  OK    prometheus-data : 896K
+14:57:34  +  24s  OK    alertmanager-data : 4.0K
+14:57:34  +  24s  OK    authelia-data :  12K
+14:57:34  +  24s  OK    alloy-data : 8.0K
+14:57:36  +  26s  OK    stack redémarré (interruption : 15 s)
+14:57:36  +  26s  OK    secrets :  12K
+14:57:36  +  26s  OK    empreintes SHA-256 : sauvegardes/20261113T145710Z/SHA256SUMS
+14:57:39  +  29s  OK    WORM : 9/9 fichiers dans s3://sauvegardes/20261113T145710Z/
+14:57:39  +  29s  OK    WORM : rétention COMPLIANCE	2026-11-14T14:57:38.062000+00:00
+14:57:39  +  29s  taille totale : 177M ; échecs : 0

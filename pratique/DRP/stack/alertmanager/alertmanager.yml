@@ -1,0 +1,28 @@
+global:
+  smtp_smarthost: "astreinte:1025"
+  smtp_from: "alertmanager@drp.localhost"
+  smtp_require_tls: false
+
+route:
+  receiver: astreinte
+  group_by: [alertname]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    # Watchdog : vers le heartbeat externe, chaque minute, jamais vers l'astreinte.
+    - matchers: ['alertname="Watchdog"']
+      receiver: heartbeat
+      group_wait: 0s
+      group_interval: 1m
+      repeat_interval: 1m
+
+receivers:
+  - name: astreinte
+    email_configs:
+      - to: "astreinte@drp.localhost"
+        send_resolved: true
+  - name: heartbeat
+    webhook_configs:
+      - url: "http://heartbeat:8080/ping"
+        send_resolved: false

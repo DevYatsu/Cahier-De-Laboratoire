@@ -1,0 +1,80 @@
+http:
+  middlewares:
+    # SSO : chaque requête est vérifiée par Authelia ; l'identité revient dans Remote-User.
+    authelia:
+      forwardAuth:
+        address: "http://authelia:9091/api/authz/forward-auth"
+        trustForwardHeader: true
+        authResponseHeaders: [Remote-User, Remote-Groups, Remote-Email, Remote-Name]
+        maxResponseBodySize: 65536
+    rate-limit:
+      rateLimit:
+        average: 50
+        burst: 100
+        period: 1s
+    security-headers:
+      headers:
+        stsSeconds: 31536000
+        contentTypeNosniff: true
+        frameDeny: true
+        referrerPolicy: same-origin
+    # /grafana/metrics -> /metrics
+    scrape-strip:
+      stripPrefixRegex:
+        regex: ["^/[a-z-]+"]
+
+  routers:
+    authelia:
+      rule: "Host(`auth.drp.localhost`)"
+      entryPoints: [websecure]
+      service: authelia
+      tls: {}
+      middlewares: [rate-limit, security-headers]
+
+    # Scrape à travers Traefik : seul le chemin /metrics de chaque backend est exposé.
+    scrape-grafana:
+      rule: "Path(`/grafana/metrics`)"
+      entryPoints: [scrape]
+      service: grafana-metrics
+      middlewares: [scrape-strip]
+    scrape-cadvisor:
+      rule: "Path(`/cadvisor/metrics`)"
+      entryPoints: [scrape]
+      service: cadvisor-metrics
+      middlewares: [scrape-strip]
+    scrape-alloy:
+      rule: "Path(`/alloy/metrics`)"
+      entryPoints: [scrape]
+      service: alloy-metrics
+      middlewares: [scrape-strip]
+    scrape-juice-shop:
+      rule: "Path(`/juice-shop/metrics`)"
+      entryPoints: [scrape]
+      service: juice-metrics
+      middlewares: [scrape-strip]
+
+  services:
+    authelia:
+      loadBalancer:
+        servers: [{url: "http://authelia:9091"}]
+    grafana-metrics:
+      loadBalancer:
+        servers: [{url: "http://grafana:3000"}]
+    cadvisor-metrics:
+      loadBalancer:
+        servers: [{url: "http://cadvisor:8080"}]
+    alloy-metrics:
+      loadBalancer:
+        servers: [{url: "http://alloy:12345"}]
+    juice-metrics:
+      loadBalancer:
+        servers: [{url: "http://juice-shop:3000"}]
+
+tls:
+  certificates:
+    - certFile: /etc/traefik/certs/cert.pem
+      keyFile: /etc/traefik/certs/key.pem
+  options:
+    default:
+      minVersion: VersionTLS12
+      sniStrict: true

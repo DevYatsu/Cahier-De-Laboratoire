@@ -1,0 +1,15 @@
+14:57:01  +   0s  OK    11/11 conteneurs en marche
+14:57:02  +   1s  OK    SSO : connexion Authelia
+14:57:02  +   1s  OK    Grafana répond derrière Traefik + Authelia
+14:57:02  +   1s  OK    grafana-data : dashboard « Témoin DRP temoin-20261113T145652Z »
+14:57:02  +   1s  OK    grafana-data : compte administrateur
+14:57:02  +   1s  OK    loki-data : log témoin temoin-20261113T145652Z retrouvé
+14:57:02  +   1s  OK    Loki : règle BruteForceLogin chargée
+14:57:04  +   3s  OK    collecte : nouveau log reçu par Loki
+14:57:04  +   3s  OK    prometheus-data : up{job=juice-shop} = 1 à l'instant témoin
+14:57:05  +   4s  OK    Prometheus : 9/9 cibles up
+14:57:05  +   4s  OK    alertmanager-data : silence temoin-20261113T145652Z
+14:57:05  +   4s  OK    authelia-data : clé de chiffrement valide
+14:57:05  +   4s  OK    authelia-data : TOTP identiques (f1333dec7cbd87a8)
+14:57:06  +   5s  OK    alerte : Watchdog reçu par le heartbeat externe
+14:57:06  +   5s  vérifications terminées : 0 échec(s)

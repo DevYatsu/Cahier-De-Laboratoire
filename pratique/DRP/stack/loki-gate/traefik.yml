@@ -1,0 +1,35 @@
+# loki-gate : seconde instance Traefik, seul accès à Loki. Configuration statique.
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+log:
+  level: INFO
+  format: json
+
+# Pas de journal d'accès : chaque push d'Alloy produirait un log, repoussé à son tour.
+
+ping:
+  entryPoint: metrics
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+
+entryPoints:
+  # mTLS : loki-push (CA « ingest ») et loki-query (CA « reader »).
+  loki:
+    address: ":3100"
+    http:
+      tls: {}
+  # Ruler de Loki -> Alertmanager (Loki n'a pas d'autre sortie que ce Traefik).
+  alerts:
+    address: ":9093"
+  metrics:
+    address: ":8082"
+  scrape:
+    address: ":9100"
+
+providers:
+  file:
+    filename: /etc/traefik/dynamic.yml

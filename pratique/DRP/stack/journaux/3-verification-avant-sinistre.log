@@ -1,0 +1,10 @@
+OK  alertmanager-data.tar.gz.age : déchiffrable, 2 entrées
+OK  alloy-data.tar.gz.age : déchiffrable, 4 entrées
+OK  authelia-data.tar.gz.age : déchiffrable, 2 entrées
+OK  grafana-data.tar.gz.age : déchiffrable, 1611 entrées
+OK  loki-data.tar.gz.age : déchiffrable, 31 entrées
+OK  prometheus-data.tar.gz.age : déchiffrable, 4 entrées
+gunzip: (stdin): trailing garbage ignored
+gunzip: (stdin): trailing garbage ignored
+OK  secrets.tar.gz.age : déchiffrable, 43 entrées
+OK  SHA256SUMS conformes

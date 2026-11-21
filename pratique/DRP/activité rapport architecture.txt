@@ -1,0 +1,27 @@
+Rapport d'Architecture et de Sécurité 
+
+Objectifs 
+
+Décrire l'architecture globale du système, les flux de communication réseau, les mécanismes d'authentification ainsi que la gestion centralisée des journaux d'événements et de la surveillance. 
+
+Identification des métiers pertinents 
+
+Architecte cybersécurité, ingénieur système et réseau, administrateur d'infrastructures cloud et analyste en sécurité opérationnelle. 
+
+Déroulement 
+
+Le schéma s'organise de haut en bas en suivant les flèches directionnelles qui indiquent l'ouverture initiale de chaque connexion réseau. Tout part du poste client qui se connecte à un point d'entrée unique hébergé par Traefik sur le réseau edge. Ce composant constitue l'unique port publié en 443 permettant d'implémenter la terminaison TLS, la limitation de débit, la journalisation des accès et le routage vers les différents services backends. 
+
+L'authentification est entièrement centralisée grâce à Authelia qui joue le rôle de fournisseur d'identité SSO. Ce mécanisme évite de disperser les secrets et les méthodes d'authentification au sein de chaque application, sachant qu'une gestion décentralisée serait ingérable et non scalable. Traefik interroge Authelia par l'intermédiaire du protocole forward-auth de sorte que l'identité soit vérifiée une unique fois à l'entrée puis transmise aux applications compatibles comme Grafana via sa fonctionnalité Remote-User. Les services applicatifs restent quant à eux strictement isolés sur leurs réseaux privés respectifs tandis que Prometheus et Alertmanager fonctionnent sur un réseau de supervision dédié. 
+
+Le traitement des journaux s'appuie sur un chemin cloisonné et sécurisé. Alloy collecte les sorties des conteneurs par le biais d'un socket-proxy fonctionnant en lecture seule sur le réseau docker-api avec des requêtes exclusivement limitées aux méthodes GET. Après le masquage des données personnelles et sensibles, les journaux sont acheminés en mTLS ce qui permet de vérifier non seulement l’authencité du serveur mais aussi du certificat client vers une seconde instance Traefik positionnée sur le réseau logs. Cette instance sépare rigoureusement les droits d'écriture, gérés par l'autorité de certification ingest sur le point push, et les droits de lecture, gérés par l'autorité reader sur le point query, avant d'atteindre Loki qui applique ses politiques de rétention et ses règles d'alerte LogQL. Une copie secondaire est également envoyée en fan-out vers un stockage WORM externe et indépendant afin de garantir l'inaltérabilité des preuves. 
+
+La supervision globale boucle l'ensemble de l'architecture. Prometheus collecte périodiquement les métriques exposées par les composants à travers Traefik et transmet ses alertes à Alertmanager chargé de la déduplication et de la notification de l'astreinte. Un mécanisme de type watchdog émet un signal chaque minute vers un heartbeat externe afin de détecter immédiatement toute défaillance de la pile technique. Les mesures de sécurité et de confidentialité sont repérées par des marquages spécifiques sur le schéma, garantissant la traçabilité des flux. 
+
+Résultats 
+
+Schema Architecture 
+
+Interprétation des résultats 
+
+Ces choix architecturaux répondent aux exigences des normes de cybersécurité et s'intègrent dans le cycle d'amélioration continue. L'utilisation d'un proxy inverse avec terminaison TLS centralisée, d'un cloisonnement réseau strict et d'un stockage de journaux protégé par des mécanismes de type WORM qui permet d'atténuer les risques d'élévation de privilèges, d'empoisonnement des logs et de compromission des applications, validant ainsi l'apprentissage technique réalisé dans le cadre du module.

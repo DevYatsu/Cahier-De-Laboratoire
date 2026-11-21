@@ -1,0 +1,58 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  log_format: json
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /loki
+  storage:
+    filesystem:
+      chunks_directory: /loki/chunks
+      rules_directory: /loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+# Rétention appliquée par le compactor : 30 jours, 180 jours pour les logs de sécurité.
+compactor:
+  working_directory: /loki/compactor
+  retention_enabled: true
+  delete_request_store: filesystem
+
+limits_config:
+  retention_period: 720h
+  retention_stream:
+    - selector: '{retention="securite"}'
+      priority: 1
+      period: 4320h
+
+# Règles LogQL (loki/rules/fake/regles.yml) ; les alertes passent par loki-gate vers Alertmanager.
+ruler:
+  storage:
+    type: local
+    local:
+      directory: /etc/loki/rules
+  rule_path: /loki/ruler-tmp
+  alertmanager_url: http://loki-gate:9093
+  enable_api: true
+  enable_alertmanager_v2: true
+  ring:
+    kvstore:
+      store: inmemory
+
+analytics:
+  # Confidentialité : télémétrie désactivée.
+  reporting_enabled: false

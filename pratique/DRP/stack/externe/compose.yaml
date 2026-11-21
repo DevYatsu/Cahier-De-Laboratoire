@@ -1,0 +1,80 @@
+# « Hors du stack » : copie WORM, heartbeat externe et boîte de l'astreinte.
+# Projet Compose séparé, avec ses propres comptes : un `podman compose down -v` du stack principal ne le touche pas.
+# En production, ce serait un autre système (autre hébergeur, autres administrateurs) ; ici, il simule cette séparation.
+name: hors-stack
+
+services:
+  # Copie WORM : stockage objet compatible S3, Object Lock en mode compliance.
+  # En compliance, personne (pas même le compte racine) ne peut effacer un objet avant la fin de sa rétention.
+  worm:
+    image: docker.io/rustfs/rustfs:1.0.5@sha256:b81d16a90ee25bd9511280127ca1471788c6e874cf0f0da759645f46b2dc1d74
+    container_name: worm
+    restart: unless-stopped
+    environment:
+      - RUSTFS_ACCESS_KEY_FILE=/run/secrets/worm/root-user
+      - RUSTFS_SECRET_KEY_FILE=/run/secrets/worm/root-password
+    volumes:
+      - ../secrets/worm-root:/run/secrets/worm:ro,z
+      - worm-data:/data
+    networks:
+      - externe
+
+  # Création des deux buckets, une seule fois : Object Lock ne s'active qu'à la création d'un bucket.
+  #   logs        : copie des logs poussée par Alloy (fan-out) ;
+  #   sauvegardes : archives chiffrées des volumes du stack (scripts/sauvegarder.sh).
+  worm-init:
+    image: docker.io/amazon/aws-cli:2.40.2@sha256:acc32af784911165a8e78b63950625d174ba79b800a66a436c974689c87cd755
+    container_name: worm-init
+    restart: "no"
+    depends_on:
+      - worm
+    environment:
+      - AWS_SHARED_CREDENTIALS_FILE=/run/secrets/worm/credentials
+      - AWS_DEFAULT_REGION=us-east-1
+      - RETENTION_JOURS=${WORM_RETENTION_JOURS:-1}
+    entrypoint: ["/bin/sh", "/init.sh"]
+    volumes:
+      - ./worm-init.sh:/init.sh:ro,z
+      - ../secrets/worm-root:/run/secrets/worm:ro,z
+    networks:
+      - externe
+
+  # Heartbeat externe : Alertmanager lui envoie l'alerte Watchdog chaque minute.
+  # Plus de signal pendant 3 minutes = le stack de supervision est tombé : e-mail à l'astreinte.
+  heartbeat:
+    image: docker.io/library/python:3.13-alpine@sha256:9ef1a599f863231c3d91e941389bfdc4a2d6070557243d54df1a4e57015b960e
+    container_name: heartbeat
+    restart: unless-stopped
+    command: ["python", "-u", "/app/heartbeat.py"]
+    environment:
+      - SILENCE_MAX_S=180
+      - SMTP_HOST=astreinte
+      - SMTP_PORT=1025
+    volumes:
+      - ./heartbeat.py:/app/heartbeat.py:ro,z
+    networks:
+      - externe
+
+  # Boîte de l'astreinte : reçoit les alertes d'Alertmanager et du heartbeat.
+  astreinte:
+    image: docker.io/axllent/mailpit:latest@sha256:b68349e3a014b90c5610bfb26b2ae36f3892d7b8cf25ee140c6c71c98d2fcf48
+    container_name: astreinte
+    restart: unless-stopped
+    environment:
+      - MP_DATABASE=/data/mailpit.db
+    ports:
+      # Interface web de l'astreinte, sur la boucle locale seulement.
+      - "127.0.0.1:8025:8025"
+    volumes:
+      - astreinte-data:/data
+    networks:
+      - externe
+
+networks:
+  # Nom fixe : le stack principal le rejoint (external: true) pour Alloy et Alertmanager seulement.
+  externe:
+    name: externe
+
+volumes:
+  worm-data:
+  astreinte-data:

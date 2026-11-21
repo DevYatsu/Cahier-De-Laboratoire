@@ -1,0 +1,26 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    uid: prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+
+  # Lecture de Loki par loki-gate, en mTLS : certificat client signé par la CA « reader ».
+  - name: Loki
+    uid: loki
+    type: loki
+    access: proxy
+    url: https://loki-query:3100
+    editable: false
+    jsonData:
+      tlsAuth: true
+      tlsAuthWithCACert: true
+      httpMethod: GET
+    secureJsonData:
+      tlsCACert: $__file{/etc/grafana/certs/gate-ca.pem}
+      tlsClientCert: $__file{/etc/grafana/certs/grafana-cert.pem}
+      tlsClientKey: $__file{/etc/grafana/certs/grafana-key.pem}

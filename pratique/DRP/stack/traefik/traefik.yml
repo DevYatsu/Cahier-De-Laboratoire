@@ -1,0 +1,52 @@
+# Traefik « edge » : configuration statique.
+global:
+  # Confidentialité : télémétrie désactivée.
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+log:
+  level: INFO
+  format: json
+
+# Journal d'accès JSON sur stdout : Alloy le collecte (règles de brute-force dans Loki).
+# Sécurité : les en-têtes sont exclus (Cookie, Authorization).
+accessLog:
+  format: json
+  fields:
+    defaultMode: keep
+    headers:
+      defaultMode: drop
+
+api:
+  dashboard: false
+
+ping:
+  entryPoint: metrics
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+    addRoutersLabels: true
+
+entryPoints:
+  websecure:
+    address: ":443"
+    http:
+      tls: {}
+  # Interne : /metrics de Traefik, lu par Prometheus.
+  metrics:
+    address: ":8082"
+  # Interne : Prometheus lit les /metrics des backends à travers Traefik (un réseau privé par backend).
+  scrape:
+    address: ":9100"
+
+providers:
+  # Découverte des labels par le socket filtré (GET uniquement).
+  docker:
+    endpoint: "tcp://socket-proxy:2375"
+    exposedByDefault: false
+    # Sécurité : seuls les conteneurs de ce stack peuvent déclarer une route.
+    constraints: "Label(`com.docker.compose.project`,`drp`)"
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true

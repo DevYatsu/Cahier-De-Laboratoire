@@ -1,0 +1,115 @@
+// Alloy : collecte des logs du stack -> masquage -> Loki (mTLS, CA « ingest ») + copie WORM (fan-out).
+
+// Découvrir les conteneurs par le socket filtré (GET uniquement).
+discovery.docker "containers" {
+  host = "tcp://socket-proxy:2375"
+}
+
+// Confidentialité : ne collecter que les conteneurs de ce stack (projet Compose « drp »).
+discovery.relabel "stack" {
+  targets = discovery.docker.containers.targets
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_project"]
+    regex         = "drp"
+    action        = "keep"
+  }
+}
+
+// Labels des logs : conteneur, flux, et classe de rétention.
+discovery.relabel "labels" {
+  targets = []
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "container"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_log_stream"]
+    target_label  = "stream"
+  }
+
+  // Logs de sécurité (accès et authentification) : 180 jours au lieu de 30 dans Loki.
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    regex         = "traefik|authelia"
+    target_label  = "retention"
+    replacement   = "securite"
+  }
+}
+
+loki.source.docker "stack" {
+  host          = "tcp://socket-proxy:2375"
+  targets       = discovery.relabel.stack.output
+  relabel_rules = discovery.relabel.labels.rules
+  forward_to    = [loki.process.masque.receiver]
+}
+
+// Confidentialité : masquer les données personnelles et les secrets avant tout stockage.
+loki.process "masque" {
+  // Adresses e-mail.
+  stage.replace {
+    expression = "([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,})"
+    replace    = "<email>"
+  }
+
+  // Jetons JWT (Juice Shop en émet à chaque login).
+  stage.replace {
+    expression = "(eyJ[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+)"
+    replace    = "<jwt>"
+  }
+
+  // Valeurs de champs sensibles : password=..., "token": "...", etc.
+  stage.replace {
+    expression = "(?i)(?:password|passwd|token|secret|authorization)[\"']?\\s*[:=]\\s*[\"']?([^\"'\\s,&}]+)"
+    replace    = "<masqué>"
+  }
+
+  // Fan-out : Loki (recherche, alertes) et copie WORM (preuves inaltérables).
+  forward_to = [loki.write.gate.receiver, otelcol.receiver.loki.worm.receiver]
+}
+
+// Écriture dans Loki par loki-gate : Alloy prouve son identité par un certificat client (CA « ingest »).
+loki.write "gate" {
+  endpoint {
+    url = "https://loki-push:3100/loki/api/v1/push"
+
+    tls_config {
+      ca_file   = "/etc/alloy/certs/gate-ca.pem"
+      cert_file = "/etc/alloy/certs/alloy-cert.pem"
+      key_file  = "/etc/alloy/certs/alloy-key.pem"
+    }
+  }
+}
+
+// Copie WORM : lots d'une minute, écrits dans le bucket « logs » (Object Lock, mode compliance).
+otelcol.receiver.loki "worm" {
+  output {
+    logs = [otelcol.processor.batch.worm.input]
+  }
+}
+
+otelcol.processor.batch "worm" {
+  timeout = "60s"
+
+  output {
+    logs = [otelcol.exporter.awss3.worm.input]
+  }
+}
+
+otelcol.exporter.awss3 "worm" {
+  s3_uploader {
+    region              = "us-east-1"
+    s3_bucket           = "logs"
+    s3_prefix           = "drp"
+    endpoint            = "http://worm:9000"
+    s3_force_path_style = true
+    disable_ssl         = true
+    compression         = "gzip"
+  }
+
+  marshaler {
+    type = "otlp_json"
+  }
+}

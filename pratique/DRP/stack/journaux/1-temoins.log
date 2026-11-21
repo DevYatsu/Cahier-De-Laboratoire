@@ -1,0 +1,6 @@
+14:56:53  +   1s  OK    grafana-data : dashboard « Témoin DRP temoin-20261113T145652Z »
+14:56:55  +   3s  OK    loki-data : log d'accès contenant temoin-20261113T145652Z
+14:56:55  +   3s  OK    prometheus-data : instant de référence 1794581815
+14:56:55  +   3s  OK    alertmanager-data : silence temoin-20261113T145652Z
+14:56:55  +   3s  OK    authelia-data : empreinte TOTP f1333dec7cbd87a8
+14:56:55  +   3s  témoins enregistrés dans sauvegardes/temoins.env

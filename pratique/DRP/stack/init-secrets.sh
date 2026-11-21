@@ -10,6 +10,7 @@
 #   secrets/authelia/    secrets de session, clé de chiffrement de la base, compte SSO (argon2id)
 #   secrets/grafana/     compte administrateur Grafana (même nom que le compte SSO)
 #   secrets/worm-*/      comptes du stockage WORM (hors du stack)
+#   .env                 socket et stockage Podman de ce poste (scripts/preparer-env.sh)
 #   ~/.config/drp/age-identity.txt   clé privée de déchiffrement des sauvegardes, HORS du dossier du stack
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -26,6 +27,9 @@ new() { [ ! -s "$1" ]; }
 
 # --- TLS de l'entrée (navigateur) ---------------------------------------------------------------
 scripts/cert-entree.sh
+
+# --- .env : chemins Podman de ce poste (socket de l'API, stockage) -------------------------------
+scripts/preparer-env.sh
 
 # --- CA internes ----------------------------------------------------------------------------------
 ca() {  # nom

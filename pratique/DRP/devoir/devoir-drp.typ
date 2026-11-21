@@ -121,7 +121,7 @@
 #etape(2, "Rôles et escalade")[
 - *Astreinte* (nommée, reçoit l'e-mail) : accuse réception en 15 min. Sans réponse, le *suppléant* prend le relais.
 - *Liste d'astreinte* : imprimée et dans les téléphones, donc hors du système attaqué.
-- *Escalade* : au RSSI dès G2, à la direction dès G3. La direction décide, par exemple de couper le service (CSF `GV.RR-01`).
+- *Escalade* : au RSSI dès G2, à la direction dès G3. La direction décide, par exemple de couper le service.
 ]
 
 #etape(3, "Vérifier : requêtes prêtes à copier")[
@@ -149,12 +149,12 @@
 #etape(5, "Communiquer")[
 - *En interne* : RSSI, direction, juriste. Chaque décision est écrite avec l'heure.
 - *Données personnelles exposées (G2)* : annonce au PFPDT dans les meilleurs délais si le risque est élevé (nLPD art. 24).
-- *Infrastructure critique* : annonce à l'OFCS sous 24 h (LSI). *Utilisateurs touchés* : réinitialisation, messages approuvés (CSF `RC.CO`).
+- *Infrastructure critique* : annonce à l'OFCS sous 24 h (LSI). *Utilisateurs touchés* : réinitialisation, messages approuvés.
 ]
 
 #etape(6, "Clore et tirer les leçons")[
 - *Fin* : source bloquée, 30 min sans tentative, comptes réinitialisés, aucune session de l'attaquant active.
-- *Retour d'expérience sans coupable* sous 5 jours ouvrés ; chaque action a un responsable et une échéance (CSF `ID.IM`).
+- *Retour d'expérience sans coupable* sous 5 jours ouvrés ; chaque action a un responsable et une échéance.
 ]
 
 #encadre(titre: "Testé le 13.11.2026", couleur: vert)[
@@ -175,7 +175,7 @@
   acteur: [Propriétaires du stack (rédaction, revue). Validation des objectifs : direction.])
 
 == Inventaire et impact
-#text(7.6pt, fill: doux)[Stack : 11 conteneurs (dossier `stack/`). Hors du stack, projet et comptes séparés : copie WORM RustFS, heartbeat externe, boîte de l'astreinte. CSF `ID.AM-01/-02`.]
+#text(7.6pt, fill: doux)[Stack : 11 conteneurs (dossier `stack/`). Hors du stack, projet et comptes séparés : copie WORM RustFS, heartbeat externe, boîte de l'astreinte.]
 #v(-0.2em)
 #table(columns: (4.3cm, 1fr, 1.45cm, 1.75cm, 2.7cm),
   [Élément · emplacement], [Impact si on le perd], [Gravité], [RPO], [Restauré depuis],
@@ -205,7 +205,7 @@
 - *Quand* : chaque nuit à 03:00, `scripts/sauvegarder.sh`.
 - *Cohérence* : stack arrêté pendant l'export (bases SQLite et TSDB figées). Coût : *15 s* sans détection.
 - *Conservation* : 30 jours (sauvegardes), 365 jours (logs) ; 1 jour dans le labo.
-- *Test* : une restauration chronométrée par mois ; un échec est un incident (CSF `PR.DS-11`).
+- *Test* : une restauration chronométrée par mois ; un échec est un incident.
 ],
 [
 - *Règle 3-2-1* : 3 copies, 2 supports, 1 hors du stack :
@@ -213,7 +213,7 @@
   + les archives du poste (`sauvegardes/`) ;
   + le bucket *WORM* (« write once, read many », Object Lock en mode compliance) : personne ne l'efface avant la fin de la rétention, pas même l'administrateur (testé : `AccessDenied`).
 - *Chiffrement* : `age`. Le poste n'a que la clé *publique* : le voler ne permet pas de lire les sauvegardes.
-- *Intégrité* : une empreinte SHA-256 par fichier, vérifiée avant toute restauration (CSF `RC.RP-03`).
+- *Intégrité* : une empreinte SHA-256 par fichier, vérifiée avant toute restauration.
 ],
 )
 
@@ -222,7 +222,7 @@
 #fiche("DRP-01 B", "Plan de reprise : restaurer le service",
   "Passer de « le stack ne marche plus » à « service rétabli et vérifié », sans autre aide que cette fiche.",
   declencheur: [Volumes perdus ou corrompus, disque du poste perdu, rançongiciel. Après une intrusion : seulement une fois l'attaquant chassé (PB-01).],
-  acteur: [L'astreinte, seule. Elle prévient le RSSI au début et à la fin de la reprise (CSF `RC.CO-03`).])
+  acteur: [L'astreinte, seule. Elle prévient le RSSI au début et à la fin de la reprise.])
 
 #encadre(titre: "Avant de commencer : 3 prérequis", couleur: bleu)[
 #grid(columns: (1fr, 1fr, 1fr), column-gutter: 0.8em,
@@ -250,7 +250,7 @@
 - Le vidage est obligatoire : `import` *fusionne*, et les fichiers du premier démarrage se mêleraient aux données restaurées.
 ]
 #etape(5, "Il redémarre et vérifie de bout en bout", commande: [`scripts/verifier.sh`])[
-- *Succès* : la dernière ligne affiche « SERVICE RÉTABLI ET VÉRIFIÉ » et le RTO mesuré. La reprise est close (CSF `RC.RP-06`).
+- *Succès* : la dernière ligne affiche « SERVICE RÉTABLI ET VÉRIFIÉ » et le RTO mesuré. La reprise est close.
 - *Échec* : « la restauration n'est PAS réussie » #sym.arrow traiter comme un incident et prévenir le RSSI.
 ]
 
@@ -294,19 +294,19 @@
 #table(columns: (3.9cm, 1fr, 4.6cm),
   [Limite], [Conséquence], [En production],
   groupe("Sinistres hors périmètre"),
-  [*Perte de l'hôte*], [Le WORM, le heartbeat et la boîte de l'astreinte vivent sur le même hôte. L'Object Lock bloque l'API S3, pas `podman volume rm` ni la perte du disque. Seuls restent git et le kit.], [Copie chez un autre fournisseur, sur un autre site.],
-  [*Compromission ancienne*], [Le plan prend la dernière sauvegarde. La rétention du labo (1 jour) n'en garde pas d'antérieure, et rien ne prouve qu'une sauvegarde est saine.], [Rétention 30 jours ; analyse de la sauvegarde avant usage.],
-  [*Continuité (pas de PCA)*], [Ni détection ni mode dégradé pendant la sauvegarde (15 s par jour) et la reprise.], [Instance de secours ou réplication.],
-  [*Perte du kit hors ligne*], [Irrécupérable par construction : c'est le prix du chiffrement.], [Deux copies du kit, en deux lieux.],
+  [*Perte de l'hôte*], [L'hôte emporte WORM, heartbeat et astreinte ; il ne reste que git et le kit hors ligne. Aucune preuve ni alerte n'est alors disponible.], [Copie chez un autre fournisseur, sur un autre site.],
+  [*Compromission ancienne*], [La restauration remettrait aussi une porte dérobée ; aucune sauvegarde antérieure n'est conservée pour comparer.], [Rétention 30 jours ; analyse de la sauvegarde avant usage.],
+  [*Continuité (pas de PCA)*], [Pendant les 15 s de sauvegarde et toute la reprise, aucune détection ni service ne fonctionne.], [Instance de secours ou réplication.],
+  [*Perte du kit hors ligne*], [Toutes les sauvegardes deviennent illisibles ; reprise à vide avec perte des données et TOTP.], [Deux copies du kit, en deux lieux.],
   groupe("Non testé ou non prouvé"),
-  [*RTO sur poste neuf*], [Les 70 s sont un meilleur cas (même poste, images en cache). L'heure prévue est une estimation.], [Exercice annuel sur un poste vierge.],
-  [*Corruption silencieuse*], [Les témoins prouvent la présence de quelques données, pas l'intégrité de toutes.], [Contrôles d'intégrité par application.],
-  [*Communication*], [Les annonces (PFPDT, OFCS) et l'escalade n'ont jamais été jouées.], [Exercice sur table avec la direction.],
+  [*RTO sur poste neuf*], [Le RTO réel peut dépasser 70 s ; l'objectif d'1 h n'est pas prouvé sur poste vierge.], [Exercice annuel sur un poste vierge.],
+  [*Corruption silencieuse*], [Des données peuvent manquer ou être corrompues sans que les témoins ne le montrent.], [Contrôles d'intégrité par application.],
+  [*Communication*], [Les annonces légales et l'escalade n'ont jamais été exercées ; risque de retard ou d'erreur.], [Exercice sur table avec la direction.],
   groupe("Écarts du labo"),
-  [*Source invisible*], [Traefik voit la passerelle Podman (`192.168.127.1`) : bloquer « l'attaquant » (PB-01, étape 4) bloquerait tout le monde.], [Proxy protocol, ou hôte Linux.],
-  [*Un seul compte S3*], [Alloy et les sauvegardes partagent le compte racine de RustFS.], [Un compte en écriture seule par usage.],
-  [*Composants jeunes*], [RustFS ; la sortie S3 d'Alloy est expérimentale.], [Stockage objet éprouvé.],
-  [*Écarts au schéma*], [HTTP vers les backends (le schéma dit HTTPS) ; port 8443 au lieu de 443 (interdit sans root sur macOS).], [TLS de bout en bout, port 443.],
+  [*Source invisible*], [Bloquer la source vue par Traefik bloquerait tous les utilisateurs du labo.], [Proxy protocol, ou hôte Linux.],
+  [*Un seul compte S3*], [Alloy et `scripts/sauvegarder.sh` utilisent le même compte racine RustFS : une clé volée donne accès aux buckets `logs` et `sauvegardes`.], [Un compte en écriture seule par usage.],
+  [*Composants jeunes*], [RustFS et la sortie S3 d'Alloy peuvent casser la collecte ou le WORM sans prévenir.], [Stockage objet éprouvé.],
+  [*Écarts au schéma*], [Le trafic interne reste en clair et l'entrée utilise 8443, donc l'architecture réelle diffère du schéma.], [TLS de bout en bout, port 443.],
 )
 
 #v(0.4em)
@@ -336,6 +336,5 @@
   [*Corrigé* : noms des conteneurs], [Conflit avec `stack-04` ; préfixe `drp-` plutôt que supprimer `stack-04`.],
   [*Corrigé* : témoin Grafana], [Erreur de l'IA (arguments `-X POST` perdus), repérée parce qu'un « OK » manquait.],
   [*Ajouté* : vidage avant import], [`podman volume import` fusionne : WAL et index se mêlaient aux données.],
-  [*Gardé* : RPO, RTO, MTD, playbook], [Choix d'organisation, que nous devons défendre sans l'IA.],
 )],
 )]

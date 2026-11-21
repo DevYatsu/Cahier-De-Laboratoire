@@ -60,10 +60,19 @@
   faut que tu fasses tout ce qui est demander
   dans les consignes » ; « reprends comment la stack-04 est structurer et fais
   un docker compose mais avec notre nouvelle
-  stack definis dans l'activite » ; « pourquoi rustfs ? ».
-- *Produit par l'IA :* le stack (Compose et configurations), les scripts de
-  sauvegarde, de restauration et de vérification,
-  l'exécution du test et le devoir.
+  stack definis dans l'activite » ; « pourquoi rustfs ? » ; pour la mise en
+  page du devoir : « structure the document properly to be professionnal […]
+  make it so that each page works independently » et « le pdf ne doit pas
+  depasser 4 pages » ; pour la relecture : « verifie que tout ca est fait
+  correctement », suivi des consignes et de la grille.
+- *Usages :*
+  - implémenter le stack entier dans un Compose, et comparer MinIO et RustFS
+    pour le stockage objet compatible S3 : en itérant pour corriger les
+    problèmes au fur et à mesure, sur macOS et Linux ;
+  - mettre en forme le devoir en Typst, après avoir formulé nous-mêmes toutes
+    nos idées pour accomplir le travail demandé ;
+  - relire le devoir à partir des consignes, pour vérifier que nous n'avions
+    rien oublié.
 - *Rejeté :* MinIO (images introuvables) ; exposer 443 sur toutes les interfaces
   (surface d'attaque).
 - *Corrigé :* un bug de l'IA dans son propre script (témoin Grafana non créé,

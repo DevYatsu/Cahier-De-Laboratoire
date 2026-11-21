@@ -23,8 +23,7 @@ Prérequis (vérifiés par `init-secrets.sh`, qui affiche la commande d'installa
 ```sh
 ./init-secrets.sh                      # secrets/ + kit hors ligne ~/.config/drp (clé age, accès WORM)
                                        # + certificat d'entrée (scripts/cert-entree.sh, CA mkcert de ce poste)
-podman info --format 'PODMAN_SOCKET={{.Host.RemoteSocket.Path}};PODMAN_STORAGE={{.Store.GraphRoot}}' \
-  | sed -e 's#unix://##' -e 's#/storage$##' | tr ';' '\n' > .env
+scripts/preparer-env.sh                # .env : socket et stockage Podman de CE poste (active podman.socket sous Linux)
 (cd externe && podman compose up -d)   # d'abord : il crée le réseau « externe »
 podman compose up -d
 ```

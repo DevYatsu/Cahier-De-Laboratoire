@@ -29,6 +29,8 @@ if [ ! -s secrets/grafana/admin-user ]; then
 else
   ok "secrets présents sur le poste : conservés"
 fi
+# Le .env de l'archive décrit le Podman de l'ancien poste (macOS, Linux root ou rootless) : réécrit pour celui-ci.
+scripts/preparer-env.sh >/dev/null && ok ".env adapté à ce poste" || { ko "socket Podman absent, ARRÊT"; exit 1; }
 # Le certificat d'entrée de l'archive est signé par la CA mkcert de l'ancien poste : régénéré si besoin.
 scripts/cert-entree.sh >/dev/null && ok "certificat d'entrée valable pour ce poste" || { ko "certificat d'entrée, ARRÊT"; exit 1; }
 

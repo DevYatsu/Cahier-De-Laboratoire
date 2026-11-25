@@ -76,7 +76,9 @@ def read_summary(xls_path: Path) -> dict:
         if r > 40:  # safety bound for the legacy activity table
             break
 
-    total = num(cell(49, 5))
+    # The TOTAL row moves when rows are added, so locate it by its label.
+    total = next((num(cell(row, 5)) for row in range(r, sheet.nrows)
+                  if str(cell(row, 4)).strip() == "TOTAL"), None)
     return {
         "source": xls_path.name,
         "sheet": sheet.name,

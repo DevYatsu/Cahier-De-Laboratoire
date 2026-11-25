@@ -33,7 +33,8 @@ divers. Source : PL1 et PL2 (Pascal Linder 1 et 2), VD (Vincent David), FR1
     rétablissement. FR1.],
   [Prend le relais du SOC pour les incidents lourds.],
   [EPT],
-  [Équivalent plein temps, soit un poste à 100 %. PL1.],
+  [Équivalent plein temps : 1 EPT correspond à un poste à 100 % ou à deux
+    postes à 50 %. PL1.],
   [Poste de chargé de sécurité créé après 2022.],
   [SI],
   [Systèmes d'information, et par extension le service qui les gère. PL1.],

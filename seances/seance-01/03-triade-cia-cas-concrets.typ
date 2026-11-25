@@ -62,10 +62,11 @@ Justification des notes :
 - *E-commerce (3/3/3) :* I et A sont élevés, car une commande modifiée ou une
   minute d'indisponibilité coûte directement de l'argent. C est à 3 : données
   clients et paiement, sans atteindre le niveau d'une banque.
-- *Banque en ligne (4/4/4) :* C et I sont prioritaires (données financières,
-  exactitude des opérations). A est aussi à 4 dans mon évaluation, car l'accès
-  continu est attendu. Les contraintes légales influencent ces objectifs, sans
-  imposer à elles seules la note maximale.
+- *Banque en ligne (4/4/4) :* C est au maximum à cause du secret bancaire,
+  imposé par la loi. I est au maximum pour l'exactitude des soldes. A est au
+  maximum car les règles FINMA exigent un accès continu au service. Sans ces
+  lois et règles, l'intégrité primerait : c'est elle qui porte la confiance
+  envers la banque.
 - *AlertSwiss (1/4/4) :* C est à 1, les messages étant publics. I est à 4, car
   une fausse alerte peut provoquer une panique. A est à 4, car le message doit
   passer en pleine crise.
@@ -90,3 +91,7 @@ Chaque profil impose une priorité de conception différente :
 Le lien avec ISO 27001 est direct : la note dépend du contexte, comme dans
 l'analyse de risques, et la SoA (déclaration d'applicabilité) trace ensuite ce
 choix.
+
+La banque illustre la notion de règles impératives : la loi et le régulateur
+fixent certains objectifs C/I/A, quelle que soit l'appréciation propre de
+l'entreprise.

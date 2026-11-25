@@ -222,10 +222,15 @@ ni une certification, mais trois choses, dans cet ordre :
 *Ce que je voudrais approfondir :*
 - *L'obligation de déclaration :* ce qui déclenche l'alerte du NCSC et la
   saisine de FedPol, et dans quel délai ; mes notes donnent la chronologie, pas
-  la règle.
+  la règle. Vérification faite, la règle n'existait pas encore en 2022.
+  L'obligation de signaler une cyberattaque à l'OFCS dans les 24 heures date du
+  1er avril 2025 (art. 74b LSI). Elle vise les hautes écoles, donc une
+  HES aujourd'hui. En 2022, l'alerte du NCSC était volontaire, et la plainte
+  pénale relevait d'un choix de l'établissement.
 - *Le périmètre de la reconstruction :* tout réinitialiser (proposition de
   SWITCH CERT) ou réparer chirurgicalement ? La décision repose sur des critères
-  de coût et de risque que je ne sais pas encore évaluer.
+  de coût et de risque que je ne sais pas encore évaluer. L'enseignant confirme
+  que l'arbitrage est complexe.
 - *Le volet forensique :* identifier les données exportées suppose des méthodes
   que je n'ai jamais pratiquées.
 
@@ -234,3 +239,5 @@ d'admin à celui du RSSI. Mes correctifs et mon inventaire déterminent si la
 reconstitution est possible, et le temps de rétablissement se mesure sur ce que
 j'ai produit. J'en tire deux réflexes : tenir l'inventaire à jour, et traiter la
 MFA et la restauration testée comme des prérequis, pas comme des améliorations.
+Ces deux réflexes font partie des bonnes pratiques reconnues : l'annexe C de la
+MCSR (activité 12) les reprend.

@@ -78,6 +78,13 @@ Profil déséquilibré entre culture et technique :
 En bref, je sais pourquoi on se fait attaquer, je sais moins comment cloisonner
 proprement.
 
+Le retour de l'enseignant recadre ce trou : la modélisation des menaces et
+l'analyse de risques disent pourquoi cloisonner et quel cloisonnement choisir.
+Le cloisonnement réseau sera traité dans le module 3276.1. En déploiement
+d'applications, c'est surtout du bon sens : limiter les interactions entre
+conteneurs au strict nécessaire, passer si besoin par un proxy filtrant ou un
+WAF (Web Application Firewall).
+
 === Interprétation des résultats
 
 Mon point d'appui est la sensibilisation, avec le réflexe de me méfier du
@@ -85,3 +92,14 @@ maillon humain. Mon chantier est le confinement : sandboxing, segmentation,
 moindre privilège. Pour le projet de semestre, je vise donc la confidentialité
 et l'intégrité par la technique, pas seulement par la vigilance. Je mesurerai le
 progrès en refaisant cette grille en fin de module.
+
+Une vraie analyse de sécurité du projet P3 suit le cycle de vie :
++ *Spécifications :* ce qu'on veut et les risques associés ; renoncer à une
+  fonctionnalité ou l'encadrer si le risque est trop élevé.
++ *Conception :* appliquer les réductions de risques (sécurité par défaut,
+  défense en profondeur).
++ *Codage :* appliquer les mêmes principes dans le code.
++ *Déploiement :* segmentation et cloisonnement.
++ *Opération :* observabilité.
+
+Une partie de ces éléments sera traitée avec Vincent Duvanel.

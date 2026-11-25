@@ -19,6 +19,8 @@
 - *Admin / développeur :* applique le correctif issu de la veille.
 - *DPO :* suit les fuites et la notification en cas de données exposées.
 - *Auditeur :* vérifie que la veille est tracée et rejouable.
+- *DevSecOps et développeurs :* suivent les dépendances, les images et les
+  technologies du projet, puis intègrent les alertes dans la chaîne CI/CD.
 
 === Déroulement
 
@@ -46,6 +48,26 @@ et de l'exploiter.
 Sans filtre, ces canaux informent mais ne protègent pas : ils surchargent (biais
 d'alerte, activité 4).
 
+*OSINT (Open Source Intelligence) :* c'est la méthode qui exploite ces canaux
+ouverts de façon structurée. Elle collecte des informations publiques
+(réseaux sociaux, DNS, certificats, dépôts de code, fuites), puis les recoupe.
+En défense, elle sert à mesurer ce qu'un attaquant voit de l'entreprise :
+domaines oubliés, identifiants exposés, employés ciblables par phishing.
+
+==== Veille technologique au niveau projet et opérations
+
+La veille ne regarde pas que les menaces ; elle suit aussi ce que l'entreprise
+utilise :
+- *Inventaire :* technologies en production et nouvelles technologies adoptées.
+- *Dépendances et SBOM (Software Bill of Materials) :* liste des composants de
+  chaque logiciel, croisée avec les CVE pour savoir qui est touché.
+- *Infrastructures :* systèmes, conteneurs, services cloud et leurs versions.
+- *Obsolescence :* fin de support des versions utilisées, à anticiper avant
+  qu'aucun correctif ne sorte plus.
+
+Sans cet inventaire, une alerte CVE ne se rattache à aucun actif et reste
+inexploitable.
+
 ==== 2. Les sources : ce qui valide et rend exploitable
 
 - *Institutionnel :* OFCS/BACS, CISA, ANSSI, Cybermalveillance.gouv.fr :
@@ -57,6 +79,9 @@ d'alerte, activité 4).
   résultats de pentests et d'audits.
 - *Normatif et techno :* ISO 27001, NIST CSF 2.0, évolutions DevSecOps,
   chiffrement, IA.
+- *Écosystème de l'entreprise :* évolution des fournisseurs, des clients, des
+  concurrents et du cadre légal (par exemple l'obligation de signalement des
+  cyberattaques entrée en vigueur en 2025).
 
 #table(
   columns: (1fr, 1.6fr, 1.4fr),

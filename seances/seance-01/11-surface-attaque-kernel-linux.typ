@@ -87,6 +87,23 @@ cloud. Les actions :
 - Restreindre les appels système par des profils Seccomp stricts.
 - Interdire `clone3`, `unshare` ou `keyctl` aux charges clientes.
 
+*Retour sur le fil du GULL (septembre 2026) :* le message confirme cette étape.
+La plupart des failles récentes (SCTP, RDS zerocopy) sont dans des modules
+chargeables, rarement exploitables à distance, mais exploitables localement
+depuis un conteneur non privilégié ou une VM. Les mesures proposées vont plus
+loin que `modprobe.d` :
+- `make localmodconfig` : compiler un noyau limité aux modules réellement
+  utilisés (debloating).
+- `kernel.modules_disabled=1` une fois le démarrage terminé : plus aucun
+  chargement possible.
+- Un faux `modprobe` via `/proc/sys/kernel/modprobe` : il refuse et journalise
+  chaque demande de chargement automatique.
+
+Je retiens le compromis : on gagne en surface, mais on perd des fonctionnalités
+et il faut connaître précisément les modules utiles. Le journal du faux
+`modprobe` a un intérêt en plus : une tentative de chargement d'un module rare
+devient un signal de détection pour l'étape 4.
+
 *Étape 2 : durcir l'isolation (sandboxing).* Docker / containerd classique
 partage le noyau hôte : si le noyau tombe, l'hôte tombe. Pour les charges non
 dignes de confiance, je passe à gVisor ou Kata Containers. gVisor intercepte et

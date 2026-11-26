@@ -1,4 +1,4 @@
-// Devoir « Réponse à incident et DRP » - 4 pages au total, annexe comprise.
+// Devoir « Réponse à incident et DRP » - 4 pages au total.
 // Chaque page est une fiche autonome : on peut l'imprimer seule et l'utiliser pendant un incident.
 
 // ================================================================ palette
@@ -285,7 +285,7 @@
 )],
 ))
 
-// ================================================================ page 4 : limites et annexe
+// ================================================================ page 4 : limites
 #pagebreak()
 #fiche("LIM-01", "Limites : ce que ce plan ne couvre pas",
   "Les risques que PB-01 et DRP-01 laissent ouverts, ce qu'ils coûteraient, et ce qu'il faudrait en production.")
@@ -309,32 +309,3 @@
   [*Écarts au schéma*], [Le trafic interne reste en clair et l'entrée utilise 8443, donc l'architecture réelle diffère du schéma.], [TLS de bout en bout, port 443.],
 )
 
-#v(0.4em)
-#block(width: 100%, stroke: 0.5pt + trait, radius: 4pt, inset: 0.8em)[
-#text(9.5pt, weight: "bold")[Annexe : usage de l'IA]
-#h(0.6em) #text(7.6pt, fill: doux)[Claude Code (CLI, mode auto) · Claude Opus 5.5 (`claude-opus-5-5`) · 13.11 et 21.11.2026]
-#v(0.1em)
-#set text(7.8pt)
-#grid(columns: (1fr, 1.6fr), column-gutter: 1em,
-[
-*Prompts, tels quels*
-+ L'IA proposait de restaurer `stack-04`. Réponse : « reprends comment la stack-04 est structurer et fais un docker compose mais avec notre nouvelle stack definis dans l'activite »
-+ Comparaison avec MinIO : « pourquoi rustfs ? »
-+ Mise en page : « structure the document properly to be professionnal […] make it so that each page works independently » ; « le pdf ne doit pas depasser 4 pages ».
-+ Relecture : « dis moi si jai bien tout implementer dans ce qui est demande dans les consignes »
-
-*Ce pour quoi nous l'avons utilisée*
-- *Implémenter le stack* entier dans un Compose, et comparer MinIO et RustFS pour le stockage objet compatible S3 : en itérant pour corriger les problèmes au fur et à mesure, sur macOS et Linux.
-- *Mettre en forme* ce document en Typst, après avoir formulé nous-mêmes toutes nos idées pour le travail demandé.
-- *Relire* le document à partir des consignes, pour vérifier que nous n'avions rien oublié.
-],
-[
-#table(columns: (3.3cm, 1fr),
-  [Décision], [Pourquoi],
-  [*Rejeté* : MinIO (WORM)], [Images retirées des registres (`access denied`) ; RustFS retenu après un test : suppression refusée en compliance.],
-  [*Corrigé* : port 443], [Refusé par macOS sur `127.0.0.1` ; l'ouvrir sur toutes les interfaces élargissait la surface : 8443.],
-  [*Corrigé* : noms des conteneurs], [Conflit avec `stack-04` ; préfixe `drp-` plutôt que supprimer `stack-04`.],
-  [*Corrigé* : témoin Grafana], [Erreur de l'IA (arguments `-X POST` perdus), repérée parce qu'un « OK » manquait.],
-  [*Ajouté* : vidage avant import], [`podman volume import` fusionne : WAL et index se mêlaient aux données.],
-)],
-)]

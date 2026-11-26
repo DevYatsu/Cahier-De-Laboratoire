@@ -56,21 +56,37 @@
 
 === Usage de l'IA
 
-- *Outil :* Claude Code (CLI), modèle Claude Opus 5.5 (`claude-opus-5-5`).
-- *Prompts principaux :* « reprends comment la stack-04 est structurer et fais
-  un docker compose mais avec notre nouvelle stack definis dans l'activite » ;
-  « pourquoi rustfs ? » ; « make it so that each page works independently » ;
-  « le pdf ne doit pas depasser 4 pages » ; « dis moi si jai bien tout
-  implementer dans ce qui est demande dans les consignes ».
-- *Usages :*
-  - implémenter le stack dans un Compose et corriger les problèmes au fur et à
-    mesure, sur macOS et Linux ;
-  - comparer MinIO et RustFS pour le stockage WORM ;
-  - mettre en forme le devoir en Typst, à partir de nos propres idées ;
-  - relire le devoir contre les consignes.
-- *Corrigé :* un bug de l'IA dans son script (témoin Grafana non créé, repéré
-  par un « OK » manquant) ; la restauration, complétée par le vidage des
-  volumes.
+- *Outil :* Claude Code (CLI, mode auto), modèle Claude Opus 5.5
+  (`claude-opus-5-5`), les 13.11 et 21.11.2026.
+- *Prompts, tels quels :*
+  + L'IA proposait de restaurer `stack-04`. Réponse : « reprends comment la
+    stack-04 est structurer et fais un docker compose mais avec notre nouvelle
+    stack definis dans l'activite ».
+  + Comparaison avec MinIO : « pourquoi rustfs ? ».
+  + Mise en page : « structure the document properly to be professionnal […]
+    make it so that each page works independently » ; « le pdf ne doit pas
+    depasser 4 pages ».
+  + Relecture : « dis moi si jai bien tout implementer dans ce qui est demande
+    dans les consignes ».
+- *Ce pour quoi nous l'avons utilisée :*
+  - *Implémenter le stack* entier dans un Compose, et comparer MinIO et RustFS
+    pour le stockage objet compatible S3 : en itérant pour corriger les
+    problèmes au fur et à mesure, sur macOS et Linux.
+  - *Mettre en forme* le document en Typst, après avoir formulé nous-mêmes
+    toutes nos idées pour le travail demandé.
+  - *Relire* le document à partir des consignes, pour vérifier que nous
+    n'avions rien oublié.
+- *Décisions :*
+  - *Rejeté, MinIO (WORM) :* images retirées des registres (`access denied`) ;
+    RustFS retenu après un test : suppression refusée en compliance.
+  - *Corrigé, port 443 :* refusé par macOS sur `127.0.0.1` ; l'ouvrir sur
+    toutes les interfaces élargissait la surface d'attaque, d'où 8443.
+  - *Corrigé, noms des conteneurs :* conflit avec `stack-04` ; préfixe `drp-`
+    plutôt que supprimer `stack-04`.
+  - *Corrigé, témoin Grafana :* erreur de l'IA (arguments `-X POST` perdus),
+    repérée parce qu'un « OK » manquait.
+  - *Ajouté, vidage avant import :* `podman volume import` fusionne : WAL et
+    index se mêlaient aux données.
 - *Mon jugement :* les mesures viennent des journaux d'exécution
   (`stack/journaux/`), donc vérifiables. Les choix (RPO, RTO, MTD, rôles), je
   les ai relus pour pouvoir les défendre sans l'IA.
